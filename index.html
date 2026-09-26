@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -42,8 +43,7 @@ body{
     overflow:hidden;
 }
 
-button,
-input{
+button,input,textarea{
     font:inherit;
 }
 
@@ -691,7 +691,7 @@ button{
 }
 
 /* =========================
-   PROFILE PANEL
+   PROFILE
 ========================= */
 
 .profile-panel{
@@ -892,10 +892,6 @@ button{
 
 <body>
 
-<!-- =========================
-     AUTH SCREEN
-========================= -->
-
 <section class="auth-screen" id="authScreen">
 
     <div class="auth-box">
@@ -955,14 +951,7 @@ button{
 
 </section>
 
-
-<!-- =========================
-     APP
-========================= -->
-
 <div class="app hidden" id="app">
-
-    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
@@ -999,7 +988,6 @@ button{
 
         </div>
 
-
         <div class="tabs">
 
             <button
@@ -1018,7 +1006,6 @@ button{
 
         </div>
 
-
         <div class="people-list" id="peopleList">
 
             <div class="empty-state">
@@ -1029,9 +1016,6 @@ button{
 
     </aside>
 
-
-    <!-- CHAT -->
-
     <main class="chat">
 
         <header class="chat-header">
@@ -1040,7 +1024,7 @@ button{
                 class="back-btn"
                 id="backBtn"
             >
-                → 
+                →
             </button>
 
             <div
@@ -1094,7 +1078,6 @@ button{
 
         </header>
 
-
         <section
             class="messages"
             id="messages"
@@ -1119,7 +1102,6 @@ button{
             </div>
 
         </section>
-
 
         <div
             class="composer-wrap hidden"
@@ -1153,7 +1135,6 @@ button{
 
             </div>
 
-
             <div class="composer">
 
                 <button
@@ -1186,11 +1167,6 @@ button{
 
 </div>
 
-
-<!-- =========================
-     PROFILE PANEL
-========================= -->
-
 <aside
     class="profile-panel"
     id="profile"
@@ -1208,7 +1184,6 @@ button{
         </button>
 
     </div>
-
 
     <div class="profile-content">
 
@@ -1240,12 +1215,10 @@ button{
 
 </aside>
 
-
 <div
     class="toast"
     id="toast"
 ></div>
-
 
 <script>
 
@@ -1257,10 +1230,44 @@ const SUPABASE_URL =
     "https://smdxslqmhwfdxxfgpbxg.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_CCuNjOiPoiFX4a7VrfQhz-Q_ztwlLy8p";
+    "sb_publishable_CCuNjOiPoiX4a7VrfQhz-Q_ztwlLy8p";
+
+/*
+   نتأكد إن مكتبة Supabase نفسها اتحملت
+*/
+
+if(!window.supabase){
+
+    document.body.innerHTML = `
+        <div style="
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#07080c;
+            color:white;
+            font-family:Arial;
+            padding:25px;
+            text-align:center;
+        ">
+            <div>
+                <h2 style="margin-bottom:12px">
+                    تعذر تحميل Chat+
+                </h2>
+
+                <p style="color:#999">
+                    مكتبة Supabase لم يتم تحميلها.
+                    تأكد من اتصال الإنترنت ثم أعد تحميل الصفحة.
+                </p>
+            </div>
+        </div>
+    `;
+
+    throw new Error("Supabase library was not loaded.");
+}
 
 const supabaseClient =
-    supabase.createClient(
+    window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY
     );
@@ -1293,56 +1300,29 @@ let replyingTo = null;
    ELEMENTS
 ========================================================= */
 
-const authScreen =
-    document.getElementById("authScreen");
+const authScreen = document.getElementById("authScreen");
+const authTitle = document.getElementById("authTitle");
+const authSubtitle = document.getElementById("authSubtitle");
+const authError = document.getElementById("authError");
 
-const authTitle =
-    document.getElementById("authTitle");
+const nameField = document.getElementById("nameField");
+const nameInput = document.getElementById("nameInput");
+const userInput = document.getElementById("userInput");
+const passInput = document.getElementById("passInput");
 
-const authSubtitle =
-    document.getElementById("authSubtitle");
+const authBtn = document.getElementById("authBtn");
+const switchAuth = document.getElementById("switchAuth");
+const switchText = document.getElementById("switchText");
 
-const authError =
-    document.getElementById("authError");
+const app = document.getElementById("app");
 
-const nameField =
-    document.getElementById("nameField");
+const peopleList = document.getElementById("peopleList");
+const search = document.getElementById("search");
 
-const nameInput =
-    document.getElementById("nameInput");
+const peopleTab = document.getElementById("peopleTab");
+const chatsTab = document.getElementById("chatsTab");
 
-const userInput =
-    document.getElementById("userInput");
-
-const passInput =
-    document.getElementById("passInput");
-
-const authBtn =
-    document.getElementById("authBtn");
-
-const switchAuth =
-    document.getElementById("switchAuth");
-
-const switchText =
-    document.getElementById("switchText");
-
-const app =
-    document.getElementById("app");
-
-const peopleList =
-    document.getElementById("peopleList");
-
-const search =
-    document.getElementById("search");
-
-const peopleTab =
-    document.getElementById("peopleTab");
-
-const chatsTab =
-    document.getElementById("chatsTab");
-
-const messages =
-    document.getElementById("messages");
+const messages = document.getElementById("messages");
 
 const composerWrap =
     document.getElementById("composerWrap");
@@ -1470,9 +1450,7 @@ function showToast(text){
 
     window.toastTimer =
         setTimeout(() => {
-
             toast.classList.remove("show");
-
         },2500);
 }
 
@@ -1626,15 +1604,12 @@ async function handleAuth(){
         return;
     }
 
-
     authBtn.classList.add("loading");
-
 
     try{
 
         const email =
             internalEmail(username);
-
 
         if(authMode === "signup"){
 
@@ -1647,13 +1622,13 @@ async function handleAuth(){
                     "اكتب اسمك."
                 );
 
-                authBtn.classList.remove("loading");
-
                 return;
             }
 
-
-            const { data, error } =
+            const {
+                data,
+                error
+            } =
                 await supabaseClient.auth.signUp({
 
                     email,
@@ -1669,31 +1644,29 @@ async function handleAuth(){
 
                 });
 
-
             if(error){
-
                 throw error;
             }
-
 
             if(!data.session){
 
                 showAuthError(
-                    "الحساب اتعمل، لكن تأكيد الإيميل مفعّل في Supabase. اقفل تأكيد الإيميل من إعدادات Authentication ثم جرّب تاني."
+                    "الحساب اتعمل، لكن تأكيد الإيميل مفعّل في Supabase. اقفل Confirm email من Authentication ثم جرّب تاني."
                 );
 
                 return;
             }
 
-
             showToast(
                 "تم إنشاء الحساب بنجاح 🎉"
             );
 
-
         }else{
 
-            const { data, error } =
+            const {
+                data,
+                error
+            } =
                 await supabaseClient.auth.signInWithPassword({
 
                     email,
@@ -1702,42 +1675,45 @@ async function handleAuth(){
 
                 });
 
-
             if(error){
-
                 throw error;
             }
-
 
             if(data.session){
 
                 showToast(
                     "تم تسجيل الدخول 👋"
                 );
+
             }
 
         }
 
     }catch(error){
 
-        console.error(error);
+        console.error("AUTH ERROR:",error);
 
         let message =
             error?.message ||
             "حصل خطأ غير متوقع.";
 
-        if(
-            message.toLowerCase().includes("invalid login")
-        ){
+        const lower =
+            message.toLowerCase();
+
+        if(lower.includes("invalid api key")){
+
+            message =
+                "مفتاح Supabase غير صالح. افتح Supabase → Project Settings → API وانسخ Publishable Key الحالي.";
+        }
+
+        else if(lower.includes("invalid login")){
 
             message =
                 "اسم المستخدم أو كلمة المرور غير صحيحة.";
 
         }
 
-        if(
-            message.toLowerCase().includes("already registered")
-        ){
+        else if(lower.includes("already registered")){
 
             message =
                 "اسم المستخدم ده مستخدم بالفعل.";
@@ -1781,7 +1757,7 @@ authBtn.addEventListener(
 
 
 /* =========================================================
-   LOAD CURRENT USER
+   CURRENT USER
 ========================================================= */
 
 async function loadCurrentUser(){
@@ -1789,9 +1765,30 @@ async function loadCurrentUser(){
     const {
         data:{
             user
-        }
+        },
+        error
     } =
         await supabaseClient.auth.getUser();
+
+    if(error){
+
+        console.error(error);
+
+        if(
+            error.message &&
+            error.message.toLowerCase().includes("invalid api key")
+        ){
+
+            showAuthError(
+                "Invalid API key — المفتاح الموجود في Supabase غير صالح."
+            );
+
+        }
+
+        showAuth();
+
+        return false;
+    }
 
     if(!user){
 
@@ -1826,7 +1823,6 @@ async function loadCurrentProfile(){
             .eq("id",currentUser.id)
             .single();
 
-
     if(error){
 
         console.error(error);
@@ -1847,17 +1843,13 @@ async function loadCurrentProfile(){
 function updateMyProfileUI(){
 
     if(!currentProfile){
-
         return;
     }
 
-    const avatar =
+    profileAvatar.textContent =
         initials(
             currentProfile.display_name
         );
-
-    profileAvatar.textContent =
-        avatar;
 
     profileName.textContent =
         currentProfile.display_name;
@@ -1868,7 +1860,7 @@ function updateMyProfileUI(){
 
 
 /* =========================================================
-   ENTER / EXIT APP
+   ENTER APP
 ========================================================= */
 
 async function enterApp(){
@@ -1903,6 +1895,10 @@ function showAuth(){
 }
 
 
+/* =========================================================
+   LOGOUT
+========================================================= */
+
 async function logoutUser(){
 
     await setOnline(false);
@@ -1910,41 +1906,32 @@ async function logoutUser(){
     if(presenceChannel){
 
         try{
-
             await presenceChannel.untrack();
-
         }catch(e){}
 
         try{
-
             await supabaseClient.removeChannel(
                 presenceChannel
             );
-
         }catch(e){}
 
         presenceChannel = null;
     }
 
-
     if(messagesChannel){
 
         try{
-
             await supabaseClient.removeChannel(
                 messagesChannel
             );
-
         }catch(e){}
 
         messagesChannel = null;
     }
 
-
     await supabaseClient.auth.signOut();
 
     currentChatUser = null;
-
     currentMessages = [];
 
     showAuth();
@@ -1964,13 +1951,12 @@ logout.addEventListener(
 
 
 /* =========================================================
-   ONLINE STATUS
+   ONLINE
 ========================================================= */
 
 async function setOnline(value){
 
     if(!currentUser){
-
         return;
     }
 
@@ -2011,7 +1997,6 @@ async function loadUsers(){
             .neq("id",currentUser.id)
             .order("display_name",{ascending:true});
 
-
     if(error){
 
         console.error(error);
@@ -2024,7 +2009,6 @@ async function loadUsers(){
 
         return;
     }
-
 
     users = data || [];
 
@@ -2039,16 +2023,12 @@ async function loadUsers(){
 function renderUsers(){
 
     const query =
-        search.value
-            .trim()
-            .toLowerCase();
+        search.value.trim().toLowerCase();
 
-
-    let list =
+    const list =
         users.filter(user => {
 
             if(!query){
-
                 return true;
             }
 
@@ -2064,7 +2044,6 @@ function renderUsers(){
 
         });
 
-
     if(!list.length){
 
         peopleList.innerHTML = `
@@ -2075,7 +2054,6 @@ function renderUsers(){
 
         return;
     }
-
 
     peopleList.innerHTML =
         list.map(user => {
@@ -2133,7 +2111,6 @@ function renderUsers(){
 
         }).join("");
 
-
     document
         .querySelectorAll(".user-item")
         .forEach(item => {
@@ -2144,13 +2121,13 @@ function renderUsers(){
 
                     const user =
                         users.find(
-                            u => u.id === item.dataset.userId
+                            u =>
+                                u.id ===
+                                item.dataset.userId
                         );
 
                     if(user){
-
                         openChat(user);
-
                     }
 
                 }
@@ -2169,15 +2146,12 @@ async function subscribeToPresence(){
     if(presenceChannel){
 
         try{
-
             await supabaseClient.removeChannel(
                 presenceChannel
             );
-
         }catch(e){}
 
     }
-
 
     presenceChannel =
         supabaseClient.channel(
@@ -2190,7 +2164,6 @@ async function subscribeToPresence(){
                 }
             }
         );
-
 
     presenceChannel
         .on(
@@ -2221,7 +2194,6 @@ async function subscribeToPresence(){
                     });
 
                 });
-
 
                 updateOnlineUI();
 
@@ -2279,9 +2251,15 @@ async function subscribeToPresence(){
                 if(status === "SUBSCRIBED"){
 
                     await presenceChannel.track({
-                        user_id:currentUser.id,
-                        username:currentProfile?.username,
+
+                        user_id:
+                            currentUser.id,
+
+                        username:
+                            currentProfile?.username,
+
                         online:true
+
                     });
 
                 }
@@ -2369,12 +2347,13 @@ async function openChat(user){
 async function loadConversation(){
 
     if(!currentChatUser){
-
         return;
     }
 
-
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
             .from("messages")
             .select("*")
@@ -2384,7 +2363,6 @@ async function loadConversation(){
             .order("created_at",{
                 ascending:true
             });
-
 
     if(error){
 
@@ -2398,7 +2376,6 @@ async function loadConversation(){
 
         return;
     }
-
 
     currentMessages =
         data || [];
@@ -2414,10 +2391,8 @@ async function loadConversation(){
 function renderMessages(){
 
     if(!currentChatUser){
-
         return;
     }
-
 
     if(!currentMessages.length){
 
@@ -2431,7 +2406,6 @@ function renderMessages(){
         return;
     }
 
-
     messages.innerHTML =
         currentMessages.map(msg => {
 
@@ -2442,7 +2416,6 @@ function renderMessages(){
                 mine
                     ? "mine"
                     : "theirs";
-
 
             let replyHTML = "";
 
@@ -2457,16 +2430,13 @@ function renderMessages(){
 
                     replyHTML = `
                         <div class="reply-message">
-                            ${escapeHTML(
-                                replied.text
-                            )}
+                            ${escapeHTML(replied.text)}
                         </div>
                     `;
 
                 }
 
             }
-
 
             return `
                 <div
@@ -2546,7 +2516,6 @@ function renderMessages(){
 
         }).join("");
 
-
     messages
         .querySelectorAll(".message-row")
         .forEach(row => {
@@ -2573,21 +2542,15 @@ function renderMessages(){
                                 button.dataset.action;
 
                             if(action === "reply"){
-
                                 startReply(msg);
-
                             }
 
                             if(action === "edit"){
-
                                 editMessage(msg);
-
                             }
 
                             if(action === "delete"){
-
                                 deleteMessage(msg);
-
                             }
 
                         }
@@ -2596,7 +2559,6 @@ function renderMessages(){
                 });
 
         });
-
 
     messages.scrollTop =
         messages.scrollHeight;
@@ -2610,45 +2572,45 @@ function renderMessages(){
 async function sendMessage(){
 
     if(!currentUser || !currentChatUser){
-
         return;
     }
-
 
     const text =
         messageInput.value.trim();
 
-
     if(!text){
-
         return;
     }
 
-
     sendBtn.classList.add("loading");
-
 
     try{
 
-        const { error } =
+        const {
+            error
+        } =
             await supabaseClient
                 .from("messages")
                 .insert({
-                    sender_id:currentUser.id,
-                    receiver_id:currentChatUser.id,
+
+                    sender_id:
+                        currentUser.id,
+
+                    receiver_id:
+                        currentChatUser.id,
+
                     text,
+
                     reply_to:
                         replyingTo
                             ? replyingTo.id
                             : null
+
                 });
 
-
         if(error){
-
             throw error;
         }
-
 
         messageInput.value = "";
 
@@ -2708,7 +2670,6 @@ messageInput.addEventListener(
 function startReply(message){
 
     if(!message){
-
         return;
     }
 
@@ -2746,10 +2707,8 @@ cancelReply.addEventListener(
 async function editMessage(message){
 
     if(!message){
-
         return;
     }
-
 
     const newText =
         prompt(
@@ -2757,16 +2716,12 @@ async function editMessage(message){
             message.text
         );
 
-
     if(newText === null){
-
         return;
     }
 
-
     const text =
         newText.trim();
-
 
     if(!text){
 
@@ -2777,18 +2732,21 @@ async function editMessage(message){
         return;
     }
 
-
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient
             .from("messages")
             .update({
+
                 text,
+
                 edited_at:
                     new Date().toISOString()
+
             })
             .eq("id",message.id)
             .eq("sender_id",currentUser.id);
-
 
     if(error){
 
@@ -2801,7 +2759,6 @@ async function editMessage(message){
         return;
     }
 
-
     await loadConversation();
 }
 
@@ -2813,30 +2770,26 @@ async function editMessage(message){
 async function deleteMessage(message){
 
     if(!message){
-
         return;
     }
-
 
     const confirmed =
         confirm(
             "هل أنت متأكد من حذف الرسالة؟"
         );
 
-
     if(!confirmed){
-
         return;
     }
 
-
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient
             .from("messages")
             .delete()
             .eq("id",message.id)
             .eq("sender_id",currentUser.id);
-
 
     if(error){
 
@@ -2848,7 +2801,6 @@ async function deleteMessage(message){
 
         return;
     }
-
 
     await loadConversation();
 
@@ -2863,21 +2815,28 @@ async function deleteMessage(message){
 async function markMessagesRead(){
 
     if(!currentChatUser){
-
         return;
     }
 
-
     try{
 
-        await supabaseClient
-            .rpc(
+        const {
+            error
+        } =
+            await supabaseClient.rpc(
                 "mark_messages_read",
                 {
                     p_sender_id:
                         currentChatUser.id
                 }
             );
+
+        if(error){
+            console.error(
+                "Mark read error:",
+                error
+            );
+        }
 
     }catch(error){
 
@@ -2897,12 +2856,13 @@ async function markMessagesRead(){
 async function loadChats(){
 
     if(!currentUser){
-
         return;
     }
 
-
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
             .from("messages")
             .select("*")
@@ -2913,7 +2873,6 @@ async function loadChats(){
                 ascending:false
             });
 
-
     if(error){
 
         console.error(error);
@@ -2923,10 +2882,8 @@ async function loadChats(){
         return;
     }
 
-
     const map =
         new Map();
-
 
     (data || []).forEach(message => {
 
@@ -2934,7 +2891,6 @@ async function loadChats(){
             message.sender_id === currentUser.id
                 ? message.receiver_id
                 : message.sender_id;
-
 
         if(!map.has(otherId)){
 
@@ -2949,7 +2905,6 @@ async function loadChats(){
 
         }
 
-
         if(
             message.receiver_id === currentUser.id &&
             !message.read_at
@@ -2961,11 +2916,8 @@ async function loadChats(){
 
     });
 
-
     chats =
         Array.from(map.values());
-
-
 }
 
 
@@ -2976,10 +2928,7 @@ async function loadChats(){
 function renderChats(){
 
     const query =
-        search.value
-            .trim()
-            .toLowerCase();
-
+        search.value.trim().toLowerCase();
 
     const list =
         chats
@@ -2991,9 +2940,7 @@ function renderChats(){
                     );
 
                 if(!user){
-
                     return null;
-
                 }
 
                 return {
@@ -3006,9 +2953,7 @@ function renderChats(){
             .filter(chat => {
 
                 if(!query){
-
                     return true;
-
                 }
 
                 return (
@@ -3023,7 +2968,6 @@ function renderChats(){
 
             });
 
-
     if(!list.length){
 
         peopleList.innerHTML = `
@@ -3035,7 +2979,6 @@ function renderChats(){
 
         return;
     }
-
 
     peopleList.innerHTML =
         list.map(chat => {
@@ -3054,10 +2997,8 @@ function renderChats(){
             const online =
                 isOnline(user.id);
 
-
             let preview =
                 latest.text || "";
-
 
             if(
                 latest.sender_id === currentUser.id
@@ -3067,7 +3008,6 @@ function renderChats(){
                     "أنت: " + preview;
 
             }
-
 
             return `
                 <div
@@ -3102,9 +3042,7 @@ function renderChats(){
                         </div>
 
                         <div class="user-username">
-                            ${escapeHTML(
-                                preview
-                            )}
+                            ${escapeHTML(preview)}
                         </div>
 
                     </div>
@@ -3138,7 +3076,6 @@ function renderChats(){
 
         }).join("");
 
-
     document
         .querySelectorAll(".user-item")
         .forEach(item => {
@@ -3155,9 +3092,7 @@ function renderChats(){
                         );
 
                     if(user){
-
                         openChat(user);
-
                     }
 
                 }
@@ -3234,15 +3169,12 @@ function subscribeToMessages(){
     if(messagesChannel){
 
         try{
-
             supabaseClient.removeChannel(
                 messagesChannel
             );
-
         }catch(e){}
 
     }
-
 
     messagesChannel =
         supabaseClient
@@ -3250,6 +3182,7 @@ function subscribeToMessages(){
                 "chatplus-messages-" +
                 currentUser.id
             )
+
             .on(
                 "postgres_changes",
                 {
@@ -3261,7 +3194,6 @@ function subscribeToMessages(){
 
                     const message =
                         payload.new;
-
 
                     const belongsToCurrentChat =
                         currentChatUser &&
@@ -3276,7 +3208,6 @@ function subscribeToMessages(){
                                 message.receiver_id === currentUser.id
                             )
                         );
-
 
                     if(belongsToCurrentChat){
 
@@ -3292,7 +3223,6 @@ function subscribeToMessages(){
 
                     }
 
-
                     await loadChats();
 
                     if(
@@ -3305,6 +3235,7 @@ function subscribeToMessages(){
 
                 }
             )
+
             .on(
                 "postgres_changes",
                 {
@@ -3316,7 +3247,6 @@ function subscribeToMessages(){
 
                     const message =
                         payload.new;
-
 
                     const belongsToCurrentChat =
                         currentChatUser &&
@@ -3332,13 +3262,11 @@ function subscribeToMessages(){
                             )
                         );
 
-
                     if(belongsToCurrentChat){
 
                         await loadConversation();
 
                     }
-
 
                     await loadChats();
 
@@ -3352,6 +3280,7 @@ function subscribeToMessages(){
 
                 }
             )
+
             .on(
                 "postgres_changes",
                 {
@@ -3359,9 +3288,13 @@ function subscribeToMessages(){
                     schema:"public",
                     table:"messages"
                 },
-                async payload => {
+                async () => {
 
-                    await loadConversation();
+                    if(currentChatUser){
+
+                        await loadConversation();
+
+                    }
 
                     await loadChats();
 
@@ -3375,6 +3308,7 @@ function subscribeToMessages(){
 
                 }
             )
+
             .subscribe();
 
 }
@@ -3411,10 +3345,8 @@ chatProfileBtn.addEventListener(
     () => {
 
         if(!currentChatUser){
-
             return;
         }
-
 
         profileAvatar.textContent =
             initials(
@@ -3434,7 +3366,7 @@ chatProfileBtn.addEventListener(
 
 
 /* =========================================================
-   BACK MOBILE
+   MOBILE BACK
 ========================================================= */
 
 backBtn.addEventListener(
@@ -3524,7 +3456,7 @@ emojiBtn.addEventListener(
 
 
 /* =========================================================
-   TEXTAREA AUTO RESIZE
+   TEXTAREA
 ========================================================= */
 
 function autoResizeTextarea(){
@@ -3547,7 +3479,7 @@ messageInput.addEventListener(
 
 
 /* =========================================================
-   PAGE VISIBILITY
+   VISIBILITY
 ========================================================= */
 
 document.addEventListener(
@@ -3555,11 +3487,8 @@ document.addEventListener(
     async () => {
 
         if(!currentUser){
-
             return;
-
         }
-
 
         if(document.hidden){
 
@@ -3621,7 +3550,6 @@ supabaseClient.auth.onAuthStateChange(
 
         }
 
-
         if(
             event === "SIGNED_OUT"
         ){
@@ -3648,7 +3576,10 @@ supabaseClient.auth.onAuthStateChange(
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "START ERROR:",
+            error
+        );
 
         showAuth();
 
@@ -3660,3 +3591,4 @@ supabaseClient.auth.onAuthStateChange(
 
 </body>
 </html>
+```
