@@ -1,16 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07080c">
-<meta name="description" content="Chat+ — محادثات خاصة وسريعة">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+      content="#07080c">
+
+<meta name="description"
+      content="Chat+ — محادثات خاصة وسريعة">
+
 <title>Chat+ | شات خاص</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -35,15 +44,31 @@
 body{
     min-height:100vh;
     background:
-        radial-gradient(circle at 15% 15%,rgba(124,92,255,.12),transparent 30%),
-        radial-gradient(circle at 85% 85%,rgba(0,212,255,.08),transparent 30%),
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(124,92,255,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 85%,
+            rgba(0,212,255,.08),
+            transparent 30%
+        ),
         var(--bg);
+
     color:var(--text);
-    font-family:Arial,"Segoe UI",sans-serif;
+
+    font-family:
+        Arial,
+        "Segoe UI",
+        sans-serif;
+
     overflow:hidden;
 }
 
-button,input,textarea{
+button,
+input,
+textarea{
     font:inherit;
 }
 
@@ -64,38 +89,64 @@ button{
     position:fixed;
     inset:0;
     z-index:1000;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     padding:20px;
+
     background:
-        radial-gradient(circle at 50% 30%,rgba(124,92,255,.16),transparent 35%),
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(124,92,255,.16),
+            transparent 35%
+        ),
         rgba(3,4,7,.96);
 }
 
 .auth-box{
     width:100%;
     max-width:430px;
+
     background:rgba(13,15,21,.92);
+
     border:1px solid var(--border);
+
     border-radius:28px;
+
     padding:35px;
+
     box-shadow:var(--shadow);
+
     backdrop-filter:blur(25px);
 }
 
 .logo{
     width:65px;
     height:65px;
+
     margin:0 auto 20px;
+
     border-radius:20px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:25px;
     font-weight:900;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
-    box-shadow:0 15px 45px rgba(124,92,255,.3);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+
+    box-shadow:
+        0 15px 45px
+        rgba(124,92,255,.3);
 }
 
 .auth-box h1{
@@ -125,30 +176,55 @@ button{
 .field input{
     width:100%;
     height:50px;
+
     padding:0 15px;
+
     border:1px solid var(--border);
+
     border-radius:14px;
+
     outline:none;
+
     color:white;
+
     background:#090b10;
+
     transition:.2s;
+
     direction:rtl;
 }
 
 .field input:focus{
     border-color:rgba(124,92,255,.7);
-    box-shadow:0 0 0 3px rgba(124,92,255,.1);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(124,92,255,.1);
 }
 
 .auth-btn{
     width:100%;
     height:52px;
+
     border-radius:15px;
+
     color:white;
+
     font-weight:bold;
-    background:linear-gradient(135deg,var(--accent),#6042dc);
-    box-shadow:0 12px 30px rgba(124,92,255,.2);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            #6042dc
+        );
+
+    box-shadow:
+        0 12px 30px
+        rgba(124,92,255,.2);
+
     transition:.2s;
+
     margin-top:5px;
 }
 
@@ -158,8 +234,11 @@ button{
 
 .switch-auth{
     text-align:center;
+
     margin-top:20px;
+
     color:var(--muted);
+
     font-size:14px;
 }
 
@@ -172,11 +251,19 @@ button{
 
 .auth-error{
     background:rgba(255,84,112,.1);
-    border:1px solid rgba(255,84,112,.2);
+
+    border:
+        1px solid
+        rgba(255,84,112,.2);
+
     color:#ff91a2;
+
     padding:12px;
+
     border-radius:12px;
+
     margin-bottom:15px;
+
     font-size:13px;
 }
 
@@ -187,8 +274,11 @@ button{
 .app{
     width:100%;
     height:100vh;
+
     display:grid;
-    grid-template-columns:330px 1fr;
+
+    grid-template-columns:
+        330px 1fr;
 }
 
 /* =========================
@@ -197,40 +287,59 @@ button{
 
 .sidebar{
     background:rgba(13,15,21,.92);
-    border-left:1px solid var(--border);
+
+    border-left:
+        1px solid
+        var(--border);
+
     display:flex;
     flex-direction:column;
+
     min-width:0;
 }
 
 .sidebar-top{
     padding:20px;
-    border-bottom:1px solid var(--border);
+
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .brand-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     margin-bottom:20px;
 }
 
 .brand{
     display:flex;
     align-items:center;
+
     gap:10px;
 }
 
 .brand-logo{
     width:38px;
     height:38px;
+
     border-radius:12px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-weight:900;
     font-size:15px;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
 }
 
 .brand span{
@@ -241,10 +350,16 @@ button{
 .my-profile-btn{
     width:38px;
     height:38px;
+
     border-radius:12px;
+
     background:var(--panel3);
+
     color:white;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
 }
 
 .search-box{
@@ -254,33 +369,54 @@ button{
 .search-box input{
     width:100%;
     height:44px;
+
     background:#090b10;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:13px;
+
     outline:none;
+
     color:white;
-    padding:0 40px 0 12px;
+
+    padding:
+        0 40px
+        0 12px;
 }
 
 .search-icon{
     position:absolute;
+
     right:13px;
     top:12px;
+
     color:var(--muted);
 }
 
 .tabs{
     display:flex;
+
     gap:5px;
-    padding:12px 15px 0;
+
+    padding:
+        12px 15px
+        0;
 }
 
 .tab{
     flex:1;
+
     height:38px;
+
     border-radius:11px;
+
     background:transparent;
+
     color:var(--muted);
+
     font-size:13px;
 }
 
@@ -291,7 +427,9 @@ button{
 
 .people-list{
     flex:1;
+
     overflow:auto;
+
     padding:8px;
 }
 
@@ -309,10 +447,15 @@ button{
 .user-item{
     display:flex;
     align-items:center;
+
     gap:12px;
+
     padding:12px;
+
     border-radius:15px;
+
     cursor:pointer;
+
     transition:.18s;
 }
 
@@ -321,11 +464,12 @@ button{
 }
 
 .user-item.active{
-    background:linear-gradient(
-        90deg,
-        rgba(124,92,255,.18),
-        rgba(124,92,255,.05)
-    );
+    background:
+        linear-gradient(
+            90deg,
+            rgba(124,92,255,.18),
+            rgba(124,92,255,.05)
+        );
 }
 
 .avatar-wrap{
@@ -336,29 +480,47 @@ button{
 .avatar{
     width:47px;
     height:47px;
+
     border-radius:15px;
-    background:linear-gradient(135deg,#292d3a,#151821);
+
+    background:
+        linear-gradient(
+            135deg,
+            #292d3a,
+            #151821
+        );
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-weight:900;
     font-size:16px;
+
     overflow:hidden;
 }
 
 .avatar img{
     width:100%;
     height:100%;
+
     object-fit:cover;
 }
 
 .online-dot{
     position:absolute;
+
     width:11px;
     height:11px;
+
     border-radius:50%;
+
     background:#555b69;
-    border:2px solid var(--panel);
+
+    border:
+        2px solid
+        var(--panel);
+
     left:-2px;
     bottom:0;
 }
@@ -375,7 +537,9 @@ button{
 .user-name{
     font-weight:bold;
     font-size:14px;
+
     margin-bottom:4px;
+
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -384,6 +548,7 @@ button{
 .user-username{
     color:var(--muted);
     font-size:12px;
+
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -391,9 +556,13 @@ button{
 
 .empty-state{
     text-align:center;
+
     padding:50px 20px;
+
     color:var(--muted);
+
     font-size:14px;
+
     line-height:1.8;
 }
 
@@ -403,37 +572,59 @@ button{
 
 .chat{
     min-width:0;
+
     display:flex;
     flex-direction:column;
+
     background:
-        radial-gradient(circle at 50% 20%,rgba(124,92,255,.045),transparent 35%),
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(124,92,255,.045),
+            transparent 35%
+        ),
         var(--bg);
 }
 
 .chat-header{
     height:76px;
-    border-bottom:1px solid var(--border);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
     display:flex;
     align-items:center;
-    padding:0 22px;
+
+    padding:
+        0 22px;
+
     gap:13px;
-    background:rgba(7,8,12,.72);
+
+    background:
+        rgba(7,8,12,.72);
+
     backdrop-filter:blur(18px);
 }
 
 .back-btn{
     display:none;
+
     width:38px;
     height:38px;
+
     border-radius:12px;
+
     color:white;
+
     background:var(--panel3);
 }
 
 .chat-user{
     display:flex;
     align-items:center;
+
     gap:12px;
+
     min-width:0;
     flex:1;
 }
@@ -450,33 +641,47 @@ button{
 .chat-status{
     color:var(--muted);
     font-size:12px;
+
     margin-top:4px;
 }
 
 .header-action{
     width:40px;
     height:40px;
+
     border-radius:12px;
+
     background:var(--panel2);
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     color:white;
 }
 
 .messages{
     flex:1;
+
     overflow:auto;
+
     padding:25px;
+
     display:flex;
     flex-direction:column;
+
     gap:9px;
 }
 
 .welcome-chat{
     flex:1;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     text-align:center;
+
     color:var(--muted);
 }
 
@@ -487,14 +692,28 @@ button{
 .welcome-icon{
     width:80px;
     height:80px;
-    margin:0 auto 18px;
+
+    margin:
+        0 auto 18px;
+
     border-radius:25px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:32px;
-    background:linear-gradient(135deg,rgba(124,92,255,.18),rgba(0,212,255,.08));
-    border:1px solid var(--border);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,92,255,.18),
+            rgba(0,212,255,.08)
+        );
+
+    border:
+        1px solid
+        var(--border);
 }
 
 .welcome-chat h2{
@@ -517,26 +736,44 @@ button{
 
 .message{
     position:relative;
+
     min-width:90px;
-    padding:10px 13px 8px;
+
+    padding:
+        10px 13px
+        8px;
+
     border-radius:17px;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
 }
 
 .mine .message{
-    background:linear-gradient(135deg,#674be5,#5038bd);
+    background:
+        linear-gradient(
+            135deg,
+            #674be5,
+            #5038bd
+        );
+
     border-bottom-left-radius:5px;
 }
 
 .theirs .message{
     background:var(--panel2);
+
     border-bottom-right-radius:5px;
 }
 
 .message-text{
     font-size:14px;
+
     line-height:1.7;
+
     white-space:pre-wrap;
+
     word-break:break-word;
 }
 
@@ -544,22 +781,36 @@ button{
     display:flex;
     align-items:center;
     justify-content:flex-end;
+
     gap:5px;
+
     margin-top:4px;
+
     font-size:10px;
+
     opacity:.65;
 }
 
 .message-actions{
     position:absolute;
+
     top:-38px;
     right:0;
+
     display:none;
+
     gap:4px;
+
     background:var(--panel3);
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     padding:4px;
+
     border-radius:10px;
+
     z-index:10;
 }
 
@@ -570,9 +821,13 @@ button{
 .message-action{
     width:30px;
     height:28px;
+
     border-radius:7px;
+
     color:white;
+
     background:transparent;
+
     font-size:12px;
 }
 
@@ -586,11 +841,20 @@ button{
 
 .reply-message{
     padding:7px 9px;
+
     margin-bottom:7px;
-    border-right:3px solid rgba(255,255,255,.6);
-    background:rgba(255,255,255,.08);
+
+    border-right:
+        3px solid
+        rgba(255,255,255,.6);
+
+    background:
+        rgba(255,255,255,.08);
+
     border-radius:7px;
+
     font-size:11px;
+
     opacity:.8;
 }
 
@@ -599,18 +863,29 @@ button{
 ========================= */
 
 .composer-wrap{
-    padding:12px 20px 18px;
+    padding:
+        12px 20px
+        18px;
 }
 
 .reply-bar{
     display:none;
+
     align-items:center;
     justify-content:space-between;
+
     gap:10px;
+
     background:var(--panel2);
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:12px;
+
     padding:9px 12px;
+
     margin-bottom:8px;
 }
 
@@ -625,45 +900,66 @@ button{
 .reply-title{
     font-size:11px;
     color:var(--accent2);
+
     margin-bottom:3px;
 }
 
 .reply-text{
     font-size:12px;
     color:var(--muted);
+
     overflow:hidden;
+
     white-space:nowrap;
+
     text-overflow:ellipsis;
 }
 
 .cancel-reply{
     width:30px;
     height:30px;
+
     border-radius:8px;
+
     color:white;
+
     background:var(--panel3);
 }
 
 .composer{
     display:flex;
     align-items:flex-end;
+
     gap:8px;
+
     background:var(--panel2);
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:18px;
+
     padding:8px;
 }
 
 .composer textarea{
     flex:1;
+
     resize:none;
+
     min-height:42px;
     max-height:130px;
+
     border:0;
     outline:0;
+
     background:transparent;
+
     color:white;
+
     padding:11px 8px;
+
     line-height:1.5;
 }
 
@@ -674,9 +970,13 @@ button{
 .icon-btn{
     width:42px;
     height:42px;
+
     flex-shrink:0;
+
     border-radius:12px;
+
     color:#b7bac5;
+
     background:transparent;
 }
 
@@ -686,7 +986,13 @@ button{
 }
 
 .send-btn{
-    background:linear-gradient(135deg,var(--accent),#5c42d0);
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            #5c42d0
+        );
+
     color:white;
 }
 
@@ -696,15 +1002,26 @@ button{
 
 .profile-panel{
     position:fixed;
+
     top:0;
     left:0;
     bottom:0;
+
     width:330px;
+
     z-index:200;
+
     background:#0d0f15;
-    border-right:1px solid var(--border);
-    transform:translateX(-100%);
+
+    border-right:
+        1px solid
+        var(--border);
+
+    transform:
+        translateX(-100%);
+
     transition:.3s;
+
     box-shadow:var(--shadow);
 }
 
@@ -714,11 +1031,17 @@ button{
 
 .profile-top{
     height:70px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 18px;
-    border-bottom:1px solid var(--border);
+
+    padding:
+        0 18px;
+
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .profile-top h3{
@@ -728,25 +1051,40 @@ button{
 .close-profile{
     width:38px;
     height:38px;
+
     border-radius:11px;
+
     background:var(--panel3);
+
     color:white;
 }
 
 .profile-content{
     padding:35px 20px;
+
     text-align:center;
 }
 
 .big-avatar{
     width:90px;
     height:90px;
-    margin:0 auto 15px;
+
+    margin:
+        0 auto 15px;
+
     border-radius:28px;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:30px;
     font-weight:900;
 }
@@ -763,17 +1101,84 @@ button{
 
 .profile-divider{
     height:1px;
+
     background:var(--border);
-    margin:25px 0;
+
+    margin:
+        25px 0;
+}
+
+/* =========================
+   NOTIFICATION BUTTON
+========================= */
+
+.notification-btn{
+    width:100%;
+    min-height:48px;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,92,255,.2),
+            rgba(0,212,255,.08)
+        );
+
+    color:white;
+
+    border:
+        1px solid
+        rgba(124,92,255,.25);
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+    transition:.2s;
+}
+
+.notification-btn:hover{
+    transform:translateY(-1px);
+
+    border-color:
+        rgba(124,92,255,.5);
+}
+
+.notification-btn.enabled{
+    background:
+        rgba(37,213,139,.1);
+
+    border-color:
+        rgba(37,213,139,.25);
+
+    color:#65e7ad;
+}
+
+.notification-btn.denied{
+    background:
+        rgba(255,84,112,.08);
+
+    border-color:
+        rgba(255,84,112,.2);
+
+    color:#ff91a2;
 }
 
 .logout-btn{
     width:100%;
     height:46px;
+
     border-radius:13px;
-    background:rgba(255,84,112,.08);
+
+    background:
+        rgba(255,84,112,.08);
+
     color:#ff7890;
-    border:1px solid rgba(255,84,112,.15);
+
+    border:
+        1px solid
+        rgba(255,84,112,.15);
 }
 
 /* =========================
@@ -782,29 +1187,49 @@ button{
 
 .toast{
     position:fixed;
+
     left:20px;
     bottom:20px;
+
     z-index:3000;
+
     background:#151821;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     color:white;
-    padding:12px 16px;
+
+    padding:
+        12px 16px;
+
     border-radius:12px;
+
     box-shadow:var(--shadow);
-    transform:translateY(20px);
+
+    transform:
+        translateY(20px);
+
     opacity:0;
+
     pointer-events:none;
+
     transition:.25s;
+
     font-size:13px;
 }
 
 .toast.show{
     opacity:1;
-    transform:translateY(0);
+
+    transform:
+        translateY(0);
 }
 
 .loading{
     opacity:.55;
+
     pointer-events:none;
 }
 
@@ -820,18 +1245,27 @@ button{
 
     .sidebar{
         position:fixed;
+
         inset:0;
+
         z-index:100;
+
         width:100%;
+
         transform:translateX(0);
+
         transition:.25s;
     }
 
     .chat{
         position:fixed;
+
         inset:0;
+
         z-index:150;
+
         transform:translateX(100%);
+
         transition:.25s;
     }
 
@@ -860,6 +1294,7 @@ button{
 
     .auth-box{
         padding:25px 20px;
+
         border-radius:22px;
     }
 
@@ -872,11 +1307,14 @@ button{
     }
 
     .composer-wrap{
-        padding:8px 10px 12px;
+        padding:
+            8px 10px
+            12px;
     }
 
     .messages{
-        padding:14px 10px;
+        padding:
+            14px 10px;
     }
 
     .message-row{
@@ -887,7 +1325,9 @@ button{
         width:100%;
     }
 }
+
 </style>
+
 </head>
 
 <body>
@@ -896,62 +1336,97 @@ button{
 
     <div class="auth-box">
 
-        <div class="logo">C+</div>
+        <div class="logo">
+            C+
+        </div>
 
-        <h1 id="authTitle">أهلًا بيك 👋</h1>
+        <h1 id="authTitle">
+            أهلًا بيك 👋
+        </h1>
 
         <p class="auth-subtitle" id="authSubtitle">
             سجّل دخولك وابدأ محادثاتك الخاصة
         </p>
 
-        <div id="authError" class="auth-error hidden"></div>
+        <div
+            id="authError"
+            class="auth-error hidden">
+        </div>
 
-        <div class="field hidden" id="nameField">
-            <label>الاسم</label>
+        <div
+            class="field hidden"
+            id="nameField">
+
+            <label>
+                الاسم
+            </label>
+
             <input
                 id="nameInput"
                 type="text"
                 placeholder="اكتب اسمك"
-                autocomplete="name"
-            >
+                autocomplete="name">
+
         </div>
 
         <div class="field">
-            <label>اسم المستخدم</label>
+
+            <label>
+                اسم المستخدم
+            </label>
+
             <input
                 id="userInput"
                 type="text"
                 placeholder="مثال: ziad"
                 autocomplete="username"
-                dir="ltr"
-            >
+                dir="ltr">
+
         </div>
 
         <div class="field">
-            <label>كلمة المرور</label>
+
+            <label>
+                كلمة المرور
+            </label>
+
             <input
                 id="passInput"
                 type="password"
                 placeholder="كلمة المرور"
                 autocomplete="current-password"
-                dir="ltr"
-            >
+                dir="ltr">
+
         </div>
 
-        <button class="auth-btn" id="authBtn">
+        <button
+            class="auth-btn"
+            id="authBtn">
+
             تسجيل الدخول
+
         </button>
 
         <div class="switch-auth">
-            <span id="switchText">لسه معندكش حساب؟</span>
-            <button id="switchAuth">إنشاء حساب</button>
+
+            <span id="switchText">
+                لسه معندكش حساب؟
+            </span>
+
+            <button id="switchAuth">
+                إنشاء حساب
+            </button>
+
         </div>
 
     </div>
 
 </section>
 
-<div class="app hidden" id="app">
+
+<div
+    class="app hidden"
+    id="app">
 
     <aside class="sidebar">
 
@@ -960,29 +1435,38 @@ button{
             <div class="brand-row">
 
                 <div class="brand">
-                    <div class="brand-logo">C+</div>
-                    <span>Chat+</span>
+
+                    <div class="brand-logo">
+                        C+
+                    </div>
+
+                    <span>
+                        Chat+
+                    </span>
+
                 </div>
 
                 <button
                     class="my-profile-btn"
                     id="profileBtn"
-                    title="حسابي"
-                >
+                    title="حسابي">
+
                     ☻
+
                 </button>
 
             </div>
 
             <div class="search-box">
 
-                <span class="search-icon">⌕</span>
+                <span class="search-icon">
+                    ⌕
+                </span>
 
                 <input
                     id="search"
                     type="text"
-                    placeholder="ابحث عن مستخدم..."
-                >
+                    placeholder="ابحث عن مستخدم...">
 
             </div>
 
@@ -992,21 +1476,25 @@ button{
 
             <button
                 class="tab active"
-                id="peopleTab"
-            >
+                id="peopleTab">
+
                 الأشخاص
+
             </button>
 
             <button
                 class="tab"
-                id="chatsTab"
-            >
+                id="chatsTab">
+
                 المحادثات
+
             </button>
 
         </div>
 
-        <div class="people-list" id="peopleList">
+        <div
+            class="people-list"
+            id="peopleList">
 
             <div class="empty-state">
                 جاري تحميل المستخدمين...
@@ -1016,35 +1504,37 @@ button{
 
     </aside>
 
+
     <main class="chat">
 
         <header class="chat-header">
 
             <button
                 class="back-btn"
-                id="backBtn"
-            >
+                id="backBtn">
+
                 →
+
             </button>
 
             <div
                 class="chat-user hidden"
-                id="chatUser"
-            >
+                id="chatUser">
 
                 <div class="avatar-wrap">
 
                     <div
                         class="avatar"
-                        id="chatAvatar"
-                    >
+                        id="chatAvatar">
+
                         ?
+
                     </div>
 
                     <span
                         class="online-dot"
-                        id="chatOnlineDot"
-                    ></span>
+                        id="chatOnlineDot">
+                    </span>
 
                 </div>
 
@@ -1052,16 +1542,18 @@ button{
 
                     <div
                         class="chat-name"
-                        id="chatName"
-                    >
+                        id="chatName">
+
                         المستخدم
+
                     </div>
 
                     <div
                         class="chat-status"
-                        id="chatStatus"
-                    >
+                        id="chatStatus">
+
                         غير متصل
+
                     </div>
 
                 </div>
@@ -1071,17 +1563,18 @@ button{
             <button
                 class="header-action hidden"
                 id="chatProfileBtn"
-                title="الملف الشخصي"
-            >
+                title="الملف الشخصي">
+
                 ☻
+
             </button>
 
         </header>
 
+
         <section
             class="messages"
-            id="messages"
-        >
+            id="messages">
 
             <div class="welcome-chat">
 
@@ -1091,7 +1584,9 @@ button{
                         💬
                     </div>
 
-                    <h2>مرحبًا بك في Chat+</h2>
+                    <h2>
+                        مرحبًا بك في Chat+
+                    </h2>
 
                     <p>
                         اختار شخص من القائمة وابدأ محادثة خاصة.
@@ -1103,15 +1598,14 @@ button{
 
         </section>
 
+
         <div
             class="composer-wrap hidden"
-            id="composerWrap"
-        >
+            id="composerWrap">
 
             <div
                 class="reply-bar"
-                id="replyBar"
-            >
+                id="replyBar">
 
                 <div class="reply-info">
 
@@ -1121,42 +1615,46 @@ button{
 
                     <div
                         class="reply-text"
-                        id="replyText"
-                    ></div>
+                        id="replyText">
+                    </div>
 
                 </div>
 
                 <button
                     class="cancel-reply"
-                    id="cancelReply"
-                >
+                    id="cancelReply">
+
                     ×
+
                 </button>
 
             </div>
+
 
             <div class="composer">
 
                 <button
                     class="icon-btn"
                     id="emojiBtn"
-                    title="إيموجي"
-                >
+                    title="إيموجي">
+
                     ☺
+
                 </button>
 
                 <textarea
                     id="messageInput"
                     rows="1"
-                    placeholder="اكتب رسالة..."
-                ></textarea>
+                    placeholder="اكتب رسالة...">
+                </textarea>
 
                 <button
                     class="icon-btn send-btn"
                     id="sendBtn"
-                    title="إرسال"
-                >
+                    title="إرسال">
+
                     ➤
+
                 </button>
 
             </div>
@@ -1167,31 +1665,36 @@ button{
 
 </div>
 
+
 <aside
     class="profile-panel"
-    id="profile"
->
+    id="profile">
 
     <div class="profile-top">
 
-        <h3>الملف الشخصي</h3>
+        <h3>
+            الملف الشخصي
+        </h3>
 
         <button
             class="close-profile"
-            id="closeProfile"
-        >
+            id="closeProfile">
+
             ×
+
         </button>
 
     </div>
+
 
     <div class="profile-content">
 
         <div
             class="big-avatar"
-            id="profileAvatar"
-        >
+            id="profileAvatar">
+
             ?
+
         </div>
 
         <h2 id="profileName">
@@ -1202,23 +1705,39 @@ button{
             @username
         </p>
 
+
         <div class="profile-divider"></div>
+
+
+        <!-- PUSH NOTIFICATIONS -->
+
+        <button
+            class="notification-btn"
+            id="notificationBtn">
+
+            🔔 تفعيل الإشعارات
+
+        </button>
+
 
         <button
             class="logout-btn"
-            id="logout"
-        >
+            id="logout">
+
             تسجيل الخروج
+
         </button>
 
     </div>
 
 </aside>
 
+
 <div
     class="toast"
-    id="toast"
-></div>
+    id="toast">
+</div>
+
 
 <script>
 
@@ -1230,11 +1749,31 @@ const SUPABASE_URL =
     "https://smdxslqmhwfdxxfgpbxg.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_CCuNjOiPoiX4a7VrfQhz-Q_ztwlLy8p";
+    "sb_publishable_CCuNjOiPoiFX4a7VrfQhz-Q_ztwlLy8p";
 
-/*
-   نتأكد إن مكتبة Supabase نفسها اتحملت
-*/
+
+/* =========================================================
+   VAPID CONFIG
+========================================================= */
+
+const VAPID_PUBLIC_KEY =
+    "BNC7UeL_D5_ZvCFJRmHbdNMQmgaz6z83q4RHhhgLYNewZaCZZUTzwKn1gGrmyW1Pv40w1s9kjVej4x20f7J3iQQ";
+
+
+/* =========================================================
+   SERVICE WORKER
+========================================================= */
+
+const SERVICE_WORKER_PATH =
+    "/chat-/sw.js";
+
+
+let pushRegistration = null;
+
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 if(!window.supabase){
 
@@ -1251,6 +1790,7 @@ if(!window.supabase){
             text-align:center;
         ">
             <div>
+
                 <h2 style="margin-bottom:12px">
                     تعذر تحميل Chat+
                 </h2>
@@ -1259,12 +1799,16 @@ if(!window.supabase){
                     مكتبة Supabase لم يتم تحميلها.
                     تأكد من اتصال الإنترنت ثم أعد تحميل الصفحة.
                 </p>
+
             </div>
         </div>
     `;
 
-    throw new Error("Supabase library was not loaded.");
+    throw new Error(
+        "Supabase library was not loaded."
+    );
 }
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1278,17 +1822,21 @@ const supabaseClient =
 ========================================================= */
 
 let currentUser = null;
+
 let currentProfile = null;
 
 let users = [];
+
 let chats = [];
 
 let currentChatUser = null;
+
 let currentMessages = [];
 
 let authMode = "login";
 
 let messagesChannel = null;
+
 let presenceChannel = null;
 
 let presenceUsers = new Set();
@@ -1300,29 +1848,56 @@ let replyingTo = null;
    ELEMENTS
 ========================================================= */
 
-const authScreen = document.getElementById("authScreen");
-const authTitle = document.getElementById("authTitle");
-const authSubtitle = document.getElementById("authSubtitle");
-const authError = document.getElementById("authError");
+const authScreen =
+    document.getElementById("authScreen");
 
-const nameField = document.getElementById("nameField");
-const nameInput = document.getElementById("nameInput");
-const userInput = document.getElementById("userInput");
-const passInput = document.getElementById("passInput");
+const authTitle =
+    document.getElementById("authTitle");
 
-const authBtn = document.getElementById("authBtn");
-const switchAuth = document.getElementById("switchAuth");
-const switchText = document.getElementById("switchText");
+const authSubtitle =
+    document.getElementById("authSubtitle");
 
-const app = document.getElementById("app");
+const authError =
+    document.getElementById("authError");
 
-const peopleList = document.getElementById("peopleList");
-const search = document.getElementById("search");
+const nameField =
+    document.getElementById("nameField");
 
-const peopleTab = document.getElementById("peopleTab");
-const chatsTab = document.getElementById("chatsTab");
+const nameInput =
+    document.getElementById("nameInput");
 
-const messages = document.getElementById("messages");
+const userInput =
+    document.getElementById("userInput");
+
+const passInput =
+    document.getElementById("passInput");
+
+const authBtn =
+    document.getElementById("authBtn");
+
+const switchAuth =
+    document.getElementById("switchAuth");
+
+const switchText =
+    document.getElementById("switchText");
+
+const app =
+    document.getElementById("app");
+
+const peopleList =
+    document.getElementById("peopleList");
+
+const search =
+    document.getElementById("search");
+
+const peopleTab =
+    document.getElementById("peopleTab");
+
+const chatsTab =
+    document.getElementById("chatsTab");
+
+const messages =
+    document.getElementById("messages");
 
 const composerWrap =
     document.getElementById("composerWrap");
@@ -1390,6 +1965,9 @@ const cancelReply =
 const toast =
     document.getElementById("toast");
 
+const notificationBtn =
+    document.getElementById("notificationBtn");
+
 
 /* =========================================================
    HELPERS
@@ -1450,7 +2028,9 @@ function showToast(text){
 
     window.toastTimer =
         setTimeout(() => {
+
             toast.classList.remove("show");
+
         },2500);
 }
 
@@ -1490,6 +2070,517 @@ function isOnline(userId){
 
 
 /* =========================================================
+   PUSH — BASE64URL → UINT8ARRAY
+========================================================= */
+
+function urlBase64ToUint8Array(base64String){
+
+    const padding =
+        "=".repeat(
+            (4 - base64String.length % 4) % 4
+        );
+
+    const base64 =
+        (
+            base64String
+                .replace(/-/g,"+")
+                .replace(/_/g,"/")
+        ) + padding;
+
+    const rawData =
+        window.atob(base64);
+
+    const outputArray =
+        new Uint8Array(
+            rawData.length
+        );
+
+    for(
+        let i = 0;
+        i < rawData.length;
+        ++i
+    ){
+
+        outputArray[i] =
+            rawData.charCodeAt(i);
+
+    }
+
+    return outputArray;
+}
+
+
+/* =========================================================
+   PUSH — REGISTER SERVICE WORKER
+========================================================= */
+
+async function registerPushServiceWorker(){
+
+    if(!("serviceWorker" in navigator)){
+
+        console.warn(
+            "Service Worker is not supported."
+        );
+
+        return null;
+    }
+
+    try{
+
+        pushRegistration =
+            await navigator.serviceWorker.register(
+                SERVICE_WORKER_PATH,
+                {
+                    scope:"/chat-/"
+                }
+            );
+
+        console.log(
+            "Chat+ Service Worker registered:",
+            pushRegistration.scope
+        );
+
+        return pushRegistration;
+
+    }catch(error){
+
+        console.error(
+            "Service Worker registration error:",
+            error
+        );
+
+        return null;
+    }
+}
+
+
+/* =========================================================
+   PUSH — UI STATUS
+========================================================= */
+
+function updateNotificationButton(){
+
+    if(!notificationBtn){
+        return;
+    }
+
+    if(!("Notification" in window)){
+
+        notificationBtn.textContent =
+            "❌ الإشعارات غير مدعومة";
+
+        notificationBtn.classList.add(
+            "denied"
+        );
+
+        return;
+    }
+
+
+    if(Notification.permission === "granted"){
+
+        notificationBtn.textContent =
+            "🔔 الإشعارات مفعّلة";
+
+        notificationBtn.classList.remove(
+            "denied"
+        );
+
+        notificationBtn.classList.add(
+            "enabled"
+        );
+
+        return;
+    }
+
+
+    if(Notification.permission === "denied"){
+
+        notificationBtn.textContent =
+            "⚠️ الإشعارات محظورة من المتصفح";
+
+        notificationBtn.classList.remove(
+            "enabled"
+        );
+
+        notificationBtn.classList.add(
+            "denied"
+        );
+
+        return;
+    }
+
+
+    notificationBtn.textContent =
+        "🔔 تفعيل الإشعارات";
+
+    notificationBtn.classList.remove(
+        "enabled",
+        "denied"
+    );
+}
+
+
+/* =========================================================
+   PUSH — SAVE SUBSCRIPTION
+========================================================= */
+
+async function savePushSubscription(
+    subscription
+){
+
+    if(!currentUser){
+        return false;
+    }
+
+    const json =
+        subscription.toJSON();
+
+    const endpoint =
+        json.endpoint;
+
+    const p256dh =
+        json.keys?.p256dh;
+
+    const auth =
+        json.keys?.auth;
+
+
+    if(
+        !endpoint ||
+        !p256dh ||
+        !auth
+    ){
+
+        throw new Error(
+            "Push subscription data is incomplete."
+        );
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("push_subscriptions")
+            .upsert(
+                {
+                    user_id:
+                        currentUser.id,
+
+                    endpoint,
+
+                    p256dh,
+
+                    auth
+                },
+                {
+                    onConflict:
+                        "user_id,endpoint"
+                }
+            );
+
+
+    if(error){
+        throw error;
+    }
+
+
+    return true;
+}
+
+
+/* =========================================================
+   PUSH — ENABLE
+========================================================= */
+
+async function enablePushNotifications(){
+
+    if(!currentUser){
+
+        showToast(
+            "سجّل دخولك الأول."
+        );
+
+        return;
+    }
+
+
+    if(!("Notification" in window)){
+
+        showToast(
+            "المتصفح ده لا يدعم الإشعارات."
+        );
+
+        return;
+    }
+
+
+    if(!("PushManager" in window)){
+
+        showToast(
+            "المتصفح ده لا يدعم Push Notifications."
+        );
+
+        return;
+    }
+
+
+    if(
+        location.protocol !== "https:" &&
+        location.hostname !== "localhost"
+    ){
+
+        showToast(
+            "الإشعارات تحتاج HTTPS."
+        );
+
+        return;
+    }
+
+
+    notificationBtn.classList.add(
+        "loading"
+    );
+
+
+    try{
+
+        const registration =
+            pushRegistration ||
+            await registerPushServiceWorker();
+
+
+        if(!registration){
+
+            throw new Error(
+                "Service Worker registration failed."
+            );
+        }
+
+
+        let permission =
+            Notification.permission;
+
+
+        if(permission !== "granted"){
+
+            permission =
+                await Notification.requestPermission();
+
+        }
+
+
+        if(permission !== "granted"){
+
+            updateNotificationButton();
+
+            if(permission === "denied"){
+
+                showToast(
+                    "الإشعارات محظورة. فعّلها من إعدادات المتصفح."
+                );
+
+            }else{
+
+                showToast(
+                    "لم يتم السماح بالإشعارات."
+                );
+
+            }
+
+            return;
+        }
+
+
+        let subscription =
+            await registration.pushManager.getSubscription();
+
+
+        if(!subscription){
+
+            subscription =
+                await registration.pushManager.subscribe(
+                    {
+                        userVisibleOnly:true,
+
+                        applicationServerKey:
+                            urlBase64ToUint8Array(
+                                VAPID_PUBLIC_KEY
+                            )
+                    }
+                );
+
+        }
+
+
+        await savePushSubscription(
+            subscription
+        );
+
+
+        updateNotificationButton();
+
+
+        showToast(
+            "تم تفعيل الإشعارات بنجاح 🔔"
+        );
+
+
+        /*
+           اختبار محلي فقط:
+           ده إشعار من المتصفح نفسه للتأكد إن
+           الصلاحية والـ Service Worker شغالين.
+           الإرسال الحقيقي من السيرفر هنضيفه لاحقًا.
+        */
+
+        try{
+
+            await registration.showNotification(
+                "Chat+",
+                {
+                    body:
+                        "الإشعارات اتفعّلت بنجاح 🎉",
+                    tag:
+                        "chatplus-test"
+                }
+            );
+
+        }catch(e){
+
+            console.warn(
+                "Local notification test failed:",
+                e
+            );
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "PUSH ERROR:",
+            error
+        );
+
+
+        let message =
+            "تعذر تفعيل الإشعارات.";
+
+
+        if(
+            error?.message
+                ?.toLowerCase()
+                .includes("push service")
+        ){
+
+            message =
+                "المتصفح رفض خدمة Push. جرّب Chrome أو Edge.";
+        }
+
+
+        if(
+            error?.message
+                ?.toLowerCase()
+                .includes("permission")
+        ){
+
+            message =
+                "لم يتم السماح بالإشعارات.";
+        }
+
+
+        if(
+            error?.code === "42501"
+        ){
+
+            message =
+                "Supabase رفض حفظ اشتراك الإشعارات. راجع صلاحيات جدول push_subscriptions.";
+        }
+
+
+        showToast(message);
+
+    }finally{
+
+        notificationBtn.classList.remove(
+            "loading"
+        );
+
+        updateNotificationButton();
+
+    }
+}
+
+
+/* =========================================================
+   PUSH — CHECK EXISTING SUBSCRIPTION
+========================================================= */
+
+async function checkPushSubscription(){
+
+    if(!currentUser){
+        return;
+    }
+
+
+    if(!("serviceWorker" in navigator)){
+        return;
+    }
+
+
+    if(!("PushManager" in window)){
+        return;
+    }
+
+
+    try{
+
+        const registration =
+            pushRegistration ||
+            await registerPushServiceWorker();
+
+
+        if(!registration){
+            return;
+        }
+
+
+        const subscription =
+            await registration
+                .pushManager
+                .getSubscription();
+
+
+        if(subscription){
+
+            if(
+                "Notification" in window &&
+                Notification.permission === "granted"
+            ){
+
+                await savePushSubscription(
+                    subscription
+                );
+
+            }
+
+        }
+
+
+        updateNotificationButton();
+
+    }catch(error){
+
+        console.error(
+            "Push subscription check error:",
+            error
+        );
+
+    }
+}
+
+
+/* =========================================================
    AUTH UI
 ========================================================= */
 
@@ -1507,7 +2598,9 @@ function setAuthMode(mode){
         authSubtitle.textContent =
             "أنشئ حسابك وابدأ تتكلم مع الناس";
 
-        nameField.classList.remove("hidden");
+        nameField.classList.remove(
+            "hidden"
+        );
 
         authBtn.textContent =
             "إنشاء الحساب";
@@ -1526,7 +2619,9 @@ function setAuthMode(mode){
         authSubtitle.textContent =
             "سجّل دخولك وابدأ محادثاتك الخاصة";
 
-        nameField.classList.add("hidden");
+        nameField.classList.add(
+            "hidden"
+        );
 
         authBtn.textContent =
             "تسجيل الدخول";
@@ -1536,7 +2631,9 @@ function setAuthMode(mode){
 
         switchAuth.textContent =
             "إنشاء حساب";
+
     }
+
 }
 
 
@@ -1563,10 +2660,13 @@ async function handleAuth(){
     clearAuthError();
 
     const username =
-        normalizeUsername(userInput.value);
+        normalizeUsername(
+            userInput.value
+        );
 
     const password =
         passInput.value.trim();
+
 
     if(!username){
 
@@ -1577,6 +2677,7 @@ async function handleAuth(){
         return;
     }
 
+
     if(username.length < 3){
 
         showAuthError(
@@ -1586,7 +2687,11 @@ async function handleAuth(){
         return;
     }
 
-    if(!/^[a-zA-Z0-9_.-]+$/.test(username)){
+
+    if(
+        !/^[a-zA-Z0-9_.-]+$/
+            .test(username)
+    ){
 
         showAuthError(
             "اسم المستخدم يستخدم حروف إنجليزية وأرقام و _ - فقط."
@@ -1594,6 +2699,7 @@ async function handleAuth(){
 
         return;
     }
+
 
     if(password.length < 6){
 
@@ -1604,17 +2710,23 @@ async function handleAuth(){
         return;
     }
 
-    authBtn.classList.add("loading");
+
+    authBtn.classList.add(
+        "loading"
+    );
+
 
     try{
 
         const email =
             internalEmail(username);
 
+
         if(authMode === "signup"){
 
             const displayName =
                 nameInput.value.trim();
+
 
             if(!displayName){
 
@@ -1625,28 +2737,32 @@ async function handleAuth(){
                 return;
             }
 
+
             const {
                 data,
                 error
             } =
-                await supabaseClient.auth.signUp({
+                await supabaseClient.auth.signUp(
+                    {
+                        email,
 
-                    email,
+                        password,
 
-                    password,
-
-                    options:{
-                        data:{
-                            username,
-                            display_name:displayName
+                        options:{
+                            data:{
+                                username,
+                                display_name:
+                                    displayName
+                            }
                         }
                     }
+                );
 
-                });
 
             if(error){
                 throw error;
             }
+
 
             if(!data.session){
 
@@ -1657,9 +2773,11 @@ async function handleAuth(){
                 return;
             }
 
+
             showToast(
                 "تم إنشاء الحساب بنجاح 🎉"
             );
+
 
         }else{
 
@@ -1667,17 +2785,19 @@ async function handleAuth(){
                 data,
                 error
             } =
-                await supabaseClient.auth.signInWithPassword({
+                await supabaseClient.auth.signInWithPassword(
+                    {
+                        email,
 
-                    email,
+                        password
+                    }
+                );
 
-                    password
-
-                });
 
             if(error){
                 throw error;
             }
+
 
             if(data.session){
 
@@ -1689,44 +2809,70 @@ async function handleAuth(){
 
         }
 
+
     }catch(error){
 
-        console.error("AUTH ERROR:",error);
+        console.error(
+            "AUTH ERROR:",
+            error
+        );
+
 
         let message =
             error?.message ||
             "حصل خطأ غير متوقع.";
 
+
         const lower =
             message.toLowerCase();
 
-        if(lower.includes("invalid api key")){
+
+        if(
+            lower.includes(
+                "invalid api key"
+            )
+        ){
 
             message =
                 "مفتاح Supabase غير صالح. افتح Supabase → Project Settings → API وانسخ Publishable Key الحالي.";
+
         }
 
-        else if(lower.includes("invalid login")){
+        else if(
+            lower.includes(
+                "invalid login"
+            )
+        ){
 
             message =
                 "اسم المستخدم أو كلمة المرور غير صحيحة.";
 
         }
 
-        else if(lower.includes("already registered")){
+        else if(
+            lower.includes(
+                "already registered"
+            )
+        ){
 
             message =
                 "اسم المستخدم ده مستخدم بالفعل.";
 
         }
 
-        showAuthError(message);
+
+        showAuthError(
+            message
+        );
 
     }finally{
 
-        authBtn.classList.remove("loading");
+        authBtn.classList.remove(
+            "loading"
+        );
 
     }
+
 }
 
 
@@ -1736,7 +2882,8 @@ authBtn.addEventListener(
 );
 
 
-[userInput,passInput,nameInput].forEach(
+[userInput,passInput,nameInput]
+.forEach(
     input => {
 
         input.addEventListener(
@@ -1770,13 +2917,17 @@ async function loadCurrentUser(){
     } =
         await supabaseClient.auth.getUser();
 
+
     if(error){
 
         console.error(error);
 
+
         if(
             error.message &&
-            error.message.toLowerCase().includes("invalid api key")
+            error.message
+                .toLowerCase()
+                .includes("invalid api key")
         ){
 
             showAuthError(
@@ -1785,10 +2936,12 @@ async function loadCurrentUser(){
 
         }
 
+
         showAuth();
 
         return false;
     }
+
 
     if(!user){
 
@@ -1797,11 +2950,15 @@ async function loadCurrentUser(){
         return false;
     }
 
+
     currentUser = user;
+
 
     await loadCurrentProfile();
 
+
     await enterApp();
+
 
     return true;
 }
@@ -1820,8 +2977,12 @@ async function loadCurrentProfile(){
         await supabaseClient
             .from("profiles")
             .select("*")
-            .eq("id",currentUser.id)
+            .eq(
+                "id",
+                currentUser.id
+            )
             .single();
+
 
     if(error){
 
@@ -1834,7 +2995,9 @@ async function loadCurrentProfile(){
         return;
     }
 
+
     currentProfile = data;
+
 
     updateMyProfileUI();
 }
@@ -1846,16 +3009,23 @@ function updateMyProfileUI(){
         return;
     }
 
+
     profileAvatar.textContent =
         initials(
             currentProfile.display_name
         );
 
+
     profileName.textContent =
         currentProfile.display_name;
 
+
     profileUsername.textContent =
-        "@" + currentProfile.username;
+        "@" +
+        currentProfile.username;
+
+
+    updateNotificationButton();
 }
 
 
@@ -1865,9 +3035,21 @@ function updateMyProfileUI(){
 
 async function enterApp(){
 
-    authScreen.classList.add("hidden");
+    authScreen.classList.add(
+        "hidden"
+    );
 
-    app.classList.remove("hidden");
+    app.classList.remove(
+        "hidden"
+    );
+
+
+    /*
+       نسجل Service Worker فور دخول التطبيق.
+    */
+
+    await registerPushServiceWorker();
+
 
     await setOnline(true);
 
@@ -1878,16 +3060,31 @@ async function enterApp(){
     subscribeToMessages();
 
     subscribeToPresence();
+
+
+    /*
+       نفحص هل المستخدم عنده Push Subscription
+       بالفعل.
+    */
+
+    await checkPushSubscription();
 }
 
 
 function showAuth(){
 
-    authScreen.classList.remove("hidden");
+    authScreen.classList.remove(
+        "hidden"
+    );
 
-    app.classList.add("hidden");
+    app.classList.add(
+        "hidden"
+    );
 
-    document.body.classList.remove("chat-open");
+    document.body.classList.remove(
+        "chat-open"
+    );
+
 
     currentUser = null;
 
@@ -1903,40 +3100,57 @@ async function logoutUser(){
 
     await setOnline(false);
 
+
     if(presenceChannel){
 
         try{
             await presenceChannel.untrack();
         }catch(e){}
 
+
         try{
+
             await supabaseClient.removeChannel(
                 presenceChannel
             );
+
         }catch(e){}
 
+
         presenceChannel = null;
+
     }
+
 
     if(messagesChannel){
 
         try{
+
             await supabaseClient.removeChannel(
                 messagesChannel
             );
+
         }catch(e){}
 
+
         messagesChannel = null;
+
     }
+
 
     await supabaseClient.auth.signOut();
 
+
     currentChatUser = null;
+
     currentMessages = [];
+
 
     showAuth();
 
+
     setAuthMode("login");
+
 
     showToast(
         "تم تسجيل الخروج."
@@ -1951,6 +3165,16 @@ logout.addEventListener(
 
 
 /* =========================================================
+   NOTIFICATION BUTTON
+========================================================= */
+
+notificationBtn.addEventListener(
+    "click",
+    enablePushNotifications
+);
+
+
+/* =========================================================
    ONLINE
 ========================================================= */
 
@@ -1960,15 +3184,24 @@ async function setOnline(value){
         return;
     }
 
+
     try{
 
         await supabaseClient
             .from("profiles")
-            .update({
-                online:value,
-                last_seen:new Date().toISOString()
-            })
-            .eq("id",currentUser.id);
+            .update(
+                {
+                    online:value,
+
+                    last_seen:
+                        new Date()
+                            .toISOString()
+                }
+            )
+            .eq(
+                "id",
+                currentUser.id
+            );
 
     }catch(error){
 
@@ -1994,12 +3227,22 @@ async function loadUsers(){
         await supabaseClient
             .from("profiles")
             .select("*")
-            .neq("id",currentUser.id)
-            .order("display_name",{ascending:true});
+            .neq(
+                "id",
+                currentUser.id
+            )
+            .order(
+                "display_name",
+                {
+                    ascending:true
+                }
+            );
+
 
     if(error){
 
         console.error(error);
+
 
         peopleList.innerHTML = `
             <div class="empty-state">
@@ -2010,7 +3253,10 @@ async function loadUsers(){
         return;
     }
 
-    users = data || [];
+
+    users =
+        data || [];
+
 
     renderUsers();
 }
@@ -2023,26 +3269,33 @@ async function loadUsers(){
 function renderUsers(){
 
     const query =
-        search.value.trim().toLowerCase();
+        search.value
+            .trim()
+            .toLowerCase();
+
 
     const list =
-        users.filter(user => {
+        users.filter(
+            user => {
 
-            if(!query){
-                return true;
+                if(!query){
+                    return true;
+                }
+
+
+                return (
+                    user.display_name
+                        .toLowerCase()
+                        .includes(query)
+                    ||
+                    user.username
+                        .toLowerCase()
+                        .includes(query)
+                );
+
             }
+        );
 
-            return (
-                user.display_name
-                    .toLowerCase()
-                    .includes(query)
-                ||
-                user.username
-                    .toLowerCase()
-                    .includes(query)
-            );
-
-        });
 
     if(!list.length){
 
@@ -2055,85 +3308,114 @@ function renderUsers(){
         return;
     }
 
+
     peopleList.innerHTML =
-        list.map(user => {
+        list
+            .map(
+                user => {
 
-            const active =
-                currentChatUser?.id === user.id
-                    ? "active"
-                    : "";
+                    const active =
+                        currentChatUser?.id ===
+                        user.id
+                            ? "active"
+                            : "";
 
-            const online =
-                isOnline(user.id);
 
-            return `
-                <div
-                    class="user-item ${active}"
-                    data-user-id="${user.id}"
-                >
+                    const online =
+                        isOnline(
+                            user.id
+                        );
 
-                    <div class="avatar-wrap">
 
-                        <div class="avatar">
-                            ${
-                                user.avatar_url
-                                ?
-                                `<img src="${escapeHTML(user.avatar_url)}">`
-                                :
-                                escapeHTML(
-                                    initials(user.display_name)
-                                )
-                            }
+                    return `
+                        <div
+                            class="user-item ${active}"
+                            data-user-id="${user.id}">
+
+                            <div class="avatar-wrap">
+
+                                <div class="avatar">
+
+                                    ${
+                                        user.avatar_url
+                                        ?
+                                        `<img
+                                            src="${escapeHTML(
+                                                user.avatar_url
+                                            )}"
+                                            alt="">`
+                                        :
+                                        escapeHTML(
+                                            initials(
+                                                user.display_name
+                                            )
+                                        )
+                                    }
+
+                                </div>
+
+                                <span
+                                    class="online-dot ${
+                                        online
+                                            ? "online"
+                                            : ""
+                                    }">
+                                </span>
+
+                            </div>
+
+                            <div class="user-info">
+
+                                <div class="user-name">
+                                    ${escapeHTML(
+                                        user.display_name
+                                    )}
+                                </div>
+
+                                <div class="user-username">
+                                    @${escapeHTML(
+                                        user.username
+                                    )}
+                                </div>
+
+                            </div>
+
                         </div>
+                    `;
 
-                        <span
-                            class="online-dot ${
-                                online ? "online" : ""
-                            }"
-                        ></span>
+                }
+            )
+            .join("");
 
-                    </div>
-
-                    <div class="user-info">
-
-                        <div class="user-name">
-                            ${escapeHTML(user.display_name)}
-                        </div>
-
-                        <div class="user-username">
-                            @${escapeHTML(user.username)}
-                        </div>
-
-                    </div>
-
-                </div>
-            `;
-
-        }).join("");
 
     document
         .querySelectorAll(".user-item")
-        .forEach(item => {
+        .forEach(
+            item => {
 
-            item.addEventListener(
-                "click",
-                () => {
+                item.addEventListener(
+                    "click",
+                    () => {
 
-                    const user =
-                        users.find(
-                            u =>
-                                u.id ===
-                                item.dataset.userId
-                        );
+                        const user =
+                            users.find(
+                                u =>
+                                    u.id ===
+                                    item.dataset.userId
+                            );
 
-                    if(user){
-                        openChat(user);
+
+                        if(user){
+
+                            openChat(user);
+
+                        }
+
                     }
+                );
 
-                }
-            );
-
-        });
+            }
+        );
 }
 
 
@@ -2146,12 +3428,15 @@ async function subscribeToPresence(){
     if(presenceChannel){
 
         try{
+
             await supabaseClient.removeChannel(
                 presenceChannel
             );
+
         }catch(e){}
 
     }
+
 
     presenceChannel =
         supabaseClient.channel(
@@ -2159,13 +3444,16 @@ async function subscribeToPresence(){
             {
                 config:{
                     presence:{
-                        key:currentUser.id
+                        key:
+                            currentUser.id
                     }
                 }
             }
         );
 
+
     presenceChannel
+
         .on(
             "presence",
             {
@@ -2174,31 +3462,44 @@ async function subscribeToPresence(){
             () => {
 
                 const state =
-                    presenceChannel.presenceState();
+                    presenceChannel
+                        .presenceState();
+
 
                 presenceUsers =
                     new Set();
 
-                Object.keys(state).forEach(key => {
 
-                    state[key].forEach(item => {
+                Object.keys(state)
+                    .forEach(
+                        key => {
 
-                        if(item.user_id){
+                            state[key]
+                                .forEach(
+                                    item => {
 
-                            presenceUsers.add(
-                                item.user_id
-                            );
+                                        if(
+                                            item.user_id
+                                        ){
+
+                                            presenceUsers.add(
+                                                item.user_id
+                                            );
+
+                                        }
+
+                                    }
+                                );
 
                         }
+                    );
 
-                    });
-
-                });
 
                 updateOnlineUI();
 
             }
         )
+
         .on(
             "presence",
             {
@@ -2206,22 +3507,29 @@ async function subscribeToPresence(){
             },
             ({newPresences}) => {
 
-                newPresences.forEach(item => {
+                newPresences
+                    .forEach(
+                        item => {
 
-                    if(item.user_id){
+                            if(
+                                item.user_id
+                            ){
 
-                        presenceUsers.add(
-                            item.user_id
-                        );
+                                presenceUsers.add(
+                                    item.user_id
+                                );
 
-                    }
+                            }
 
-                });
+                        }
+                    );
+
 
                 updateOnlineUI();
 
             }
         )
+
         .on(
             "presence",
             {
@@ -2229,38 +3537,48 @@ async function subscribeToPresence(){
             },
             ({leftPresences}) => {
 
-                leftPresences.forEach(item => {
+                leftPresences
+                    .forEach(
+                        item => {
 
-                    if(item.user_id){
+                            if(
+                                item.user_id
+                            ){
 
-                        presenceUsers.delete(
-                            item.user_id
-                        );
+                                presenceUsers.delete(
+                                    item.user_id
+                                );
 
-                    }
+                            }
 
-                });
+                        }
+                    );
+
 
                 updateOnlineUI();
 
             }
         )
+
         .subscribe(
             async status => {
 
-                if(status === "SUBSCRIBED"){
+                if(
+                    status === "SUBSCRIBED"
+                ){
 
-                    await presenceChannel.track({
+                    await presenceChannel.track(
+                        {
+                            user_id:
+                                currentUser.id,
 
-                        user_id:
-                            currentUser.id,
+                            username:
+                                currentProfile
+                                    ?.username,
 
-                        username:
-                            currentProfile?.username,
-
-                        online:true
-
-                    });
+                            online:true
+                        }
+                    );
 
                 }
 
@@ -2273,15 +3591,20 @@ function updateOnlineUI(){
 
     renderUsers();
 
+
     if(currentChatUser){
 
         const online =
-            isOnline(currentChatUser.id);
+            isOnline(
+                currentChatUser.id
+            );
+
 
         chatStatus.textContent =
             online
                 ? "متصل الآن"
                 : "غير متصل";
+
 
         chatOnlineDot.classList.toggle(
             "online",
@@ -2301,40 +3624,66 @@ async function openChat(user){
 
     currentChatUser = user;
 
-    document.body.classList.add("chat-open");
 
-    chatUser.classList.remove("hidden");
+    document.body.classList.add(
+        "chat-open"
+    );
 
-    chatProfileBtn.classList.remove("hidden");
 
-    composerWrap.classList.remove("hidden");
+    chatUser.classList.remove(
+        "hidden"
+    );
+
+
+    chatProfileBtn.classList.remove(
+        "hidden"
+    );
+
+
+    composerWrap.classList.remove(
+        "hidden"
+    );
+
 
     chatName.textContent =
         user.display_name;
 
+
     chatAvatar.textContent =
-        initials(user.display_name);
+        initials(
+            user.display_name
+        );
+
 
     const online =
-        isOnline(user.id);
+        isOnline(
+            user.id
+        );
+
 
     chatStatus.textContent =
         online
             ? "متصل الآن"
             : "غير متصل";
 
+
     chatOnlineDot.classList.toggle(
         "online",
         online
     );
 
+
     renderUsers();
+
 
     await loadConversation();
 
+
     await markMessagesRead();
 
+
     await loadChats();
+
 
     messageInput.focus();
 }
@@ -2350,6 +3699,7 @@ async function loadConversation(){
         return;
     }
 
+
     const {
         data,
         error
@@ -2360,13 +3710,18 @@ async function loadConversation(){
             .or(
                 `and(sender_id.eq.${currentUser.id},receiver_id.eq.${currentChatUser.id}),and(sender_id.eq.${currentChatUser.id},receiver_id.eq.${currentUser.id})`
             )
-            .order("created_at",{
-                ascending:true
-            });
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
 
     if(error){
 
         console.error(error);
+
 
         messages.innerHTML = `
             <div class="empty-state">
@@ -2377,8 +3732,10 @@ async function loadConversation(){
         return;
     }
 
+
     currentMessages =
         data || [];
+
 
     renderMessages();
 }
@@ -2394,6 +3751,7 @@ function renderMessages(){
         return;
     }
 
+
     if(!currentMessages.length){
 
         messages.innerHTML = `
@@ -2406,159 +3764,224 @@ function renderMessages(){
         return;
     }
 
+
     messages.innerHTML =
-        currentMessages.map(msg => {
+        currentMessages
+            .map(
+                msg => {
 
-            const mine =
-                msg.sender_id === currentUser.id;
+                    const mine =
+                        msg.sender_id ===
+                        currentUser.id;
 
-            const side =
-                mine
-                    ? "mine"
-                    : "theirs";
 
-            let replyHTML = "";
+                    const side =
+                        mine
+                            ? "mine"
+                            : "theirs";
 
-            if(msg.reply_to){
 
-                const replied =
-                    currentMessages.find(
-                        m => m.id === msg.reply_to
-                    );
+                    let replyHTML = "";
 
-                if(replied){
 
-                    replyHTML = `
-                        <div class="reply-message">
-                            ${escapeHTML(replied.text)}
+                    if(msg.reply_to){
+
+                        const replied =
+                            currentMessages.find(
+                                m =>
+                                    m.id ===
+                                    msg.reply_to
+                            );
+
+
+                        if(replied){
+
+                            replyHTML = `
+                                <div class="reply-message">
+                                    ${escapeHTML(
+                                        replied.text
+                                    )}
+                                </div>
+                            `;
+
+                        }
+
+                    }
+
+
+                    return `
+                        <div
+                            class="message-row ${side}"
+                            data-message-id="${msg.id}">
+
+                            <div class="message">
+
+                                ${
+                                    mine
+                                    ?
+                                    `
+                                    <div class="message-actions">
+
+                                        <button
+                                            class="message-action"
+                                            data-action="edit">
+
+                                            تعديل
+
+                                        </button>
+
+                                        <button
+                                            class="message-action delete"
+                                            data-action="delete">
+
+                                            حذف
+
+                                        </button>
+
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                <div class="message-actions">
+
+                                    <button
+                                        class="message-action"
+                                        data-action="reply">
+
+                                        رد
+
+                                    </button>
+
+                                </div>
+
+
+                                ${replyHTML}
+
+
+                                <div class="message-text">
+                                    ${escapeHTML(
+                                        msg.text
+                                    )}
+                                </div>
+
+
+                                <div class="message-meta">
+
+                                    <span>
+                                        ${formatTime(
+                                            msg.created_at
+                                        )}
+                                    </span>
+
+
+                                    ${
+                                        mine
+                                        ?
+                                        `<span>${
+                                            msg.read_at
+                                                ? "✓✓"
+                                                : "✓"
+                                        }</span>`
+                                        :
+                                        ""
+                                    }
+
+                                </div>
+
+                            </div>
+
                         </div>
                     `;
 
                 }
+            )
+            .join("");
 
-            }
-
-            return `
-                <div
-                    class="message-row ${side}"
-                    data-message-id="${msg.id}"
-                >
-
-                    <div class="message">
-
-                        ${
-                            mine
-                            ?
-                            `
-                            <div class="message-actions">
-
-                                <button
-                                    class="message-action"
-                                    data-action="edit"
-                                >
-                                    تعديل
-                                </button>
-
-                                <button
-                                    class="message-action delete"
-                                    data-action="delete"
-                                >
-                                    حذف
-                                </button>
-
-                            </div>
-                            `
-                            :
-                            ""
-                        }
-
-                        <div class="message-actions">
-
-                            <button
-                                class="message-action"
-                                data-action="reply"
-                            >
-                                رد
-                            </button>
-
-                        </div>
-
-                        ${replyHTML}
-
-                        <div class="message-text">
-                            ${escapeHTML(msg.text)}
-                        </div>
-
-                        <div class="message-meta">
-
-                            <span>
-                                ${formatTime(msg.created_at)}
-                            </span>
-
-                            ${
-                                mine
-                                ?
-                                `<span>${
-                                    msg.read_at
-                                        ? "✓✓"
-                                        : "✓"
-                                }</span>`
-                                :
-                                ""
-                            }
-
-                        </div>
-
-                    </div>
-
-                </div>
-            `;
-
-        }).join("");
 
     messages
         .querySelectorAll(".message-row")
-        .forEach(row => {
+        .forEach(
+            row => {
 
-            const messageId =
-                Number(row.dataset.messageId);
+                const messageId =
+                    Number(
+                        row.dataset.messageId
+                    );
 
-            const msg =
-                currentMessages.find(
-                    m => m.id === messageId
-                );
 
-            row
-                .querySelectorAll(".message-action")
-                .forEach(button => {
+                const msg =
+                    currentMessages.find(
+                        m =>
+                            m.id ===
+                            messageId
+                    );
 
-                    button.addEventListener(
-                        "click",
-                        e => {
 
-                            e.stopPropagation();
+                row
+                    .querySelectorAll(
+                        ".message-action"
+                    )
+                    .forEach(
+                        button => {
 
-                            const action =
-                                button.dataset.action;
+                            button.addEventListener(
+                                "click",
+                                e => {
 
-                            if(action === "reply"){
-                                startReply(msg);
-                            }
+                                    e.stopPropagation();
 
-                            if(action === "edit"){
-                                editMessage(msg);
-                            }
 
-                            if(action === "delete"){
-                                deleteMessage(msg);
-                            }
+                                    const action =
+                                        button.dataset.action;
+
+
+                                    if(
+                                        action ===
+                                        "reply"
+                                    ){
+
+                                        startReply(
+                                            msg
+                                        );
+
+                                    }
+
+
+                                    if(
+                                        action ===
+                                        "edit"
+                                    ){
+
+                                        editMessage(
+                                            msg
+                                        );
+
+                                    }
+
+
+                                    if(
+                                        action ===
+                                        "delete"
+                                    ){
+
+                                        deleteMessage(
+                                            msg
+                                        );
+
+                                    }
+
+                                }
+                            );
 
                         }
                     );
 
-                });
+            }
+        );
 
-        });
 
     messages.scrollTop =
         messages.scrollHeight;
@@ -2571,18 +3994,28 @@ function renderMessages(){
 
 async function sendMessage(){
 
-    if(!currentUser || !currentChatUser){
+    if(
+        !currentUser ||
+        !currentChatUser
+    ){
+
         return;
     }
 
+
     const text =
         messageInput.value.trim();
+
 
     if(!text){
         return;
     }
 
-    sendBtn.classList.add("loading");
+
+    sendBtn.classList.add(
+        "loading"
+    );
+
 
     try{
 
@@ -2591,48 +4024,59 @@ async function sendMessage(){
         } =
             await supabaseClient
                 .from("messages")
-                .insert({
+                .insert(
+                    {
+                        sender_id:
+                            currentUser.id,
 
-                    sender_id:
-                        currentUser.id,
+                        receiver_id:
+                            currentChatUser.id,
 
-                    receiver_id:
-                        currentChatUser.id,
+                        text,
 
-                    text,
+                        reply_to:
+                            replyingTo
+                                ? replyingTo.id
+                                : null
+                    }
+                );
 
-                    reply_to:
-                        replyingTo
-                            ? replyingTo.id
-                            : null
-
-                });
 
         if(error){
             throw error;
         }
 
+
         messageInput.value = "";
+
 
         autoResizeTextarea();
 
+
         cancelReplyMode();
+
 
         await loadConversation();
 
+
         await loadChats();
+
 
     }catch(error){
 
         console.error(error);
 
+
         showToast(
             "تعذر إرسال الرسالة."
         );
 
+
     }finally{
 
-        sendBtn.classList.remove("loading");
+        sendBtn.classList.remove(
+            "loading"
+        );
 
     }
 }
@@ -2673,12 +4117,18 @@ function startReply(message){
         return;
     }
 
+
     replyingTo = message;
+
 
     replyText.textContent =
         message.text;
 
-    replyBar.classList.add("show");
+
+    replyBar.classList.add(
+        "show"
+    );
+
 
     messageInput.focus();
 }
@@ -2688,7 +4138,11 @@ function cancelReplyMode(){
 
     replyingTo = null;
 
-    replyBar.classList.remove("show");
+
+    replyBar.classList.remove(
+        "show"
+    );
+
 
     replyText.textContent = "";
 }
@@ -2710,18 +4164,22 @@ async function editMessage(message){
         return;
     }
 
+
     const newText =
         prompt(
             "عدّل الرسالة:",
             message.text
         );
 
+
     if(newText === null){
         return;
     }
 
+
     const text =
         newText.trim();
+
 
     if(!text){
 
@@ -2732,25 +4190,35 @@ async function editMessage(message){
         return;
     }
 
+
     const {
         error
     } =
         await supabaseClient
             .from("messages")
-            .update({
+            .update(
+                {
+                    text,
 
-                text,
+                    edited_at:
+                        new Date()
+                            .toISOString()
+                }
+            )
+            .eq(
+                "id",
+                message.id
+            )
+            .eq(
+                "sender_id",
+                currentUser.id
+            );
 
-                edited_at:
-                    new Date().toISOString()
-
-            })
-            .eq("id",message.id)
-            .eq("sender_id",currentUser.id);
 
     if(error){
 
         console.error(error);
+
 
         showToast(
             "تعذر تعديل الرسالة."
@@ -2758,6 +4226,7 @@ async function editMessage(message){
 
         return;
     }
+
 
     await loadConversation();
 }
@@ -2773,14 +4242,17 @@ async function deleteMessage(message){
         return;
     }
 
+
     const confirmed =
         confirm(
             "هل أنت متأكد من حذف الرسالة؟"
         );
 
+
     if(!confirmed){
         return;
     }
+
 
     const {
         error
@@ -2788,12 +4260,20 @@ async function deleteMessage(message){
         await supabaseClient
             .from("messages")
             .delete()
-            .eq("id",message.id)
-            .eq("sender_id",currentUser.id);
+            .eq(
+                "id",
+                message.id
+            )
+            .eq(
+                "sender_id",
+                currentUser.id
+            );
+
 
     if(error){
 
         console.error(error);
+
 
         showToast(
             "تعذر حذف الرسالة."
@@ -2802,7 +4282,9 @@ async function deleteMessage(message){
         return;
     }
 
+
     await loadConversation();
+
 
     await loadChats();
 }
@@ -2818,6 +4300,7 @@ async function markMessagesRead(){
         return;
     }
 
+
     try{
 
         const {
@@ -2831,11 +4314,14 @@ async function markMessagesRead(){
                 }
             );
 
+
         if(error){
+
             console.error(
                 "Mark read error:",
                 error
             );
+
         }
 
     }catch(error){
@@ -2859,6 +4345,7 @@ async function loadChats(){
         return;
     }
 
+
     const {
         data,
         error
@@ -2869,9 +4356,13 @@ async function loadChats(){
             .or(
                 `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
             )
-            .order("created_at",{
-                ascending:false
-            });
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
+
 
     if(error){
 
@@ -2882,42 +4373,60 @@ async function loadChats(){
         return;
     }
 
+
     const map =
         new Map();
 
-    (data || []).forEach(message => {
 
-        const otherId =
-            message.sender_id === currentUser.id
-                ? message.receiver_id
-                : message.sender_id;
+    (data || [])
+        .forEach(
+            message => {
 
-        if(!map.has(otherId)){
+                const otherId =
+                    message.sender_id ===
+                    currentUser.id
+                        ? message.receiver_id
+                        : message.sender_id;
 
-            map.set(
-                otherId,
-                {
-                    userId:otherId,
-                    latest:message,
-                    unread:0
+
+                if(!map.has(otherId)){
+
+                    map.set(
+                        otherId,
+                        {
+                            userId:
+                                otherId,
+
+                            latest:
+                                message,
+
+                            unread:0
+                        }
+                    );
+
                 }
-            );
 
-        }
 
-        if(
-            message.receiver_id === currentUser.id &&
-            !message.read_at
-        ){
+                if(
+                    message.receiver_id ===
+                        currentUser.id &&
+                    !message.read_at
+                ){
 
-            map.get(otherId).unread++;
+                    map.get(
+                        otherId
+                    ).unread++;
 
-        }
+                }
 
-    });
+            }
+        );
+
 
     chats =
-        Array.from(map.values());
+        Array.from(
+            map.values()
+        );
 }
 
 
@@ -2928,45 +4437,60 @@ async function loadChats(){
 function renderChats(){
 
     const query =
-        search.value.trim().toLowerCase();
+        search.value
+            .trim()
+            .toLowerCase();
+
 
     const list =
         chats
-            .map(chat => {
+            .map(
+                chat => {
 
-                const user =
-                    users.find(
-                        u => u.id === chat.userId
+                    const user =
+                        users.find(
+                            u =>
+                                u.id ===
+                                chat.userId
+                        );
+
+
+                    if(!user){
+                        return null;
+                    }
+
+
+                    return {
+                        ...chat,
+                        user
+                    };
+
+                }
+            )
+            .filter(Boolean)
+            .filter(
+                chat => {
+
+                    if(!query){
+                        return true;
+                    }
+
+
+                    return (
+                        chat.user
+                            .display_name
+                            .toLowerCase()
+                            .includes(query)
+                        ||
+                        chat.user
+                            .username
+                            .toLowerCase()
+                            .includes(query)
                     );
 
-                if(!user){
-                    return null;
                 }
+            );
 
-                return {
-                    ...chat,
-                    user
-                };
-
-            })
-            .filter(Boolean)
-            .filter(chat => {
-
-                if(!query){
-                    return true;
-                }
-
-                return (
-                    chat.user.display_name
-                        .toLowerCase()
-                        .includes(query)
-                    ||
-                    chat.user.username
-                        .toLowerCase()
-                        .includes(query)
-                );
-
-            });
 
     if(!list.length){
 
@@ -2980,125 +4504,155 @@ function renderChats(){
         return;
     }
 
+
     peopleList.innerHTML =
-        list.map(chat => {
+        list
+            .map(
+                chat => {
 
-            const user =
-                chat.user;
+                    const user =
+                        chat.user;
 
-            const latest =
-                chat.latest;
 
-            const active =
-                currentChatUser?.id === user.id
-                    ? "active"
-                    : "";
+                    const latest =
+                        chat.latest;
 
-            const online =
-                isOnline(user.id);
 
-            let preview =
-                latest.text || "";
+                    const active =
+                        currentChatUser?.id ===
+                        user.id
+                            ? "active"
+                            : "";
 
-            if(
-                latest.sender_id === currentUser.id
-            ){
 
-                preview =
-                    "أنت: " + preview;
+                    const online =
+                        isOnline(
+                            user.id
+                        );
 
-            }
 
-            return `
-                <div
-                    class="user-item ${active}"
-                    data-user-id="${user.id}"
-                >
+                    let preview =
+                        latest.text || "";
 
-                    <div class="avatar-wrap">
 
-                        <div class="avatar">
-                            ${escapeHTML(
-                                initials(
-                                    user.display_name
-                                )
-                            )}
-                        </div>
+                    if(
+                        latest.sender_id ===
+                        currentUser.id
+                    ){
 
-                        <span
-                            class="online-dot ${
-                                online ? "online" : ""
-                            }"
-                        ></span>
+                        preview =
+                            "أنت: " +
+                            preview;
 
-                    </div>
-
-                    <div class="user-info">
-
-                        <div class="user-name">
-                            ${escapeHTML(
-                                user.display_name
-                            )}
-                        </div>
-
-                        <div class="user-username">
-                            ${escapeHTML(preview)}
-                        </div>
-
-                    </div>
-
-                    ${
-                        chat.unread > 0
-                        ?
-                        `
-                        <div
-                            style="
-                                min-width:22px;
-                                height:22px;
-                                border-radius:50%;
-                                background:var(--accent);
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                font-size:10px;
-                                font-weight:bold;
-                            "
-                        >
-                            ${chat.unread}
-                        </div>
-                        `
-                        :
-                        ""
                     }
 
-                </div>
-            `;
 
-        }).join("");
+                    return `
+                        <div
+                            class="user-item ${active}"
+                            data-user-id="${user.id}">
+
+                            <div class="avatar-wrap">
+
+                                <div class="avatar">
+
+                                    ${escapeHTML(
+                                        initials(
+                                            user.display_name
+                                        )
+                                    )}
+
+                                </div>
+
+                                <span
+                                    class="online-dot ${
+                                        online
+                                            ? "online"
+                                            : ""
+                                    }">
+                                </span>
+
+                            </div>
+
+
+                            <div class="user-info">
+
+                                <div class="user-name">
+                                    ${escapeHTML(
+                                        user.display_name
+                                    )}
+                                </div>
+
+                                <div class="user-username">
+                                    ${escapeHTML(
+                                        preview
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            ${
+                                chat.unread > 0
+                                ?
+                                `
+                                <div
+                                    style="
+                                        min-width:22px;
+                                        height:22px;
+                                        border-radius:50%;
+                                        background:var(--accent);
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                        font-size:10px;
+                                        font-weight:bold;
+                                    ">
+
+                                    ${chat.unread}
+
+                                </div>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+                    `;
+
+                }
+            )
+            .join("");
+
 
     document
         .querySelectorAll(".user-item")
-        .forEach(item => {
+        .forEach(
+            item => {
 
-            item.addEventListener(
-                "click",
-                () => {
+                item.addEventListener(
+                    "click",
+                    () => {
 
-                    const user =
-                        users.find(
-                            u =>
-                                u.id ===
-                                item.dataset.userId
-                        );
+                        const user =
+                            users.find(
+                                u =>
+                                    u.id ===
+                                    item.dataset.userId
+                            );
 
-                    if(user){
-                        openChat(user);
+
+                        if(user){
+
+                            openChat(user);
+
+                        }
+
                     }
+                );
 
-                }
-            );
-
-        });
+            }
+        );
 }
 
 
@@ -3110,9 +4664,14 @@ peopleTab.addEventListener(
     "click",
     async () => {
 
-        peopleTab.classList.add("active");
+        peopleTab.classList.add(
+            "active"
+        );
 
-        chatsTab.classList.remove("active");
+        chatsTab.classList.remove(
+            "active"
+        );
+
 
         await loadUsers();
 
@@ -3124,11 +4683,17 @@ chatsTab.addEventListener(
     "click",
     async () => {
 
-        chatsTab.classList.add("active");
+        chatsTab.classList.add(
+            "active"
+        );
 
-        peopleTab.classList.remove("active");
+        peopleTab.classList.remove(
+            "active"
+        );
+
 
         await loadChats();
+
 
         renderChats();
 
@@ -3145,7 +4710,9 @@ search.addEventListener(
     () => {
 
         if(
-            chatsTab.classList.contains("active")
+            chatsTab.classList.contains(
+                "active"
+            )
         ){
 
             renderChats();
@@ -3169,12 +4736,15 @@ function subscribeToMessages(){
     if(messagesChannel){
 
         try{
+
             supabaseClient.removeChannel(
                 messagesChannel
             );
+
         }catch(e){}
 
     }
+
 
     messagesChannel =
         supabaseClient
@@ -3182,6 +4752,7 @@ function subscribeToMessages(){
                 "chatplus-messages-" +
                 currentUser.id
             )
+
 
             .on(
                 "postgres_changes",
@@ -3195,26 +4766,34 @@ function subscribeToMessages(){
                     const message =
                         payload.new;
 
+
                     const belongsToCurrentChat =
                         currentChatUser &&
                         (
                             (
-                                message.sender_id === currentUser.id &&
-                                message.receiver_id === currentChatUser.id
+                                message.sender_id ===
+                                    currentUser.id &&
+                                message.receiver_id ===
+                                    currentChatUser.id
                             )
                             ||
                             (
-                                message.sender_id === currentChatUser.id &&
-                                message.receiver_id === currentUser.id
+                                message.sender_id ===
+                                    currentChatUser.id &&
+                                message.receiver_id ===
+                                    currentUser.id
                             )
                         );
+
 
                     if(belongsToCurrentChat){
 
                         await loadConversation();
 
+
                         if(
-                            message.receiver_id === currentUser.id
+                            message.receiver_id ===
+                            currentUser.id
                         ){
 
                             await markMessagesRead();
@@ -3223,10 +4802,14 @@ function subscribeToMessages(){
 
                     }
 
+
                     await loadChats();
 
+
                     if(
-                        chatsTab.classList.contains("active")
+                        chatsTab.classList.contains(
+                            "active"
+                        )
                     ){
 
                         renderChats();
@@ -3235,6 +4818,7 @@ function subscribeToMessages(){
 
                 }
             )
+
 
             .on(
                 "postgres_changes",
@@ -3248,19 +4832,25 @@ function subscribeToMessages(){
                     const message =
                         payload.new;
 
+
                     const belongsToCurrentChat =
                         currentChatUser &&
                         (
                             (
-                                message.sender_id === currentUser.id &&
-                                message.receiver_id === currentChatUser.id
+                                message.sender_id ===
+                                    currentUser.id &&
+                                message.receiver_id ===
+                                    currentChatUser.id
                             )
                             ||
                             (
-                                message.sender_id === currentChatUser.id &&
-                                message.receiver_id === currentUser.id
+                                message.sender_id ===
+                                    currentChatUser.id &&
+                                message.receiver_id ===
+                                    currentUser.id
                             )
                         );
+
 
                     if(belongsToCurrentChat){
 
@@ -3268,10 +4858,14 @@ function subscribeToMessages(){
 
                     }
 
+
                     await loadChats();
 
+
                     if(
-                        chatsTab.classList.contains("active")
+                        chatsTab.classList.contains(
+                            "active"
+                        )
                     ){
 
                         renderChats();
@@ -3280,6 +4874,7 @@ function subscribeToMessages(){
 
                 }
             )
+
 
             .on(
                 "postgres_changes",
@@ -3296,10 +4891,14 @@ function subscribeToMessages(){
 
                     }
 
+
                     await loadChats();
 
+
                     if(
-                        chatsTab.classList.contains("active")
+                        chatsTab.classList.contains(
+                            "active"
+                        )
                     ){
 
                         renderChats();
@@ -3308,6 +4907,7 @@ function subscribeToMessages(){
 
                 }
             )
+
 
             .subscribe();
 
@@ -3324,7 +4924,9 @@ profileBtn.addEventListener(
 
         updateMyProfileUI();
 
-        profile.classList.add("open");
+        profile.classList.add(
+            "open"
+        );
 
     }
 );
@@ -3334,7 +4936,9 @@ closeProfile.addEventListener(
     "click",
     () => {
 
-        profile.classList.remove("open");
+        profile.classList.remove(
+            "open"
+        );
 
     }
 );
@@ -3348,18 +4952,25 @@ chatProfileBtn.addEventListener(
             return;
         }
 
+
         profileAvatar.textContent =
             initials(
                 currentChatUser.display_name
             );
 
+
         profileName.textContent =
             currentChatUser.display_name;
 
-        profileUsername.textContent =
-            "@" + currentChatUser.username;
 
-        profile.classList.add("open");
+        profileUsername.textContent =
+            "@" +
+            currentChatUser.username;
+
+
+        profile.classList.add(
+            "open"
+        );
 
     }
 );
@@ -3377,19 +4988,24 @@ backBtn.addEventListener(
             "chat-open"
         );
 
+
         currentChatUser = null;
+
 
         composerWrap.classList.add(
             "hidden"
         );
 
+
         chatUser.classList.add(
             "hidden"
         );
 
+
         chatProfileBtn.classList.add(
             "hidden"
         );
+
 
         messages.innerHTML = `
             <div class="welcome-chat">
@@ -3400,7 +5016,9 @@ backBtn.addEventListener(
                         💬
                     </div>
 
-                    <h2>مرحبًا بك في Chat+</h2>
+                    <h2>
+                        مرحبًا بك في Chat+
+                    </h2>
 
                     <p>
                         اختار شخص من القائمة وابدأ محادثة خاصة.
@@ -3438,16 +5056,21 @@ emojiBtn.addEventListener(
             "💙"
         ];
 
+
         const emoji =
             emojis[
                 Math.floor(
-                    Math.random() * emojis.length
+                    Math.random() *
+                    emojis.length
                 )
             ];
 
+
         messageInput.value += emoji;
 
+
         messageInput.focus();
+
 
         autoResizeTextarea();
 
@@ -3464,11 +5087,13 @@ function autoResizeTextarea(){
     messageInput.style.height =
         "auto";
 
+
     messageInput.style.height =
         Math.min(
             messageInput.scrollHeight,
             130
-        ) + "px";
+        ) +
+        "px";
 }
 
 
@@ -3490,6 +5115,7 @@ document.addEventListener(
             return;
         }
 
+
         if(document.hidden){
 
             await setOnline(false);
@@ -3497,6 +5123,14 @@ document.addEventListener(
         }else{
 
             await setOnline(true);
+
+            /*
+               لما المستخدم يرجع للتطبيق،
+               نتأكد إن الـ Push subscription
+               ما زالت موجودة.
+            */
+
+            await checkPushSubscription();
 
         }
 
@@ -3516,12 +5150,19 @@ window.addEventListener(
 
             supabaseClient
                 .from("profiles")
-                .update({
-                    online:false,
-                    last_seen:
-                        new Date().toISOString()
-                })
-                .eq("id",currentUser.id);
+                .update(
+                    {
+                        online:false,
+
+                        last_seen:
+                            new Date()
+                                .toISOString()
+                    }
+                )
+                .eq(
+                    "id",
+                    currentUser.id
+                );
 
         }
 
@@ -3534,7 +5175,10 @@ window.addEventListener(
 ========================================================= */
 
 supabaseClient.auth.onAuthStateChange(
-    async (event,session) => {
+    async (
+        event,
+        session
+    ) => {
 
         if(
             session &&
@@ -3544,14 +5188,18 @@ supabaseClient.auth.onAuthStateChange(
             currentUser =
                 session.user;
 
+
             await loadCurrentProfile();
+
 
             await enterApp();
 
         }
 
+
         if(
-            event === "SIGNED_OUT"
+            event ===
+            "SIGNED_OUT"
         ){
 
             showAuth();
@@ -3568,11 +5216,23 @@ supabaseClient.auth.onAuthStateChange(
 
 (async function(){
 
-    setAuthMode("login");
+    setAuthMode(
+        "login"
+    );
+
 
     try{
 
+        /*
+           تسجيل Service Worker من البداية
+           حتى يكون جاهز قبل طلب Push.
+        */
+
+        await registerPushServiceWorker();
+
+
         await loadCurrentUser();
+
 
     }catch(error){
 
@@ -3580,6 +5240,7 @@ supabaseClient.auth.onAuthStateChange(
             "START ERROR:",
             error
         );
+
 
         showAuth();
 
