@@ -1708,13 +1708,8 @@ function normalizeUsername(username){
 
 
 /*
- * مهم:
  * Supabase Auth يحتاج email أو phone.
- * إحنا هنستخدم email داخلي وهمي ومخفي عن المستخدم.
- *
- * مثال:
- * username = ziad
- * auth email = ziad@chatplus.local
+ * التسجيل الجديد يستخدم email داخلي مخفي.
  */
 
 function getInternalEmail(username){
@@ -1769,7 +1764,8 @@ switchAuthBtn.addEventListener(
 
 /* =========================================================
    LOGIN
-   USERNAME + PASSWORD ONLY
+   USERNAME + PASSWORD
+   COMPATIBLE WITH OLD ACCOUNTS
 ========================================================= */
 
 loginForm.addEventListener(
@@ -1780,12 +1776,14 @@ loginForm.addEventListener(
 
         clearAuthError();
 
+
         const username =
             normalizeUsername(
                 document
                     .getElementById("loginUsername")
                     .value
             );
+
 
         const password =
             document
@@ -1811,6 +1809,7 @@ loginForm.addEventListener(
                 "button[type='submit']"
             );
 
+
         submitButton.disabled = true;
 
         submitButton.textContent =
@@ -1819,28 +1818,73 @@ loginForm.addEventListener(
 
         try{
 
+            /*
+             * أولًا:
+             * نجيب الإيميل المرتبط باسم المستخدم
+             * من RPC في Supabase.
+             *
+             * المستخدم نفسه لا يرى الإيميل.
+             */
+
             const {
-                error
+                data: loginEmail,
+                error: lookupError
+            } =
+                await supabaseClient.rpc(
+                    "get_login_email",
+                    {
+                        p_username:
+                            username
+                    }
+                );
+
+
+            if(
+                lookupError ||
+                !loginEmail
+            ){
+
+                console.error(
+                    "Username lookup error:",
+                    lookupError
+                );
+
+
+                showAuthError(
+                    "اسم المستخدم أو كلمة المرور غير صحيحة."
+                );
+
+                return;
+            }
+
+
+            /*
+             * ثانيًا:
+             * تسجيل الدخول بالإيميل الحقيقي
+             * المرتبط بالحساب القديم.
+             */
+
+            const {
+                error: loginError
             } =
                 await supabaseClient.auth
                     .signInWithPassword({
 
                         email:
-                            getInternalEmail(
-                                username
-                            ),
+                            loginEmail,
 
                         password
 
                     });
 
 
-            if(error){
+            if(loginError){
 
                 console.error(
                     "Login error:",
-                    error
+                    loginError
                 );
+
 
                 showAuthError(
                     "اسم المستخدم أو كلمة المرور غير صحيحة."
@@ -1857,7 +1901,11 @@ loginForm.addEventListener(
 
         }catch(error){
 
-            console.error(error);
+            console.error(
+                "Unexpected login error:",
+                error
+            );
+
 
             showAuthError(
                 "حصل خطأ غير متوقع."
@@ -1946,6 +1994,7 @@ signupForm.addEventListener(
                 "button[type='submit']"
             );
 
+
         submitButton.disabled = true;
 
         submitButton.textContent =
@@ -1955,12 +2004,15 @@ signupForm.addEventListener(
         try{
 
             /*
+             * الحسابات الجديدة:
              * نستخدم email داخلي فقط.
              * المستخدم لا يراه ولا يكتبه.
              */
 
             const internalEmail =
-                getInternalEmail(username);
+                getInternalEmail(
+                    username
+                );
 
 
             const {
@@ -1992,6 +2044,7 @@ signupForm.addEventListener(
                     error
                 );
 
+
                 if(
                     error.message
                         ?.toLowerCase()
@@ -2014,11 +2067,6 @@ signupForm.addEventListener(
             }
 
 
-            /*
-             * لو Confirmation مقفول:
-             * هيكون فيه session مباشرة.
-             */
-
             if(data.session){
 
                 showToast(
@@ -2028,11 +2076,6 @@ signupForm.addEventListener(
                 signupForm.reset();
 
             }else{
-
-                /*
-                 * لو ظهر ده غالبًا Email Confirmation شغال.
-                 * والـ .local email لا يمكن للمستخدم تأكيده.
-                 */
 
                 showAuthError(
                     "الحساب اتعمل لكن تأكيد البريد الإلكتروني مفعّل في Supabase. اقفل Email Confirmation من إعدادات Authentication."
