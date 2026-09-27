@@ -28,10 +28,6 @@
 
 <style>
 
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -43,17 +39,12 @@
     --panel:#101010;
     --panel2:#151515;
     --panel3:#1b1b1b;
-
     --border:rgba(255,255,255,.08);
-
     --text:#fff;
     --muted:#999;
-
     --bubble:#202020;
-
     --mine:#fff;
     --mineText:#080808;
-
     --danger:#ff4d5e;
 }
 
@@ -61,9 +52,7 @@ body{
     font-family:"Cairo",sans-serif;
     background:var(--bg);
     color:var(--text);
-
     min-height:100vh;
-
     overflow:hidden;
 }
 
@@ -88,16 +77,12 @@ button{
 ========================================================= */
 
 .auth-screen{
-
     width:100%;
     height:100vh;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     padding:20px;
-
     background:
         radial-gradient(
             circle at 50% 0%,
@@ -108,32 +93,20 @@ button{
 }
 
 .auth-box{
-
     width:100%;
     max-width:430px;
-
     background:rgba(17,17,17,.94);
-
     border:1px solid var(--border);
-
     border-radius:28px;
-
     padding:35px;
-
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.55);
+    box-shadow:0 30px 100px rgba(0,0,0,.55);
 }
 
 .logo{
-
     text-align:center;
-
     font-size:42px;
-
     font-weight:800;
-
     letter-spacing:-2px;
-
     margin-bottom:7px;
 }
 
@@ -142,22 +115,15 @@ button{
 }
 
 .auth-subtitle{
-
     text-align:center;
-
     color:var(--muted);
-
     font-size:14px;
-
     margin-bottom:30px;
 }
 
 .auth-form{
-
     display:flex;
-
     flex-direction:column;
-
     gap:13px;
 }
 
@@ -166,57 +132,35 @@ button{
 }
 
 .field input{
-
     width:100%;
-
     height:54px;
-
     padding:0 17px;
-
     background:#0d0d0d;
-
     border:1px solid var(--border);
-
     border-radius:15px;
-
     color:#fff;
-
     outline:none;
-
     transition:.2s;
 }
 
 .field input:focus{
-
-    border-color:
-        rgba(255,255,255,.35);
-
+    border-color:rgba(255,255,255,.35);
     background:#111;
 }
 
 .auth-btn{
-
     height:54px;
-
     border-radius:15px;
-
     background:#fff;
-
     color:#000;
-
     font-weight:800;
-
     font-size:15px;
-
     margin-top:5px;
-
     transition:.2s;
 }
 
 .auth-btn:hover{
-
     transform:translateY(-1px);
-
     opacity:.92;
 }
 
@@ -226,43 +170,26 @@ button{
 }
 
 .switch-auth{
-
     text-align:center;
-
     margin-top:20px;
-
     color:var(--muted);
-
     font-size:13px;
 }
 
 .switch-auth button{
-
     background:none;
-
     color:#fff;
-
     font-weight:700;
-
     margin-right:5px;
 }
 
 .auth-error{
-
-    background:
-        rgba(255,77,94,.1);
-
-    border:
-        1px solid rgba(255,77,94,.2);
-
+    background:rgba(255,77,94,.1);
+    border:1px solid rgba(255,77,94,.2);
     color:#ff8c97;
-
     padding:11px 13px;
-
     border-radius:12px;
-
     font-size:12px;
-
     margin-bottom:12px;
 }
 
@@ -272,13 +199,9 @@ button{
 ========================================================= */
 
 .app{
-
     height:100vh;
-
     width:100%;
-
     display:flex;
-
     background:#080808;
 }
 
@@ -288,20 +211,12 @@ button{
 ========================================================= */
 
 .sidebar{
-
     width:350px;
-
     min-width:350px;
-
     height:100%;
-
-    border-left:
-        1px solid var(--border);
-
+    border-left:1px solid var(--border);
     background:#0d0d0d;
-
     display:flex;
-
     flex-direction:column;
 }
 
@@ -310,22 +225,15 @@ button{
 }
 
 .brand-row{
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     margin-bottom:20px;
 }
 
 .brand{
-
     font-size:25px;
-
     font-weight:800;
-
     letter-spacing:-1px;
 }
 
@@ -334,25 +242,15 @@ button{
 }
 
 .profile-mini{
-
     width:40px;
     height:40px;
-
     border-radius:50%;
-
     background:#202020;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-weight:800;
-
-    border:
-        1px solid var(--border);
-
+    border:1px solid var(--border);
     cursor:pointer;
 }
 
@@ -361,79 +259,48 @@ button{
 }
 
 .search-box input{
-
     width:100%;
-
     height:46px;
-
     background:#171717;
-
-    border:
-        1px solid var(--border);
-
+    border:1px solid var(--border);
     border-radius:14px;
-
     color:#fff;
-
-    padding:
-        0 43px 0 14px;
-
+    padding:0 43px 0 14px;
     outline:none;
 }
 
 .search-icon{
-
     position:absolute;
-
     right:14px;
-
     top:50%;
-
     transform:translateY(-50%);
-
     color:#777;
 }
 
 .tabs{
-
     display:flex;
-
-    padding:
-        12px 20px 5px;
-
+    padding:12px 20px 5px;
     gap:7px;
 }
 
 .tab{
-
     flex:1;
-
     height:40px;
-
     border-radius:11px;
-
     background:transparent;
-
     color:#777;
-
     font-weight:700;
 }
 
 .tab.active{
-
     background:#1b1b1b;
-
     color:#fff;
 }
 
 .people-list{
-
     flex:1;
-
     overflow-y:auto;
-
-    padding:
-        8px 10px 20px;
+    padding:8px 10px 20px;
 }
 
 .people-list::-webkit-scrollbar,
@@ -443,26 +310,17 @@ button{
 
 .people-list::-webkit-scrollbar-thumb,
 .messages::-webkit-scrollbar-thumb{
-
     background:#2b2b2b;
-
     border-radius:20px;
 }
 
 .person{
-
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
     padding:12px;
-
     border-radius:15px;
-
     cursor:pointer;
-
     transition:.15s;
 }
 
@@ -475,95 +333,54 @@ button{
 }
 
 .avatar{
-
     width:46px;
-
     height:46px;
-
     min-width:46px;
-
     border-radius:50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #292929,
-            #111
-        );
-
-    border:
-        1px solid var(--border);
-
+    background:linear-gradient(145deg,#292929,#111);
+    border:1px solid var(--border);
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-weight:800;
-
     position:relative;
 }
 
 .online-dot{
-
     position:absolute;
-
     width:11px;
-
     height:11px;
-
     border-radius:50%;
-
     background:#55e68a;
-
-    border:
-        2px solid #0d0d0d;
-
+    border:2px solid #0d0d0d;
     bottom:0;
-
     left:0;
 }
 
 .person-info{
-
     min-width:0;
-
     flex:1;
 }
 
 .person-name{
-
     font-size:14px;
-
     font-weight:700;
-
     white-space:nowrap;
-
     overflow:hidden;
-
     text-overflow:ellipsis;
 }
 
 .person-username{
-
     color:#777;
-
     font-size:11px;
-
     direction:ltr;
-
     text-align:right;
 }
 
 .empty{
-
     text-align:center;
-
     color:#666;
-
     font-size:13px;
-
     padding:40px 20px;
 }
 
@@ -573,109 +390,67 @@ button{
 ========================================================= */
 
 .chat{
-
     flex:1;
-
     min-width:0;
-
     display:flex;
-
     flex-direction:column;
-
     position:relative;
 }
 
 .chat-header{
-
     height:74px;
-
     min-height:74px;
-
-    padding:
-        0 22px;
-
-    border-bottom:
-        1px solid var(--border);
-
+    padding:0 22px;
+    border-bottom:1px solid var(--border);
     display:flex;
-
     align-items:center;
-
     gap:13px;
-
-    background:
-        rgba(10,10,10,.9);
+    background:rgba(10,10,10,.9);
 }
 
 .back-btn{
-
     display:none;
-
     width:40px;
-
     height:40px;
-
     border-radius:12px;
-
     background:#181818;
-
     color:#fff;
-
     font-size:20px;
 }
 
 .header-avatar{
-
     width:42px;
-
     height:42px;
-
     min-width:42px;
 }
 
 .header-info{
-
     flex:1;
-
     min-width:0;
 }
 
 .header-name{
-
     font-size:14px;
-
     font-weight:800;
 }
 
 .header-status{
-
     font-size:11px;
-
     color:#777;
 }
 
 .header-actions{
-
     display:flex;
-
     gap:7px;
 }
 
 .icon-btn{
-
     width:40px;
-
     height:40px;
-
     border-radius:12px;
-
     background:#171717;
-
     color:#fff;
-
-    border:
-        1px solid var(--border);
-
+    border:1px solid var(--border);
     font-size:17px;
 }
 
@@ -685,41 +460,27 @@ button{
 ========================================================= */
 
 .messages{
-
     flex:1;
-
     overflow-y:auto;
-
-    padding:
-        25px clamp(15px,5vw,80px);
-
+    padding:25px clamp(15px,5vw,80px);
     display:flex;
-
     flex-direction:column;
-
     gap:7px;
 }
 
 .start-chat{
-
     margin:auto;
-
     text-align:center;
-
     color:#555;
 }
 
 .start-chat .big{
-
     font-size:50px;
-
     margin-bottom:10px;
 }
 
 .message-row{
-
     display:flex;
-
     width:100%;
 }
 
@@ -732,38 +493,24 @@ button{
 }
 
 .message{
-
     max-width:min(70%,600px);
-
     position:relative;
 }
 
 .bubble{
-
-    padding:
-        10px 14px;
-
+    padding:10px 14px;
     border-radius:17px;
-
     background:var(--bubble);
-
     color:#fff;
-
     font-size:14px;
-
     line-height:1.7;
-
     word-break:break-word;
-
     white-space:pre-wrap;
 }
 
 .mine .bubble{
-
     background:var(--mine);
-
     color:var(--mineText);
-
     border-bottom-right-radius:5px;
 }
 
@@ -772,13 +519,9 @@ button{
 }
 
 .message-meta{
-
     font-size:9px;
-
     color:#666;
-
     margin-top:3px;
-
     padding:0 5px;
 }
 
@@ -787,63 +530,36 @@ button{
 }
 
 .edited{
-
     color:#777;
-
     font-size:9px;
-
     margin-right:4px;
 }
 
 .reply-preview{
-
-    border-right:
-        3px solid #888;
-
-    background:
-        rgba(255,255,255,.06);
-
-    padding:
-        5px 8px;
-
+    border-right:3px solid #888;
+    background:rgba(255,255,255,.06);
+    padding:5px 8px;
     border-radius:8px;
-
     font-size:11px;
-
     color:#aaa;
-
     margin-bottom:7px;
 }
 
 .mine .reply-preview{
-
     border-right-color:#777;
-
-    background:
-        rgba(0,0,0,.08);
-
+    background:rgba(0,0,0,.08);
     color:#555;
 }
 
 .message-menu{
-
     position:absolute;
-
     top:-40px;
-
     right:0;
-
     display:none;
-
     background:#202020;
-
-    border:
-        1px solid var(--border);
-
+    border:1px solid var(--border);
     border-radius:10px;
-
     overflow:hidden;
-
     z-index:5;
 }
 
@@ -852,14 +568,9 @@ button{
 }
 
 .message-menu button{
-
     background:none;
-
     color:#fff;
-
-    padding:
-        7px 9px;
-
+    padding:7px 9px;
     font-size:11px;
 }
 
@@ -873,35 +584,20 @@ button{
 ========================================================= */
 
 .composer{
-
-    padding:
-        13px 18px 18px;
-
-    border-top:
-        1px solid var(--border);
-
+    padding:13px 18px 18px;
+    border-top:1px solid var(--border);
     background:#0b0b0b;
 }
 
 .reply-bar{
-
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
-    padding:
-        8px 12px;
-
+    padding:8px 12px;
     background:#161616;
-
     border-radius:12px;
-
     margin-bottom:8px;
-
     font-size:11px;
-
     color:#aaa;
 }
 
@@ -910,62 +606,37 @@ button{
 }
 
 .reply-close{
-
     background:none;
-
     color:#fff;
-
     font-size:16px;
 }
 
 .composer-inner{
-
     display:flex;
-
     align-items:flex-end;
-
     gap:8px;
 }
 
 .textarea-wrap{
-
     flex:1;
-
     background:#161616;
-
-    border:
-        1px solid var(--border);
-
+    border:1px solid var(--border);
     border-radius:17px;
-
     display:flex;
-
     align-items:flex-end;
-
     padding:7px 8px;
 }
 
 #messageInput{
-
     width:100%;
-
     min-height:42px;
-
     max-height:130px;
-
     resize:none;
-
     background:none;
-
     border:0;
-
     outline:0;
-
     color:#fff;
-
-    padding:
-        9px 8px;
-
+    padding:9px 8px;
     font-size:14px;
 }
 
@@ -975,40 +646,27 @@ button{
 
 .emoji-btn,
 .send-btn{
-
     width:43px;
-
     height:43px;
-
     min-width:43px;
-
     border-radius:13px;
 }
 
 .emoji-btn{
-
     background:#1b1b1b;
-
     color:#fff;
-
     font-size:19px;
 }
 
 .send-btn{
-
     background:#fff;
-
     color:#000;
-
     font-size:18px;
-
     font-weight:800;
 }
 
 .send-btn:disabled{
-
     opacity:.3;
-
     cursor:not-allowed;
 }
 
@@ -1018,30 +676,17 @@ button{
 ========================================================= */
 
 .profile-panel{
-
     position:absolute;
-
     top:0;
-
     left:0;
-
     width:340px;
-
     height:100%;
-
     background:#111;
-
-    border-right:
-        1px solid var(--border);
-
+    border-right:1px solid var(--border);
     z-index:30;
-
     transform:translateX(-105%);
-
     transition:.25s ease;
-
-    box-shadow:
-        20px 0 80px rgba(0,0,0,.4);
+    box-shadow:20px 0 80px rgba(0,0,0,.4);
 }
 
 .profile-panel.open{
@@ -1049,124 +694,70 @@ button{
 }
 
 .profile-head{
-
     height:74px;
-
-    border-bottom:
-        1px solid var(--border);
-
+    border-bottom:1px solid var(--border);
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
-    padding:
-        0 18px;
+    padding:0 18px;
 }
 
 .profile-head button{
-
     background:none;
-
     color:#fff;
-
     font-size:20px;
 }
 
 .profile-content{
-
-    padding:
-        30px 20px;
-
+    padding:30px 20px;
     text-align:center;
 }
 
 .profile-avatar{
-
     width:90px;
-
     height:90px;
-
     margin:auto;
-
     border-radius:50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #303030,
-            #111
-        );
-
+    background:linear-gradient(145deg,#303030,#111);
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-size:30px;
-
     font-weight:800;
-
-    border:
-        1px solid var(--border);
+    border:1px solid var(--border);
 }
 
 .profile-name{
-
     font-size:20px;
-
     font-weight:800;
-
     margin-top:15px;
 }
 
 .profile-username{
-
     color:#666;
-
     font-size:12px;
-
     direction:ltr;
 }
 
 .profile-actions{
-
     margin-top:30px;
-
     display:flex;
-
     flex-direction:column;
-
     gap:9px;
 }
 
 .profile-action{
-
     width:100%;
-
     min-height:48px;
-
     border-radius:13px;
-
     background:#1a1a1a;
-
     color:#fff;
-
     text-align:right;
-
-    padding:
-        0 15px;
-
+    padding:0 15px;
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
-    border:
-        1px solid var(--border);
+    border:1px solid var(--border);
 }
 
 .profile-action:hover{
@@ -1188,44 +779,25 @@ button{
 ========================================================= */
 
 .toast{
-
     position:fixed;
-
     bottom:25px;
-
     left:50%;
-
-    transform:
-        translate(-50%,20px);
-
+    transform:translate(-50%,20px);
     background:#fff;
-
     color:#000;
-
-    padding:
-        11px 17px;
-
+    padding:11px 17px;
     border-radius:12px;
-
     font-size:12px;
-
     font-weight:700;
-
     opacity:0;
-
     pointer-events:none;
-
     transition:.25s;
-
     z-index:100;
 }
 
 .toast.show{
-
     opacity:1;
-
-    transform:
-        translate(-50%,0);
+    transform:translate(-50%,0);
 }
 
 
@@ -1234,35 +806,19 @@ button{
 ========================================================= */
 
 .emoji-panel{
-
     position:absolute;
-
     bottom:82px;
-
     right:20px;
-
     width:270px;
-
     background:#171717;
-
-    border:
-        1px solid var(--border);
-
+    border:1px solid var(--border);
     border-radius:17px;
-
     padding:12px;
-
     display:none;
-
-    grid-template-columns:
-        repeat(7,1fr);
-
+    grid-template-columns:repeat(7,1fr);
     gap:5px;
-
     z-index:20;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.4);
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
 }
 
 .emoji-panel.open{
@@ -1270,13 +826,9 @@ button{
 }
 
 .emoji{
-
     background:none;
-
     font-size:21px;
-
     padding:6px;
-
     border-radius:8px;
 }
 
@@ -1290,37 +842,23 @@ button{
 ========================================================= */
 
 .loading{
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     height:100%;
-
     color:#555;
 }
 
 .loader{
-
     width:25px;
-
     height:25px;
-
-    border:
-        2px solid #333;
-
+    border:2px solid #333;
     border-top-color:#fff;
-
     border-radius:50%;
-
-    animation:
-        spin .7s linear infinite;
+    animation:spin .7s linear infinite;
 }
 
 @keyframes spin{
-
     to{
         transform:rotate(360deg);
     }
@@ -1334,24 +872,16 @@ button{
 @media(max-width:800px){
 
     .sidebar{
-
         width:100%;
-
         min-width:100%;
     }
 
     .chat{
-
         position:absolute;
-
         inset:0;
-
         background:#080808;
-
         transform:translateX(100%);
-
         transition:.25s ease;
-
         z-index:10;
     }
 
@@ -1368,8 +898,7 @@ button{
     }
 
     .messages{
-        padding:
-            18px 12px;
+        padding:18px 12px;
     }
 
     .profile-panel{
@@ -1377,16 +906,13 @@ button{
     }
 
     .auth-box{
-        padding:
-            27px 20px;
+        padding:27px 20px;
     }
-
 }
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -1410,16 +936,13 @@ button{
             محادثات خاصة. بسيطة. سريعة.
         </div>
 
-
         <div
             id="authError"
             class="auth-error hidden"
         ></div>
 
 
-        <!-- =========================
-             LOGIN
-        ========================== -->
+        <!-- LOGIN -->
 
         <form
             id="loginForm"
@@ -1439,7 +962,6 @@ button{
 
             </div>
 
-
             <div class="field">
 
                 <input
@@ -1452,7 +974,6 @@ button{
 
             </div>
 
-
             <button
                 class="auth-btn"
                 type="submit"
@@ -1463,9 +984,7 @@ button{
         </form>
 
 
-        <!-- =========================
-             SIGNUP
-        ========================== -->
+        <!-- SIGNUP -->
 
         <form
             id="signupForm"
@@ -1484,7 +1003,6 @@ button{
 
             </div>
 
-
             <div class="field">
 
                 <input
@@ -1498,20 +1016,6 @@ button{
 
             </div>
 
-
-            <div class="field">
-
-                <input
-                    id="signupEmail"
-                    type="email"
-                    placeholder="البريد الإلكتروني"
-                    autocomplete="email"
-                    required
-                >
-
-            </div>
-
-
             <div class="field">
 
                 <input
@@ -1524,7 +1028,6 @@ button{
                 >
 
             </div>
-
 
             <button
                 class="auth-btn"
@@ -1556,7 +1059,6 @@ button{
 </section>
 
 
-
 <!-- =========================================================
      APP
 ========================================================= -->
@@ -1567,22 +1069,17 @@ button{
 >
 
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
-
         <div class="sidebar-top">
-
 
             <div class="brand-row">
 
                 <div class="brand">
                     Chat<span>+</span>
                 </div>
-
 
                 <button
                     id="profileMini"
@@ -1593,7 +1090,6 @@ button{
                 </button>
 
             </div>
-
 
             <div class="search-box">
 
@@ -1623,7 +1119,6 @@ button{
                 الأشخاص
             </button>
 
-
             <button
                 id="chatsTab"
                 class="tab"
@@ -1641,9 +1136,7 @@ button{
         >
 
             <div class="loading">
-
                 <div class="loader"></div>
-
             </div>
 
         </div>
@@ -1651,16 +1144,11 @@ button{
     </aside>
 
 
-
-    <!-- =====================================================
-         CHAT
-    ====================================================== -->
+    <!-- CHAT -->
 
     <section class="chat">
 
-
         <header class="chat-header">
-
 
             <button
                 id="backBtn"
@@ -1670,14 +1158,12 @@ button{
                 ‹
             </button>
 
-
             <div
                 id="headerAvatar"
                 class="avatar header-avatar"
             >
                 +
             </div>
-
 
             <div class="header-info">
 
@@ -1688,7 +1174,6 @@ button{
                     Chat+
                 </div>
 
-
                 <div
                     id="headerStatus"
                     class="header-status"
@@ -1697,7 +1182,6 @@ button{
                 </div>
 
             </div>
-
 
             <div class="header-actions">
 
@@ -1713,7 +1197,6 @@ button{
             </div>
 
         </header>
-
 
 
         <div
@@ -1736,13 +1219,9 @@ button{
         </div>
 
 
-
-        <!-- =================================================
-             COMPOSER
-        ================================================== -->
+        <!-- COMPOSER -->
 
         <div class="composer">
-
 
             <div
                 id="replyBar"
@@ -1759,7 +1238,6 @@ button{
 
                 </div>
 
-
                 <button
                     id="cancelReply"
                     class="reply-close"
@@ -1773,7 +1251,6 @@ button{
 
             <div class="composer-inner">
 
-
                 <button
                     id="emojiBtn"
                     class="emoji-btn"
@@ -1781,7 +1258,6 @@ button{
                 >
                     😊
                 </button>
-
 
                 <div class="textarea-wrap">
 
@@ -1794,7 +1270,6 @@ button{
                     ></textarea>
 
                 </div>
-
 
                 <button
                     id="sendBtn"
@@ -1810,10 +1285,7 @@ button{
         </div>
 
 
-
-        <!-- =================================================
-             EMOJI PANEL
-        ================================================== -->
+        <!-- EMOJI -->
 
         <div
             id="emojiPanel"
@@ -1855,16 +1327,12 @@ button{
         </div>
 
 
-
-        <!-- =================================================
-             PROFILE PANEL
-        ================================================== -->
+        <!-- PROFILE -->
 
         <aside
             id="profilePanel"
             class="profile-panel"
         >
-
 
             <div class="profile-head">
 
@@ -1884,14 +1352,12 @@ button{
 
             <div class="profile-content">
 
-
                 <div
                     id="profileAvatar"
                     class="profile-avatar"
                 >
                     U
                 </div>
-
 
                 <div
                     id="profileName"
@@ -1900,7 +1366,6 @@ button{
                     مستخدم
                 </div>
 
-
                 <div
                     id="profileUsername"
                     class="profile-username"
@@ -1908,9 +1373,7 @@ button{
                     @username
                 </div>
 
-
                 <div class="profile-actions">
-
 
                     <button
                         id="notificationBtn"
@@ -1927,7 +1390,6 @@ button{
                         </span>
 
                     </button>
-
 
 
                     <button
@@ -1947,7 +1409,6 @@ button{
                     </button>
 
 
-
                     <button
                         id="logoutBtn"
                         class="profile-action danger"
@@ -1964,25 +1425,21 @@ button{
 
                     </button>
 
-
                 </div>
 
             </div>
 
         </aside>
 
-
     </section>
 
 </main>
-
 
 
 <div
     id="toast"
     class="toast"
 ></div>
-
 
 
 <script>
@@ -1999,7 +1456,7 @@ const SUPABASE_KEY =
 
 
 /* =========================================================
-   VAPID PUBLIC KEY
+   VAPID
 ========================================================= */
 
 const VAPID_PUBLIC_KEY =
@@ -2007,7 +1464,7 @@ const VAPID_PUBLIC_KEY =
 
 
 /* =========================================================
-   SUPABASE CLIENT
+   SUPABASE
 ========================================================= */
 
 const supabaseClient =
@@ -2022,27 +1479,16 @@ const supabaseClient =
 ========================================================= */
 
 let currentUser = null;
-
 let currentProfile = null;
-
 let selectedUser = null;
-
 let allUsers = [];
-
 let allMessages = [];
-
 let messagesChannel = null;
-
 let profilesChannel = null;
-
 let activeTab = "people";
-
 let searchTerm = "";
-
 let replyingTo = null;
-
 let editingMessage = null;
-
 let signupMode = false;
 
 
@@ -2050,17 +1496,11 @@ let signupMode = false;
    DOM
 ========================================================= */
 
-const authScreen =
-    document.getElementById("authScreen");
+const authScreen = document.getElementById("authScreen");
+const app = document.getElementById("app");
 
-const app =
-    document.getElementById("app");
-
-const loginForm =
-    document.getElementById("loginForm");
-
-const signupForm =
-    document.getElementById("signupForm");
+const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
 
 const switchAuthBtn =
     document.getElementById("switchAuthBtn");
@@ -2161,9 +1601,7 @@ function showToast(text){
 
     window.toastTimer =
         setTimeout(() => {
-
             toast.classList.remove("show");
-
         },2500);
 }
 
@@ -2269,8 +1707,27 @@ function normalizeUsername(username){
 }
 
 
+/*
+ * مهم:
+ * Supabase Auth يحتاج email أو phone.
+ * إحنا هنستخدم email داخلي وهمي ومخفي عن المستخدم.
+ *
+ * مثال:
+ * username = ziad
+ * auth email = ziad@chatplus.local
+ */
+
+function getInternalEmail(username){
+
+    return (
+        normalizeUsername(username) +
+        "@chatplus.local"
+    );
+}
+
+
 /* =========================================================
-   AUTH MODE SWITCH
+   AUTH MODE
 ========================================================= */
 
 switchAuthBtn.addEventListener(
@@ -2284,13 +1741,9 @@ switchAuthBtn.addEventListener(
 
         if(signupMode){
 
-            loginForm.classList.add(
-                "hidden"
-            );
+            loginForm.classList.add("hidden");
 
-            signupForm.classList.remove(
-                "hidden"
-            );
+            signupForm.classList.remove("hidden");
 
             switchText.textContent =
                 "عندك حساب بالفعل؟";
@@ -2300,13 +1753,9 @@ switchAuthBtn.addEventListener(
 
         }else{
 
-            signupForm.classList.add(
-                "hidden"
-            );
+            signupForm.classList.add("hidden");
 
-            loginForm.classList.remove(
-                "hidden"
-            );
+            loginForm.classList.remove("hidden");
 
             switchText.textContent =
                 "معندكش حساب؟";
@@ -2319,7 +1768,8 @@ switchAuthBtn.addEventListener(
 
 
 /* =========================================================
-   LOGIN WITH USERNAME
+   LOGIN
+   USERNAME + PASSWORD ONLY
 ========================================================= */
 
 loginForm.addEventListener(
@@ -2331,10 +1781,11 @@ loginForm.addEventListener(
         clearAuthError();
 
         const username =
-            document
-                .getElementById("loginUsername")
-                .value
-                .trim();
+            normalizeUsername(
+                document
+                    .getElementById("loginUsername")
+                    .value
+            );
 
         const password =
             document
@@ -2342,7 +1793,10 @@ loginForm.addEventListener(
                 .value;
 
 
-        if(!username || !password){
+        if(
+            username.length < 3 ||
+            !password
+        ){
 
             showAuthError(
                 "اكتب اسم المستخدم وكلمة المرور."
@@ -2365,62 +1819,28 @@ loginForm.addEventListener(
 
         try{
 
-            /*
-             * بنجيب الـemail المرتبط بالـusername
-             * ثم نسجل الدخول باستخدام Supabase Auth.
-             */
-
-            const {
-                data:loginEmail,
-                error:lookupError
-            } =
-                await supabaseClient.rpc(
-                    "get_login_email",
-                    {
-                        p_username:
-                            normalizeUsername(username)
-                    }
-                );
-
-
-            if(lookupError){
-
-                console.error(
-                    "Username lookup error:",
-                    lookupError
-                );
-
-                showAuthError(
-                    "حصل خطأ أثناء البحث عن الحساب."
-                );
-
-                return;
-            }
-
-
-            if(!loginEmail){
-
-                showAuthError(
-                    "اسم المستخدم أو كلمة المرور غير صحيحة."
-                );
-
-                return;
-            }
-
-
             const {
                 error
             } =
                 await supabaseClient.auth
                     .signInWithPassword({
 
-                        email:loginEmail,
+                        email:
+                            getInternalEmail(
+                                username
+                            ),
 
                         password
+
                     });
 
 
             if(error){
+
+                console.error(
+                    "Login error:",
+                    error
+                );
 
                 showAuthError(
                     "اسم المستخدم أو كلمة المرور غير صحيحة."
@@ -2458,6 +1878,7 @@ loginForm.addEventListener(
 
 /* =========================================================
    SIGNUP
+   NAME + USERNAME + PASSWORD ONLY
 ========================================================= */
 
 signupForm.addEventListener(
@@ -2482,13 +1903,6 @@ signupForm.addEventListener(
                     .getElementById("signupUsername")
                     .value
             );
-
-
-        const email =
-            document
-                .getElementById("signupEmail")
-                .value
-                .trim();
 
 
         const password =
@@ -2540,6 +1954,15 @@ signupForm.addEventListener(
 
         try{
 
+            /*
+             * نستخدم email داخلي فقط.
+             * المستخدم لا يراه ولا يكتبه.
+             */
+
+            const internalEmail =
+                getInternalEmail(username);
+
+
             const {
                 data,
                 error
@@ -2547,16 +1970,15 @@ signupForm.addEventListener(
                 await supabaseClient.auth
                     .signUp({
 
-                        email,
+                        email:
+                            internalEmail,
 
                         password,
 
                         options:{
                             data:{
                                 username,
-
-                                display_name:
-                                    name
+                                display_name:name
                             }
                         }
 
@@ -2565,24 +1987,55 @@ signupForm.addEventListener(
 
             if(error){
 
-                showAuthError(
-                    error.message
+                console.error(
+                    "Signup error:",
+                    error
                 );
+
+                if(
+                    error.message
+                        ?.toLowerCase()
+                        .includes("already registered")
+                ){
+
+                    showAuthError(
+                        "اسم المستخدم ده مستخدم بالفعل."
+                    );
+
+                }else{
+
+                    showAuthError(
+                        error.message ||
+                        "فشل إنشاء الحساب."
+                    );
+                }
 
                 return;
             }
 
 
+            /*
+             * لو Confirmation مقفول:
+             * هيكون فيه session مباشرة.
+             */
+
             if(data.session){
 
                 showToast(
-                    "تم إنشاء الحساب"
+                    "تم إنشاء الحساب بنجاح 🎉"
                 );
+
+                signupForm.reset();
 
             }else{
 
-                showToast(
-                    "تم إنشاء الحساب. راجع الإيميل لو تأكيد البريد مفعّل."
+                /*
+                 * لو ظهر ده غالبًا Email Confirmation شغال.
+                 * والـ .local email لا يمكن للمستخدم تأكيده.
+                 */
+
+                showAuthError(
+                    "الحساب اتعمل لكن تأكيد البريد الإلكتروني مفعّل في Supabase. اقفل Email Confirmation من إعدادات Authentication."
                 );
             }
 
@@ -2732,13 +2185,9 @@ async function loadCurrentProfile(){
 
 function showAuth(){
 
-    authScreen.classList.remove(
-        "hidden"
-    );
+    authScreen.classList.remove("hidden");
 
-    app.classList.add(
-        "hidden"
-    );
+    app.classList.add("hidden");
 }
 
 
@@ -2748,26 +2197,17 @@ function showAuth(){
 
 async function enterApp(){
 
-    authScreen.classList.add(
-        "hidden"
-    );
+    authScreen.classList.add("hidden");
 
-    app.classList.remove(
-        "hidden"
-    );
-
+    app.classList.remove("hidden");
 
     updateMyProfileUI();
 
-
     await updateOnline(true);
-
 
     await loadUsers();
 
-
     setupRealtime();
-
 
     await checkPushSubscription();
 }
@@ -2794,25 +2234,19 @@ function updateMyProfileUI(){
 
 
     document
-        .getElementById(
-            "profileAvatar"
-        )
+        .getElementById("profileAvatar")
         .textContent =
             initial;
 
 
     document
-        .getElementById(
-            "profileName"
-        )
+        .getElementById("profileName")
         .textContent =
             currentProfile.display_name;
 
 
     document
-        .getElementById(
-            "profileUsername"
-        )
+        .getElementById("profileUsername")
         .textContent =
             "@" +
             currentProfile.username;
@@ -2995,13 +2429,11 @@ function renderPeople(){
         peopleList.innerHTML =
             `
             <div class="empty">
-
                 ${
                     activeTab === "chats"
                         ? "مفيش محادثات لسه."
                         : "مفيش مستخدمين مطابقين."
                 }
-
             </div>
             `;
 
@@ -3021,7 +2453,6 @@ function renderPeople(){
 
 
                 return `
-
                     <div
                         class="person ${active}"
                         data-user-id="${user.id}"
@@ -3029,19 +2460,15 @@ function renderPeople(){
 
                         <div class="avatar">
 
-                            ${
-                                escapeHTML(
-                                    getInitial(
-                                        user.display_name
-                                    )
+                            ${escapeHTML(
+                                getInitial(
+                                    user.display_name
                                 )
-                            }
+                            )}
 
                             ${
                                 user.online
-
                                     ? `<span class="online-dot"></span>`
-
                                     : ""
                             }
 
@@ -3051,28 +2478,20 @@ function renderPeople(){
                         <div class="person-info">
 
                             <div class="person-name">
-
-                                ${
-                                    escapeHTML(
-                                        user.display_name
-                                    )
-                                }
-
+                                ${escapeHTML(
+                                    user.display_name
+                                )}
                             </div>
 
-
                             <div class="person-username">
-
                                 @${escapeHTML(
                                     user.username
                                 )}
-
                             </div>
 
                         </div>
 
                     </div>
-
                 `;
             })
             .join("");
@@ -3164,9 +2583,7 @@ function updateHeaderStatus(){
 
     headerStatus.textContent =
         selectedUser.online
-
             ? "متصل الآن"
-
             : formatLastSeen(
                 selectedUser.last_seen
             );
@@ -3224,7 +2641,6 @@ async function loadConversation(){
 
 
     renderMessages();
-
 
     scrollMessages();
 }
@@ -3446,7 +2862,6 @@ function renderMessage(message){
                 تعديل
             </button>
 
-
             <button
                 data-action="delete"
                 data-id="${message.id}"
@@ -3464,13 +2879,11 @@ function renderMessage(message){
 
 
     return `
-
         <div class="message-row ${rowClass}">
 
             <div class="message">
 
                 ${menu}
-
 
                 <div class="bubble">
 
@@ -3482,7 +2895,6 @@ function renderMessage(message){
 
                 </div>
 
-
                 <div class="message-meta">
 
                     ${formatTime(
@@ -3491,26 +2903,21 @@ function renderMessage(message){
 
                     ${
                         message.edited_at
-
                             ? `
                                 <span class="edited">
                                     تم التعديل
                                 </span>
                               `
-
                             : ""
                     }
 
-
                     ${
                         mine
-
                             ? (
                                 message.read_at
                                     ? " ✓✓"
                                     : " ✓"
                             )
-
                             : ""
                     }
 
@@ -3519,7 +2926,6 @@ function renderMessage(message){
             </div>
 
         </div>
-
     `;
 }
 
@@ -3562,9 +2968,7 @@ async function sendMessage(){
         return;
 
 
-    /* =========================
-       EDIT
-    ========================== */
+    /* EDIT */
 
     if(editingMessage){
 
@@ -3611,14 +3015,11 @@ async function sendMessage(){
         messageInput.value =
             "";
 
-
         messageInput.placeholder =
             "اكتب رسالة...";
 
-
         sendBtn.textContent =
             "➤";
-
 
         autoResize();
 
@@ -3626,9 +3027,7 @@ async function sendMessage(){
     }
 
 
-    /* =========================
-       NEW MESSAGE
-    ========================== */
+    /* NEW MESSAGE */
 
     const payload = {
 
@@ -3671,12 +3070,9 @@ async function sendMessage(){
     messageInput.value =
         "";
 
-
     clearReply();
 
-
     autoResize();
-
 
     scrollMessages();
 }
@@ -3784,7 +3180,7 @@ cancelReply.addEventListener(
 
 
 /* =========================================================
-   EDIT MESSAGE
+   EDIT
 ========================================================= */
 
 function startEdit(message){
@@ -3816,7 +3212,6 @@ function startEdit(message){
 
 
     autoResize();
-
 
     messageInput.focus();
 }
@@ -3930,17 +3325,12 @@ function setupRealtime(){
                 "chatplus-messages"
             )
             .on(
-
                 "postgres_changes",
-
                 {
                     event:"*",
-
                     schema:"public",
-
                     table:"messages"
                 },
-
                 async payload => {
 
                     if(!currentUser)
@@ -3959,9 +3349,7 @@ function setupRealtime(){
                     const related =
                         message.sender_id ===
                             currentUser.id
-
                         ||
-
                         message.receiver_id ===
                             currentUser.id;
 
@@ -4011,7 +3399,6 @@ function setupRealtime(){
 
                     await loadRecentMessages();
 
-
                     renderPeople();
 
                 }
@@ -4025,17 +3412,12 @@ function setupRealtime(){
                 "chatplus-profiles"
             )
             .on(
-
                 "postgres_changes",
-
                 {
                     event:"*",
-
                     schema:"public",
-
                     table:"profiles"
                 },
-
                 async payload => {
 
                     await loadUsers();
@@ -4049,7 +3431,6 @@ function setupRealtime(){
 
                         selectedUser =
                             payload.new;
-
 
                         updateHeaderStatus();
                     }
@@ -4102,16 +3483,13 @@ peopleTab.addEventListener(
         activeTab =
             "people";
 
-
         peopleTab.classList.add(
             "active"
         );
 
-
         chatsTab.classList.remove(
             "active"
         );
-
 
         renderPeople();
     }
@@ -4125,19 +3503,15 @@ chatsTab.addEventListener(
         activeTab =
             "chats";
 
-
         chatsTab.classList.add(
             "active"
         );
-
 
         peopleTab.classList.remove(
             "active"
         );
 
-
         await loadRecentMessages();
-
 
         renderPeople();
     }
@@ -4154,7 +3528,6 @@ searchInput.addEventListener(
 
         searchTerm =
             searchInput.value;
-
 
         renderPeople();
     }
@@ -4189,12 +3562,9 @@ document
                 messageInput.value +=
                     btn.textContent;
 
-
                 autoResize();
 
-
                 messageInput.focus();
-
 
                 emojiPanel.classList.remove(
                     "open"
@@ -4210,10 +3580,7 @@ document.addEventListener(
     e => {
 
         if(
-            !emojiPanel.contains(
-                e.target
-            ) &&
-
+            !emojiPanel.contains(e.target) &&
             e.target !== emojiBtn
         ){
 
@@ -4279,9 +3646,7 @@ deleteAccountBtn.addEventListener(
         const firstConfirm =
             confirm(
                 "⚠️ هل أنت متأكد من حذف حسابك نهائيًا؟\n\n" +
-
                 "سيتم حذف الحساب والرسائل والبيانات المرتبطة به، " +
-
                 "ولا يمكن التراجع عن العملية."
             );
 
@@ -4292,7 +3657,7 @@ deleteAccountBtn.addEventListener(
 
         const secondConfirm =
             prompt(
-                'للتأكيد النهائي، اكتب بالضبط: حذف الحساب'
+                "للتأكيد النهائي، اكتب بالضبط: حذف الحساب"
             );
 
 
@@ -4370,30 +3735,18 @@ deleteAccountBtn.addEventListener(
             }
 
 
-            currentUser =
-                null;
-
-            currentProfile =
-                null;
-
-            selectedUser =
-                null;
-
-            allUsers =
-                [];
-
-            allMessages =
-                [];
+            currentUser = null;
+            currentProfile = null;
+            selectedUser = null;
+            allUsers = [];
+            allMessages = [];
 
 
             await supabaseClient.auth
                 .signOut();
 
 
-            app.classList.add(
-                "hidden"
-            );
-
+            app.classList.add("hidden");
 
             authScreen.classList.remove(
                 "hidden"
@@ -4403,7 +3756,6 @@ deleteAccountBtn.addEventListener(
             loginForm.reset();
 
             signupForm.reset();
-
 
             closeProfilePanel();
 
@@ -4525,16 +3877,9 @@ logoutBtn.addEventListener(
             .signOut();
 
 
-        currentUser =
-            null;
-
-
-        currentProfile =
-            null;
-
-
-        selectedUser =
-            null;
+        currentUser = null;
+        currentProfile = null;
+        selectedUser = null;
 
 
         app.classList.add(
@@ -4576,14 +3921,12 @@ document.addEventListener(
 
             await updateOnline(true);
 
-
             await loadUsers();
 
 
             if(selectedUser){
 
                 await loadConversation();
-
 
                 await markMessagesRead();
             }
@@ -4628,7 +3971,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   PUSH HELPERS
+   PUSH
 ========================================================= */
 
 function urlBase64ToUint8Array(
@@ -4649,20 +3992,12 @@ function urlBase64ToUint8Array(
             base64String +
             padding
         )
-        .replace(
-            /-/g,
-            "+"
-        )
-        .replace(
-            /_/g,
-            "/"
-        );
+        .replace(/-/g,"+")
+        .replace(/_/g,"/");
 
 
     const rawData =
-        window.atob(
-            base64
-        );
+        window.atob(base64);
 
 
     return Uint8Array.from(
@@ -4676,7 +4011,7 @@ function urlBase64ToUint8Array(
 
 
 /* =========================================================
-   REGISTER SERVICE WORKER
+   SERVICE WORKER
 ========================================================= */
 
 async function registerPushServiceWorker(){
@@ -4702,7 +4037,7 @@ async function registerPushServiceWorker(){
 
 
 /* =========================================================
-   NOTIFICATION BUTTON
+   NOTIFICATION UI
 ========================================================= */
 
 async function updateNotificationButton(){
@@ -4743,7 +4078,7 @@ async function updateNotificationButton(){
 
 
 /* =========================================================
-   SAVE PUSH SUBSCRIPTION
+   SAVE PUSH
 ========================================================= */
 
 async function savePushSubscription(
@@ -4761,10 +4096,8 @@ async function savePushSubscription(
     const endpoint =
         json.endpoint;
 
-
     const p256dh =
         json.keys?.p256dh;
-
 
     const auth =
         json.keys?.auth;
@@ -4782,13 +4115,9 @@ async function savePushSubscription(
         error
     } =
         await supabaseClient
-            .from(
-                "push_subscriptions"
-            )
+            .from("push_subscriptions")
             .upsert(
-
                 {
-
                     user_id:
                         currentUser.id,
 
@@ -4801,16 +4130,11 @@ async function savePushSubscription(
                     updated_at:
                         new Date()
                             .toISOString()
-
                 },
-
                 {
-
                     onConflict:
                         "user_id,endpoint"
-
                 }
-
             );
 
 
@@ -4866,7 +4190,6 @@ async function enablePushNotifications(){
 
             await updateNotificationButton();
 
-
             return;
         }
 
@@ -4912,7 +4235,6 @@ async function enablePushNotifications(){
                 "تم تفعيل إشعارات الرسائل 🔔"
             );
 
-
             notificationStatus.textContent =
                 "مفعّلة";
 
@@ -4930,7 +4252,6 @@ async function enablePushNotifications(){
     }catch(error){
 
         console.error(error);
-
 
         showToast(
             error.message ||
@@ -5015,10 +4336,9 @@ supabaseClient.auth
             session
         ) => {
 
-
             if(
                 event ===
-                    "SIGNED_IN" &&
+                "SIGNED_IN" &&
                 session
             ){
 
@@ -5027,7 +4347,6 @@ supabaseClient.auth
 
 
                 await loadCurrentProfile();
-
 
                 await enterApp();
             }
@@ -5038,17 +4357,9 @@ supabaseClient.auth
                 "SIGNED_OUT"
             ){
 
-                currentUser =
-                    null;
-
-
-                currentProfile =
-                    null;
-
-
-                selectedUser =
-                    null;
-
+                currentUser = null;
+                currentProfile = null;
+                selectedUser = null;
 
                 showAuth();
             }
