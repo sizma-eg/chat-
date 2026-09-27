@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090909">
-<meta name="description" content="Chat+ — محادثات خاصة وسريعة.">
+
+<meta name="theme-color" content="#080808">
+
+<meta
+    name="description"
+    content="Chat+ — محادثات خاصة وسريعة."
+>
 
 <title>Chat+ — Private Chat</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -26,13 +43,17 @@
     --panel:#101010;
     --panel2:#151515;
     --panel3:#1b1b1b;
+
     --border:rgba(255,255,255,.08);
+
     --text:#fff;
     --muted:#999;
-    --accent:#fff;
+
     --bubble:#202020;
+
     --mine:#fff;
     --mineText:#080808;
+
     --danger:#ff4d5e;
 }
 
@@ -40,7 +61,9 @@ body{
     font-family:"Cairo",sans-serif;
     background:var(--bg);
     color:var(--text);
+
     min-height:100vh;
+
     overflow:hidden;
 }
 
@@ -59,37 +82,58 @@ button{
     display:none!important;
 }
 
-/* =========================
+
+/* =========================================================
    AUTH
-========================= */
+========================================================= */
 
 .auth-screen{
+
     width:100%;
     height:100vh;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     padding:20px;
+
     background:
-        radial-gradient(circle at 50% 0%,rgba(255,255,255,.08),transparent 35%),
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255,255,255,.08),
+            transparent 35%
+        ),
         #070707;
 }
 
 .auth-box{
+
     width:100%;
     max-width:430px;
-    background:rgba(17,17,17,.92);
+
+    background:rgba(17,17,17,.94);
+
     border:1px solid var(--border);
+
     border-radius:28px;
+
     padding:35px;
-    box-shadow:0 30px 100px rgba(0,0,0,.55);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.55);
 }
 
 .logo{
+
     text-align:center;
+
     font-size:42px;
+
     font-weight:800;
+
     letter-spacing:-2px;
+
     margin-bottom:7px;
 }
 
@@ -98,15 +142,22 @@ button{
 }
 
 .auth-subtitle{
+
     text-align:center;
+
     color:var(--muted);
+
     font-size:14px;
+
     margin-bottom:30px;
 }
 
 .auth-form{
+
     display:flex;
+
     flex-direction:column;
+
     gap:13px;
 }
 
@@ -115,82 +166,142 @@ button{
 }
 
 .field input{
+
     width:100%;
+
     height:54px;
+
     padding:0 17px;
+
     background:#0d0d0d;
+
     border:1px solid var(--border);
+
     border-radius:15px;
+
     color:#fff;
+
     outline:none;
+
     transition:.2s;
 }
 
 .field input:focus{
-    border-color:rgba(255,255,255,.35);
+
+    border-color:
+        rgba(255,255,255,.35);
+
     background:#111;
 }
 
 .auth-btn{
+
     height:54px;
+
     border-radius:15px;
+
     background:#fff;
+
     color:#000;
+
     font-weight:800;
+
     font-size:15px;
+
     margin-top:5px;
+
     transition:.2s;
 }
 
 .auth-btn:hover{
+
     transform:translateY(-1px);
+
     opacity:.92;
 }
 
+.auth-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
 .switch-auth{
+
     text-align:center;
+
     margin-top:20px;
+
     color:var(--muted);
+
     font-size:13px;
 }
 
 .switch-auth button{
+
     background:none;
+
     color:#fff;
+
     font-weight:700;
+
     margin-right:5px;
 }
 
 .auth-error{
-    background:rgba(255,77,94,.1);
-    border:1px solid rgba(255,77,94,.2);
+
+    background:
+        rgba(255,77,94,.1);
+
+    border:
+        1px solid rgba(255,77,94,.2);
+
     color:#ff8c97;
+
     padding:11px 13px;
+
     border-radius:12px;
+
     font-size:12px;
+
     margin-bottom:12px;
 }
 
-/* =========================
+
+/* =========================================================
    APP
-========================= */
+========================================================= */
 
 .app{
+
     height:100vh;
+
     width:100%;
+
     display:flex;
+
     background:#080808;
 }
 
-/* SIDEBAR */
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
 .sidebar{
+
     width:350px;
+
     min-width:350px;
+
     height:100%;
-    border-left:1px solid var(--border);
+
+    border-left:
+        1px solid var(--border);
+
     background:#0d0d0d;
+
     display:flex;
+
     flex-direction:column;
 }
 
@@ -199,15 +310,22 @@ button{
 }
 
 .brand-row{
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     margin-bottom:20px;
 }
 
 .brand{
+
     font-size:25px;
+
     font-weight:800;
+
     letter-spacing:-1px;
 }
 
@@ -216,15 +334,25 @@ button{
 }
 
 .profile-mini{
+
     width:40px;
     height:40px;
+
     border-radius:50%;
+
     background:#202020;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-weight:800;
-    border:1px solid var(--border);
+
+    border:
+        1px solid var(--border);
+
     cursor:pointer;
 }
 
@@ -233,48 +361,79 @@ button{
 }
 
 .search-box input{
+
     width:100%;
+
     height:46px;
+
     background:#171717;
-    border:1px solid var(--border);
+
+    border:
+        1px solid var(--border);
+
     border-radius:14px;
+
     color:#fff;
-    padding:0 43px 0 14px;
+
+    padding:
+        0 43px 0 14px;
+
     outline:none;
 }
 
 .search-icon{
+
     position:absolute;
+
     right:14px;
+
     top:50%;
+
     transform:translateY(-50%);
+
     color:#777;
 }
 
 .tabs{
+
     display:flex;
-    padding:12px 20px 5px;
+
+    padding:
+        12px 20px 5px;
+
     gap:7px;
 }
 
 .tab{
+
     flex:1;
+
     height:40px;
+
     border-radius:11px;
+
     background:transparent;
+
     color:#777;
+
     font-weight:700;
 }
 
 .tab.active{
+
     background:#1b1b1b;
+
     color:#fff;
 }
 
 .people-list{
+
     flex:1;
+
     overflow-y:auto;
-    padding:8px 10px 20px;
+
+    padding:
+        8px 10px 20px;
 }
 
 .people-list::-webkit-scrollbar,
@@ -284,17 +443,26 @@ button{
 
 .people-list::-webkit-scrollbar-thumb,
 .messages::-webkit-scrollbar-thumb{
+
     background:#2b2b2b;
+
     border-radius:20px;
 }
 
 .person{
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
+
     padding:12px;
+
     border-radius:15px;
+
     cursor:pointer;
+
     transition:.15s;
 }
 
@@ -307,145 +475,251 @@ button{
 }
 
 .avatar{
+
     width:46px;
+
     height:46px;
+
     min-width:46px;
+
     border-radius:50%;
-    background:linear-gradient(145deg,#292929,#111);
-    border:1px solid var(--border);
+
+    background:
+        linear-gradient(
+            145deg,
+            #292929,
+            #111
+        );
+
+    border:
+        1px solid var(--border);
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-weight:800;
+
     position:relative;
 }
 
 .online-dot{
+
     position:absolute;
+
     width:11px;
+
     height:11px;
+
     border-radius:50%;
+
     background:#55e68a;
-    border:2px solid #0d0d0d;
+
+    border:
+        2px solid #0d0d0d;
+
     bottom:0;
+
     left:0;
 }
 
 .person-info{
+
     min-width:0;
+
     flex:1;
 }
 
 .person-name{
+
     font-size:14px;
+
     font-weight:700;
+
     white-space:nowrap;
+
     overflow:hidden;
+
     text-overflow:ellipsis;
 }
 
 .person-username{
+
     color:#777;
+
     font-size:11px;
+
     direction:ltr;
+
     text-align:right;
 }
 
 .empty{
+
     text-align:center;
+
     color:#666;
+
     font-size:13px;
+
     padding:40px 20px;
 }
 
-/* CHAT */
+
+/* =========================================================
+   CHAT
+========================================================= */
 
 .chat{
+
     flex:1;
+
     min-width:0;
+
     display:flex;
+
     flex-direction:column;
+
     position:relative;
 }
 
 .chat-header{
+
     height:74px;
+
     min-height:74px;
-    padding:0 22px;
-    border-bottom:1px solid var(--border);
+
+    padding:
+        0 22px;
+
+    border-bottom:
+        1px solid var(--border);
+
     display:flex;
+
     align-items:center;
+
     gap:13px;
-    background:rgba(10,10,10,.9);
+
+    background:
+        rgba(10,10,10,.9);
 }
 
 .back-btn{
+
     display:none;
+
     width:40px;
+
     height:40px;
+
     border-radius:12px;
+
     background:#181818;
+
     color:#fff;
+
     font-size:20px;
 }
 
 .header-avatar{
+
     width:42px;
+
     height:42px;
+
+    min-width:42px;
 }
 
 .header-info{
+
     flex:1;
+
     min-width:0;
 }
 
 .header-name{
+
     font-size:14px;
+
     font-weight:800;
 }
 
 .header-status{
+
     font-size:11px;
+
     color:#777;
 }
 
 .header-actions{
+
     display:flex;
+
     gap:7px;
 }
 
 .icon-btn{
+
     width:40px;
+
     height:40px;
+
     border-radius:12px;
+
     background:#171717;
+
     color:#fff;
-    border:1px solid var(--border);
+
+    border:
+        1px solid var(--border);
+
     font-size:17px;
 }
 
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
 .messages{
+
     flex:1;
+
     overflow-y:auto;
-    padding:25px clamp(15px,5vw,80px);
+
+    padding:
+        25px clamp(15px,5vw,80px);
+
     display:flex;
+
     flex-direction:column;
+
     gap:7px;
 }
 
 .start-chat{
+
     margin:auto;
+
     text-align:center;
+
     color:#555;
 }
 
 .start-chat .big{
+
     font-size:50px;
+
     margin-bottom:10px;
 }
 
 .message-row{
+
     display:flex;
+
     width:100%;
 }
 
@@ -458,24 +732,38 @@ button{
 }
 
 .message{
+
     max-width:min(70%,600px);
+
     position:relative;
 }
 
 .bubble{
-    padding:10px 14px;
+
+    padding:
+        10px 14px;
+
     border-radius:17px;
+
     background:var(--bubble);
+
     color:#fff;
+
     font-size:14px;
+
     line-height:1.7;
+
     word-break:break-word;
+
     white-space:pre-wrap;
 }
 
 .mine .bubble{
+
     background:var(--mine);
+
     color:var(--mineText);
+
     border-bottom-right-radius:5px;
 }
 
@@ -484,9 +772,13 @@ button{
 }
 
 .message-meta{
+
     font-size:9px;
+
     color:#666;
+
     margin-top:3px;
+
     padding:0 5px;
 }
 
@@ -495,36 +787,63 @@ button{
 }
 
 .edited{
+
     color:#777;
+
     font-size:9px;
+
     margin-right:4px;
 }
 
 .reply-preview{
-    border-right:3px solid #888;
-    background:rgba(255,255,255,.06);
-    padding:5px 8px;
+
+    border-right:
+        3px solid #888;
+
+    background:
+        rgba(255,255,255,.06);
+
+    padding:
+        5px 8px;
+
     border-radius:8px;
+
     font-size:11px;
+
     color:#aaa;
+
     margin-bottom:7px;
 }
 
 .mine .reply-preview{
+
     border-right-color:#777;
-    background:rgba(0,0,0,.08);
+
+    background:
+        rgba(0,0,0,.08);
+
     color:#555;
 }
 
 .message-menu{
+
     position:absolute;
+
     top:-40px;
+
     right:0;
+
     display:none;
+
     background:#202020;
-    border:1px solid var(--border);
+
+    border:
+        1px solid var(--border);
+
     border-radius:10px;
+
     overflow:hidden;
+
     z-index:5;
 }
 
@@ -533,9 +852,14 @@ button{
 }
 
 .message-menu button{
+
     background:none;
+
     color:#fff;
-    padding:7px 9px;
+
+    padding:
+        7px 9px;
+
     font-size:11px;
 }
 
@@ -543,23 +867,41 @@ button{
     background:#2a2a2a;
 }
 
-/* COMPOSER */
+
+/* =========================================================
+   COMPOSER
+========================================================= */
 
 .composer{
-    padding:13px 18px 18px;
-    border-top:1px solid var(--border);
+
+    padding:
+        13px 18px 18px;
+
+    border-top:
+        1px solid var(--border);
+
     background:#0b0b0b;
 }
 
 .reply-bar{
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
-    padding:8px 12px;
+
+    padding:
+        8px 12px;
+
     background:#161616;
+
     border-radius:12px;
+
     margin-bottom:8px;
+
     font-size:11px;
+
     color:#aaa;
 }
 
@@ -568,37 +910,62 @@ button{
 }
 
 .reply-close{
+
     background:none;
+
     color:#fff;
+
     font-size:16px;
 }
 
 .composer-inner{
+
     display:flex;
+
     align-items:flex-end;
+
     gap:8px;
 }
 
 .textarea-wrap{
+
     flex:1;
+
     background:#161616;
-    border:1px solid var(--border);
+
+    border:
+        1px solid var(--border);
+
     border-radius:17px;
+
     display:flex;
+
     align-items:flex-end;
+
     padding:7px 8px;
 }
 
 #messageInput{
+
     width:100%;
+
     min-height:42px;
+
     max-height:130px;
+
     resize:none;
+
     background:none;
+
     border:0;
+
     outline:0;
+
     color:#fff;
-    padding:9px 8px;
+
+    padding:
+        9px 8px;
+
     font-size:14px;
 }
 
@@ -608,44 +975,73 @@ button{
 
 .emoji-btn,
 .send-btn{
+
     width:43px;
+
     height:43px;
+
     min-width:43px;
+
     border-radius:13px;
 }
 
 .emoji-btn{
+
     background:#1b1b1b;
+
     color:#fff;
+
     font-size:19px;
 }
 
 .send-btn{
+
     background:#fff;
+
     color:#000;
+
     font-size:18px;
+
     font-weight:800;
 }
 
 .send-btn:disabled{
+
     opacity:.3;
+
     cursor:not-allowed;
 }
 
-/* PROFILE PANEL */
+
+/* =========================================================
+   PROFILE
+========================================================= */
 
 .profile-panel{
+
     position:absolute;
+
     top:0;
+
     left:0;
+
     width:340px;
+
     height:100%;
+
     background:#111;
-    border-right:1px solid var(--border);
+
+    border-right:
+        1px solid var(--border);
+
     z-index:30;
+
     transform:translateX(-105%);
+
     transition:.25s ease;
-    box-shadow:20px 0 80px rgba(0,0,0,.4);
+
+    box-shadow:
+        20px 0 80px rgba(0,0,0,.4);
 }
 
 .profile-panel.open{
@@ -653,116 +1049,220 @@ button{
 }
 
 .profile-head{
+
     height:74px;
-    border-bottom:1px solid var(--border);
+
+    border-bottom:
+        1px solid var(--border);
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
-    padding:0 18px;
+
+    padding:
+        0 18px;
 }
 
 .profile-head button{
+
     background:none;
+
     color:#fff;
+
     font-size:20px;
 }
 
 .profile-content{
-    padding:30px 20px;
+
+    padding:
+        30px 20px;
+
     text-align:center;
 }
 
 .profile-avatar{
+
     width:90px;
+
     height:90px;
+
     margin:auto;
+
     border-radius:50%;
-    background:linear-gradient(145deg,#303030,#111);
+
+    background:
+        linear-gradient(
+            145deg,
+            #303030,
+            #111
+        );
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-size:30px;
+
     font-weight:800;
-    border:1px solid var(--border);
+
+    border:
+        1px solid var(--border);
 }
 
 .profile-name{
+
     font-size:20px;
+
     font-weight:800;
+
     margin-top:15px;
 }
 
 .profile-username{
+
     color:#666;
+
     font-size:12px;
+
     direction:ltr;
 }
 
 .profile-actions{
+
     margin-top:30px;
+
     display:flex;
+
     flex-direction:column;
+
     gap:9px;
 }
 
 .profile-action{
+
     width:100%;
+
     min-height:48px;
+
     border-radius:13px;
+
     background:#1a1a1a;
+
     color:#fff;
+
     text-align:right;
-    padding:0 15px;
+
+    padding:
+        0 15px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
-    border:1px solid var(--border);
+
+    border:
+        1px solid var(--border);
+}
+
+.profile-action:hover{
+    background:#202020;
+}
+
+.profile-action:disabled{
+    opacity:.5;
+    cursor:not-allowed;
 }
 
 .profile-action.danger{
     color:#ff6975;
 }
 
-/* TOAST */
+
+/* =========================================================
+   TOAST
+========================================================= */
 
 .toast{
+
     position:fixed;
+
     bottom:25px;
+
     left:50%;
-    transform:translate(-50%,20px);
+
+    transform:
+        translate(-50%,20px);
+
     background:#fff;
+
     color:#000;
-    padding:11px 17px;
+
+    padding:
+        11px 17px;
+
     border-radius:12px;
+
     font-size:12px;
+
     font-weight:700;
+
     opacity:0;
+
     pointer-events:none;
+
     transition:.25s;
+
     z-index:100;
 }
 
 .toast.show{
+
     opacity:1;
-    transform:translate(-50%,0);
+
+    transform:
+        translate(-50%,0);
 }
 
-/* EMOJI */
+
+/* =========================================================
+   EMOJI
+========================================================= */
 
 .emoji-panel{
+
     position:absolute;
+
     bottom:82px;
+
     right:20px;
+
     width:270px;
+
     background:#171717;
-    border:1px solid var(--border);
+
+    border:
+        1px solid var(--border);
+
     border-radius:17px;
+
     padding:12px;
+
     display:none;
-    grid-template-columns:repeat(7,1fr);
+
+    grid-template-columns:
+        repeat(7,1fr);
+
     gap:5px;
+
     z-index:20;
-    box-shadow:0 20px 60px rgba(0,0,0,.4);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.4);
 }
 
 .emoji-panel.open{
@@ -770,9 +1270,13 @@ button{
 }
 
 .emoji{
+
     background:none;
+
     font-size:21px;
+
     padding:6px;
+
     border-radius:8px;
 }
 
@@ -780,44 +1284,74 @@ button{
     background:#252525;
 }
 
-/* LOADING */
+
+/* =========================================================
+   LOADING
+========================================================= */
 
 .loading{
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     height:100%;
+
     color:#555;
 }
 
 .loader{
+
     width:25px;
+
     height:25px;
-    border:2px solid #333;
+
+    border:
+        2px solid #333;
+
     border-top-color:#fff;
+
     border-radius:50%;
-    animation:spin .7s linear infinite;
+
+    animation:
+        spin .7s linear infinite;
 }
 
 @keyframes spin{
-    to{transform:rotate(360deg)}
+
+    to{
+        transform:rotate(360deg);
+    }
 }
 
-/* MOBILE */
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:800px){
 
     .sidebar{
+
         width:100%;
+
         min-width:100%;
     }
 
     .chat{
+
         position:absolute;
+
         inset:0;
+
         background:#080808;
+
         transform:translateX(100%);
+
         transition:.25s ease;
+
         z-index:10;
     }
 
@@ -834,7 +1368,8 @@ button{
     }
 
     .messages{
-        padding:18px 12px;
+        padding:
+            18px 12px;
     }
 
     .profile-panel{
@@ -842,42 +1377,71 @@ button{
     }
 
     .auth-box{
-        padding:27px 20px;
+        padding:
+            27px 20px;
     }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- =========================
-     AUTH SCREEN
-========================= -->
 
-<section id="authScreen" class="auth-screen">
+<!-- =========================================================
+     AUTH SCREEN
+========================================================= -->
+
+<section
+    id="authScreen"
+    class="auth-screen"
+>
 
     <div class="auth-box">
 
-        <div class="logo">Chat<span>+</span></div>
-        <div class="auth-subtitle">محادثات خاصة. بسيطة. سريعة.</div>
+        <div class="logo">
+            Chat<span>+</span>
+        </div>
 
-        <div id="authError" class="auth-error hidden"></div>
+        <div class="auth-subtitle">
+            محادثات خاصة. بسيطة. سريعة.
+        </div>
 
-        <!-- LOGIN -->
 
-        <form id="loginForm" class="auth-form">
+        <div
+            id="authError"
+            class="auth-error hidden"
+        ></div>
+
+
+        <!-- =========================
+             LOGIN
+        ========================== -->
+
+        <form
+            id="loginForm"
+            class="auth-form"
+        >
 
             <div class="field">
+
                 <input
-                    id="loginEmail"
-                    type="email"
-                    placeholder="البريد الإلكتروني"
-                    autocomplete="email"
+                    id="loginUsername"
+                    type="text"
+                    placeholder="اسم المستخدم"
+                    autocomplete="username"
+                    maxlength="25"
                     required
                 >
+
             </div>
 
+
             <div class="field">
+
                 <input
                     id="loginPassword"
                     type="password"
@@ -885,19 +1449,31 @@ button{
                     autocomplete="current-password"
                     required
                 >
+
             </div>
 
-            <button class="auth-btn" type="submit">
+
+            <button
+                class="auth-btn"
+                type="submit"
+            >
                 تسجيل الدخول
             </button>
 
         </form>
 
-        <!-- SIGNUP -->
 
-        <form id="signupForm" class="auth-form hidden">
+        <!-- =========================
+             SIGNUP
+        ========================== -->
+
+        <form
+            id="signupForm"
+            class="auth-form hidden"
+        >
 
             <div class="field">
+
                 <input
                     id="signupName"
                     type="text"
@@ -905,9 +1481,12 @@ button{
                     maxlength="40"
                     required
                 >
+
             </div>
 
+
             <div class="field">
+
                 <input
                     id="signupUsername"
                     type="text"
@@ -916,9 +1495,12 @@ button{
                     autocomplete="username"
                     required
                 >
+
             </div>
 
+
             <div class="field">
+
                 <input
                     id="signupEmail"
                     type="email"
@@ -926,9 +1508,12 @@ button{
                     autocomplete="email"
                     required
                 >
+
             </div>
 
+
             <div class="field">
+
                 <input
                     id="signupPassword"
                     type="password"
@@ -937,13 +1522,19 @@ button{
                     autocomplete="new-password"
                     required
                 >
+
             </div>
 
-            <button class="auth-btn" type="submit">
+
+            <button
+                class="auth-btn"
+                type="submit"
+            >
                 إنشاء الحساب
             </button>
 
         </form>
+
 
         <div class="switch-auth">
 
@@ -951,7 +1542,10 @@ button{
                 معندكش حساب؟
             </span>
 
-            <button id="switchAuthBtn" type="button">
+            <button
+                id="switchAuthBtn"
+                type="button"
+            >
                 إنشاء حساب
             </button>
 
@@ -962,23 +1556,33 @@ button{
 </section>
 
 
-<!-- =========================
+
+<!-- =========================================================
      APP
-========================= -->
+========================================================= -->
 
-<main id="app" class="app hidden">
+<main
+    id="app"
+    class="app hidden"
+>
 
-    <!-- SIDEBAR -->
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
     <aside class="sidebar">
 
+
         <div class="sidebar-top">
+
 
             <div class="brand-row">
 
                 <div class="brand">
                     Chat<span>+</span>
                 </div>
+
 
                 <button
                     id="profileMini"
@@ -990,9 +1594,12 @@ button{
 
             </div>
 
+
             <div class="search-box">
 
-                <span class="search-icon">⌕</span>
+                <span class="search-icon">
+                    ⌕
+                </span>
 
                 <input
                     id="searchInput"
@@ -1005,6 +1612,7 @@ button{
 
         </div>
 
+
         <div class="tabs">
 
             <button
@@ -1014,6 +1622,7 @@ button{
             >
                 الأشخاص
             </button>
+
 
             <button
                 id="chatsTab"
@@ -1025,10 +1634,16 @@ button{
 
         </div>
 
-        <div id="peopleList" class="people-list">
+
+        <div
+            id="peopleList"
+            class="people-list"
+        >
 
             <div class="loading">
+
                 <div class="loader"></div>
+
             </div>
 
         </div>
@@ -1036,11 +1651,16 @@ button{
     </aside>
 
 
-    <!-- CHAT -->
+
+    <!-- =====================================================
+         CHAT
+    ====================================================== -->
 
     <section class="chat">
 
+
         <header class="chat-header">
+
 
             <button
                 id="backBtn"
@@ -1050,12 +1670,14 @@ button{
                 ‹
             </button>
 
+
             <div
                 id="headerAvatar"
                 class="avatar header-avatar"
             >
                 +
             </div>
+
 
             <div class="header-info">
 
@@ -1066,6 +1688,7 @@ button{
                     Chat+
                 </div>
 
+
                 <div
                     id="headerStatus"
                     class="header-status"
@@ -1074,6 +1697,7 @@ button{
                 </div>
 
             </div>
+
 
             <div class="header-actions">
 
@@ -1091,17 +1715,34 @@ button{
         </header>
 
 
-        <div id="messages" class="messages">
+
+        <div
+            id="messages"
+            class="messages"
+        >
 
             <div class="start-chat">
-                <div class="big">💬</div>
-                <div>اختار شخص من القائمة وابدأ الكلام</div>
+
+                <div class="big">
+                    💬
+                </div>
+
+                <div>
+                    اختار شخص من القائمة وابدأ الكلام
+                </div>
+
             </div>
 
         </div>
 
 
+
+        <!-- =================================================
+             COMPOSER
+        ================================================== -->
+
         <div class="composer">
+
 
             <div
                 id="replyBar"
@@ -1109,9 +1750,15 @@ button{
             >
 
                 <div class="reply-bar-text">
-                    <span>رد على:</span>
+
+                    <span>
+                        رد على:
+                    </span>
+
                     <strong id="replyText"></strong>
+
                 </div>
+
 
                 <button
                     id="cancelReply"
@@ -1126,6 +1773,7 @@ button{
 
             <div class="composer-inner">
 
+
                 <button
                     id="emojiBtn"
                     class="emoji-btn"
@@ -1133,6 +1781,7 @@ button{
                 >
                     😊
                 </button>
+
 
                 <div class="textarea-wrap">
 
@@ -1145,6 +1794,7 @@ button{
                     ></textarea>
 
                 </div>
+
 
                 <button
                     id="sendBtn"
@@ -1160,9 +1810,15 @@ button{
         </div>
 
 
-        <!-- EMOJIS -->
 
-        <div id="emojiPanel" class="emoji-panel">
+        <!-- =================================================
+             EMOJI PANEL
+        ================================================== -->
+
+        <div
+            id="emojiPanel"
+            class="emoji-panel"
+        >
 
             <button class="emoji">😀</button>
             <button class="emoji">😂</button>
@@ -1199,9 +1855,16 @@ button{
         </div>
 
 
-        <!-- PROFILE PANEL -->
 
-        <aside id="profilePanel" class="profile-panel">
+        <!-- =================================================
+             PROFILE PANEL
+        ================================================== -->
+
+        <aside
+            id="profilePanel"
+            class="profile-panel"
+        >
+
 
             <div class="profile-head">
 
@@ -1212,11 +1875,15 @@ button{
                     ×
                 </button>
 
-                <strong>حسابي</strong>
+                <strong>
+                    حسابي
+                </strong>
 
             </div>
 
+
             <div class="profile-content">
+
 
                 <div
                     id="profileAvatar"
@@ -1225,12 +1892,14 @@ button{
                     U
                 </div>
 
+
                 <div
                     id="profileName"
                     class="profile-name"
                 >
                     مستخدم
                 </div>
+
 
                 <div
                     id="profileUsername"
@@ -1239,25 +1908,62 @@ button{
                     @username
                 </div>
 
+
                 <div class="profile-actions">
+
 
                     <button
                         id="notificationBtn"
                         class="profile-action"
                         type="button"
                     >
-                        <span>🔔 الإشعارات</span>
-                        <span id="notificationStatus">تفعيل</span>
+
+                        <span>
+                            🔔 الإشعارات
+                        </span>
+
+                        <span id="notificationStatus">
+                            تفعيل
+                        </span>
+
                     </button>
+
+
+
+                    <button
+                        id="deleteAccountBtn"
+                        class="profile-action danger"
+                        type="button"
+                    >
+
+                        <span>
+                            حذف الحساب نهائيًا
+                        </span>
+
+                        <span>
+                            🗑️
+                        </span>
+
+                    </button>
+
+
 
                     <button
                         id="logoutBtn"
                         class="profile-action danger"
                         type="button"
                     >
-                        <span>تسجيل الخروج</span>
-                        <span>↪</span>
+
+                        <span>
+                            تسجيل الخروج
+                        </span>
+
+                        <span>
+                            ↪
+                        </span>
+
                     </button>
+
 
                 </div>
 
@@ -1265,17 +1971,24 @@ button{
 
         </aside>
 
+
     </section>
 
 </main>
 
 
-<div id="toast" class="toast"></div>
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
 
 
 <script>
+
 /* =========================================================
-   CHAT+ CONFIG
+   SUPABASE CONFIG
 ========================================================= */
 
 const SUPABASE_URL =
@@ -1284,12 +1997,17 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_CCuNjOiPoiX4a7VrfQhz-Q_ztwlLy8p";
 
+
+/* =========================================================
+   VAPID PUBLIC KEY
+========================================================= */
+
 const VAPID_PUBLIC_KEY =
     "BNC7UeL_D5_ZvCFJRmHbdNMQmgaz6z83q4RHhhgLYNewZaCZZUTzwKn1gGrmyW1Pv40w1s9kjVej4x20f7J3iQQ";
 
 
 /* =========================================================
-   SUPABASE
+   SUPABASE CLIENT
 ========================================================= */
 
 const supabaseClient =
@@ -1304,20 +2022,28 @@ const supabaseClient =
 ========================================================= */
 
 let currentUser = null;
+
 let currentProfile = null;
+
 let selectedUser = null;
 
-let messagesChannel = null;
-let profilesChannel = null;
-
 let allUsers = [];
+
 let allMessages = [];
 
+let messagesChannel = null;
+
+let profilesChannel = null;
+
 let activeTab = "people";
+
 let searchTerm = "";
 
 let replyingTo = null;
+
 let editingMessage = null;
+
+let signupMode = false;
 
 
 /* =========================================================
@@ -1408,6 +2134,9 @@ const headerProfileBtn =
 const logoutBtn =
     document.getElementById("logoutBtn");
 
+const deleteAccountBtn =
+    document.getElementById("deleteAccountBtn");
+
 const notificationBtn =
     document.getElementById("notificationBtn");
 
@@ -1423,221 +2152,464 @@ const toast =
 ========================================================= */
 
 function showToast(text){
+
     toast.textContent = text;
+
     toast.classList.add("show");
 
     clearTimeout(window.toastTimer);
 
     window.toastTimer =
         setTimeout(() => {
+
             toast.classList.remove("show");
-        }, 2500);
+
+        },2500);
 }
 
 
 function showAuthError(text){
+
     authError.textContent = text;
+
     authError.classList.remove("hidden");
 }
 
 
 function clearAuthError(){
+
     authError.textContent = "";
+
     authError.classList.add("hidden");
 }
 
 
 function getInitial(name){
-    if(!name) return "?";
 
-    return [...name.trim()][0]?.toUpperCase() || "?";
+    if(!name)
+        return "?";
+
+    return (
+        [...name.trim()][0]
+        ?.toUpperCase()
+        || "?"
+    );
 }
 
 
 function escapeHTML(value){
-    const div = document.createElement("div");
-    div.textContent = value ?? "";
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value ?? "";
+
     return div.innerHTML;
 }
 
 
 function formatTime(date){
-    return new Date(date).toLocaleTimeString("ar-EG", {
-        hour:"2-digit",
-        minute:"2-digit"
-    });
+
+    return new Date(date)
+        .toLocaleTimeString(
+            "ar-EG",
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        );
 }
 
 
 function formatLastSeen(date){
-    if(!date) return "غير متصل";
 
-    const d = new Date(date);
-    const diff = Date.now() - d.getTime();
+    if(!date)
+        return "غير متصل";
+
+    const d =
+        new Date(date);
+
+    const diff =
+        Date.now() -
+        d.getTime();
 
     if(diff < 60000)
         return "نشط الآن";
 
-    if(diff < 3600000)
-        return `منذ ${Math.floor(diff / 60000)} دقيقة`;
+    if(diff < 3600000){
 
-    return `آخر ظهور ${d.toLocaleTimeString("ar-EG", {
-        hour:"2-digit",
-        minute:"2-digit"
-    })}`;
+        return `منذ ${
+            Math.floor(diff / 60000)
+        } دقيقة`;
+    }
+
+    return `آخر ظهور ${
+        d.toLocaleTimeString(
+            "ar-EG",
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        )
+    }`;
 }
 
 
 function normalizeUsername(username){
+
     return username
         .trim()
         .toLowerCase()
         .replace(/\s+/g,"_")
-        .replace(/[^a-z0-9_\u0600-\u06ff]/g,"");
+        .replace(
+            /[^a-z0-9_\u0600-\u06ff]/g,
+            ""
+        );
 }
 
 
 /* =========================================================
-   AUTH SWITCH
+   AUTH MODE SWITCH
 ========================================================= */
 
-let signupMode = false;
+switchAuthBtn.addEventListener(
+    "click",
+    () => {
 
-switchAuthBtn.addEventListener("click", () => {
+        signupMode =
+            !signupMode;
 
-    signupMode = !signupMode;
+        clearAuthError();
 
-    clearAuthError();
+        if(signupMode){
 
-    if(signupMode){
+            loginForm.classList.add(
+                "hidden"
+            );
 
-        loginForm.classList.add("hidden");
-        signupForm.classList.remove("hidden");
+            signupForm.classList.remove(
+                "hidden"
+            );
 
-        switchText.textContent =
-            "عندك حساب بالفعل؟";
+            switchText.textContent =
+                "عندك حساب بالفعل؟";
 
-        switchAuthBtn.textContent =
-            "تسجيل الدخول";
+            switchAuthBtn.textContent =
+                "تسجيل الدخول";
 
-    }else{
+        }else{
 
-        signupForm.classList.add("hidden");
-        loginForm.classList.remove("hidden");
+            signupForm.classList.add(
+                "hidden"
+            );
 
-        switchText.textContent =
-            "معندكش حساب؟";
+            loginForm.classList.remove(
+                "hidden"
+            );
 
-        switchAuthBtn.textContent =
-            "إنشاء حساب";
+            switchText.textContent =
+                "معندكش حساب؟";
+
+            switchAuthBtn.textContent =
+                "إنشاء حساب";
+        }
     }
-});
+);
 
 
 /* =========================================================
-   LOGIN
+   LOGIN WITH USERNAME
 ========================================================= */
 
-loginForm.addEventListener("submit", async e => {
+loginForm.addEventListener(
+    "submit",
+    async e => {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    clearAuthError();
+        clearAuthError();
 
-    const email =
-        document.getElementById("loginEmail").value.trim();
+        const username =
+            document
+                .getElementById("loginUsername")
+                .value
+                .trim();
 
-    const password =
-        document.getElementById("loginPassword").value;
+        const password =
+            document
+                .getElementById("loginPassword")
+                .value;
 
-    const { error } =
-        await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-        });
 
-    if(error){
-        showAuthError(
-            error.message || "بيانات تسجيل الدخول غير صحيحة."
-        );
-        return;
+        if(!username || !password){
+
+            showAuthError(
+                "اكتب اسم المستخدم وكلمة المرور."
+            );
+
+            return;
+        }
+
+
+        const submitButton =
+            loginForm.querySelector(
+                "button[type='submit']"
+            );
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "جاري تسجيل الدخول...";
+
+
+        try{
+
+            /*
+             * بنجيب الـemail المرتبط بالـusername
+             * ثم نسجل الدخول باستخدام Supabase Auth.
+             */
+
+            const {
+                data:loginEmail,
+                error:lookupError
+            } =
+                await supabaseClient.rpc(
+                    "get_login_email",
+                    {
+                        p_username:
+                            normalizeUsername(username)
+                    }
+                );
+
+
+            if(lookupError){
+
+                console.error(
+                    "Username lookup error:",
+                    lookupError
+                );
+
+                showAuthError(
+                    "حصل خطأ أثناء البحث عن الحساب."
+                );
+
+                return;
+            }
+
+
+            if(!loginEmail){
+
+                showAuthError(
+                    "اسم المستخدم أو كلمة المرور غير صحيحة."
+                );
+
+                return;
+            }
+
+
+            const {
+                error
+            } =
+                await supabaseClient.auth
+                    .signInWithPassword({
+
+                        email:loginEmail,
+
+                        password
+                    });
+
+
+            if(error){
+
+                showAuthError(
+                    "اسم المستخدم أو كلمة المرور غير صحيحة."
+                );
+
+                return;
+            }
+
+
+            showToast(
+                "تم تسجيل الدخول"
+            );
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showAuthError(
+                "حصل خطأ غير متوقع."
+            );
+
+        }finally{
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "تسجيل الدخول";
+        }
+
     }
-
-    showToast("تم تسجيل الدخول");
-});
+);
 
 
 /* =========================================================
    SIGNUP
 ========================================================= */
 
-signupForm.addEventListener("submit", async e => {
+signupForm.addEventListener(
+    "submit",
+    async e => {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    clearAuthError();
+        clearAuthError();
 
-    const name =
-        document.getElementById("signupName").value.trim();
 
-    const username =
-        normalizeUsername(
-            document.getElementById("signupUsername").value
-        );
+        const name =
+            document
+                .getElementById("signupName")
+                .value
+                .trim();
 
-    const email =
-        document.getElementById("signupEmail").value.trim();
 
-    const password =
-        document.getElementById("signupPassword").value;
+        const username =
+            normalizeUsername(
+                document
+                    .getElementById("signupUsername")
+                    .value
+            );
 
-    if(name.length < 2){
-        showAuthError("اكتب اسم صحيح.");
-        return;
-    }
 
-    if(username.length < 3){
-        showAuthError("اسم المستخدم لازم يكون 3 حروف أو أكثر.");
-        return;
-    }
+        const email =
+            document
+                .getElementById("signupEmail")
+                .value
+                .trim();
 
-    if(password.length < 6){
-        showAuthError("كلمة المرور لازم تكون 6 أحرف على الأقل.");
-        return;
-    }
 
-    const { data, error } =
-        await supabaseClient.auth.signUp({
-            email,
-            password,
-            options:{
-                data:{
-                    username,
-                    display_name:name
-                }
+        const password =
+            document
+                .getElementById("signupPassword")
+                .value;
+
+
+        if(name.length < 2){
+
+            showAuthError(
+                "اكتب اسم صحيح."
+            );
+
+            return;
+        }
+
+
+        if(username.length < 3){
+
+            showAuthError(
+                "اسم المستخدم لازم يكون 3 حروف أو أكثر."
+            );
+
+            return;
+        }
+
+
+        if(password.length < 6){
+
+            showAuthError(
+                "كلمة المرور لازم تكون 6 أحرف على الأقل."
+            );
+
+            return;
+        }
+
+
+        const submitButton =
+            signupForm.querySelector(
+                "button[type='submit']"
+            );
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "جاري إنشاء الحساب...";
+
+
+        try{
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth
+                    .signUp({
+
+                        email,
+
+                        password,
+
+                        options:{
+                            data:{
+                                username,
+
+                                display_name:
+                                    name
+                            }
+                        }
+
+                    });
+
+
+            if(error){
+
+                showAuthError(
+                    error.message
+                );
+
+                return;
             }
-        });
 
-    if(error){
-        showAuthError(error.message);
-        return;
+
+            if(data.session){
+
+                showToast(
+                    "تم إنشاء الحساب"
+                );
+
+            }else{
+
+                showToast(
+                    "تم إنشاء الحساب. راجع الإيميل لو تأكيد البريد مفعّل."
+                );
+            }
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showAuthError(
+                "حصل خطأ أثناء إنشاء الحساب."
+            );
+
+        }finally{
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "إنشاء الحساب";
+        }
+
     }
-
-    if(data.session){
-
-        showToast("تم إنشاء الحساب");
-
-    }else{
-
-        showToast(
-            "تم إنشاء الحساب. راجع الإيميل لو تأكيد البريد مفعّل."
-        );
-    }
-});
+);
 
 
 /* =========================================================
-   LOAD CURRENT USER
+   CURRENT USER
 ========================================================= */
 
 async function loadCurrentUser(){
@@ -1647,20 +2619,31 @@ async function loadCurrentUser(){
             session
         }
     } =
-        await supabaseClient.auth.getSession();
+        await supabaseClient.auth
+            .getSession();
+
 
     if(!session){
+
         showAuth();
+
         return;
     }
 
-    currentUser = session.user;
+
+    currentUser =
+        session.user;
+
 
     await loadCurrentProfile();
 
     await enterApp();
 }
 
+
+/* =========================================================
+   CURRENT PROFILE
+========================================================= */
 
 async function loadCurrentProfile(){
 
@@ -1671,75 +2654,120 @@ async function loadCurrentProfile(){
         await supabaseClient
             .from("profiles")
             .select("*")
-            .eq("id", currentUser.id)
+            .eq(
+                "id",
+                currentUser.id
+            )
             .maybeSingle();
 
+
     if(error){
+
         console.error(error);
+
         return;
     }
+
 
     if(!data){
 
         const username =
             normalizeUsername(
-                currentUser.user_metadata?.username ||
+                currentUser
+                    .user_metadata
+                    ?.username ||
                 `user_${currentUser.id.slice(0,8)}`
             );
 
+
         const displayName =
-            currentUser.user_metadata?.display_name ||
+            currentUser
+                .user_metadata
+                ?.display_name ||
             "مستخدم Chat+";
+
 
         const result =
             await supabaseClient
                 .from("profiles")
                 .insert({
-                    id:currentUser.id,
+
+                    id:
+                        currentUser.id,
+
                     username,
-                    display_name:displayName
+
+                    display_name:
+                        displayName
+
                 })
                 .select()
                 .single();
 
+
         if(result.error){
-            console.error(result.error);
+
+            console.error(
+                result.error
+            );
+
             return;
         }
 
-        currentProfile = result.data;
+
+        currentProfile =
+            result.data;
 
     }else{
 
-        currentProfile = data;
+        currentProfile =
+            data;
     }
 }
 
 
 /* =========================================================
-   SHOW AUTH / APP
+   SHOW AUTH
 ========================================================= */
 
 function showAuth(){
 
-    authScreen.classList.remove("hidden");
-    app.classList.add("hidden");
+    authScreen.classList.remove(
+        "hidden"
+    );
 
+    app.classList.add(
+        "hidden"
+    );
 }
 
 
+/* =========================================================
+   ENTER APP
+========================================================= */
+
 async function enterApp(){
 
-    authScreen.classList.add("hidden");
-    app.classList.remove("hidden");
+    authScreen.classList.add(
+        "hidden"
+    );
+
+    app.classList.remove(
+        "hidden"
+    );
+
 
     updateMyProfileUI();
 
+
     await updateOnline(true);
+
 
     await loadUsers();
 
+
     setupRealtime();
+
 
     await checkPushSubscription();
 }
@@ -1751,23 +2779,43 @@ async function enterApp(){
 
 function updateMyProfileUI(){
 
-    if(!currentProfile) return;
+    if(!currentProfile)
+        return;
+
 
     const initial =
-        getInitial(currentProfile.display_name);
+        getInitial(
+            currentProfile.display_name
+        );
 
-    profileMini.textContent = initial;
 
-    document.getElementById("profileAvatar")
-        .textContent = initial;
+    profileMini.textContent =
+        initial;
 
-    document.getElementById("profileName")
+
+    document
+        .getElementById(
+            "profileAvatar"
+        )
+        .textContent =
+            initial;
+
+
+    document
+        .getElementById(
+            "profileName"
+        )
         .textContent =
             currentProfile.display_name;
 
-    document.getElementById("profileUsername")
+
+    document
+        .getElementById(
+            "profileUsername"
+        )
         .textContent =
-            "@" + currentProfile.username;
+            "@" +
+            currentProfile.username;
 }
 
 
@@ -1777,15 +2825,31 @@ function updateMyProfileUI(){
 
 async function updateOnline(online){
 
-    if(!currentUser) return;
+    if(!currentUser)
+        return;
 
-    await supabaseClient
-        .from("profiles")
-        .update({
-            online,
-            last_seen:new Date().toISOString()
-        })
-        .eq("id",currentUser.id);
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .update({
+
+                online,
+
+                last_seen:
+                    new Date().toISOString()
+
+            })
+            .eq(
+                "id",
+                currentUser.id
+            );
+
+
+    if(error)
+        console.error(error);
 }
 
 
@@ -1802,23 +2866,42 @@ async function loadUsers(){
         await supabaseClient
             .from("profiles")
             .select("*")
-            .neq("id",currentUser.id)
-            .order("online",{ascending:false})
-            .order("display_name",{ascending:true});
+            .neq(
+                "id",
+                currentUser.id
+            )
+            .order(
+                "online",
+                {
+                    ascending:false
+                }
+            )
+            .order(
+                "display_name",
+                {
+                    ascending:true
+                }
+            );
+
 
     if(error){
 
         console.error(error);
 
         peopleList.innerHTML =
-            `<div class="empty">
+            `
+            <div class="empty">
                 حصل خطأ في تحميل المستخدمين.
-            </div>`;
+            </div>
+            `;
 
         return;
     }
 
-    allUsers = data || [];
+
+    allUsers =
+        data || [];
+
 
     renderPeople();
 }
@@ -1830,120 +2913,192 @@ async function loadUsers(){
 
 function renderPeople(){
 
-    let list = [...allUsers];
+    let list =
+        [...allUsers];
+
 
     const term =
-        searchTerm.trim().toLowerCase();
+        searchTerm
+            .trim()
+            .toLowerCase();
+
 
     if(term){
 
         list =
-            list.filter(user =>
-                (user.display_name || "")
+            list.filter(
+                user =>
+
+                    (
+                        user.display_name ||
+                        ""
+                    )
                     .toLowerCase()
-                    .includes(term) ||
-                (user.username || "")
+                    .includes(term)
+
+                    ||
+
+                    (
+                        user.username ||
+                        ""
+                    )
                     .toLowerCase()
                     .includes(term)
             );
     }
+
 
     if(activeTab === "chats"){
 
         const userIds =
             new Set();
 
-        allMessages.forEach(message => {
 
-            if(message.sender_id === currentUser.id)
-                userIds.add(message.receiver_id);
+        allMessages.forEach(
+            message => {
 
-            if(message.receiver_id === currentUser.id)
-                userIds.add(message.sender_id);
+                if(
+                    message.sender_id ===
+                    currentUser.id
+                ){
 
-        });
+                    userIds.add(
+                        message.receiver_id
+                    );
+                }
+
+
+                if(
+                    message.receiver_id ===
+                    currentUser.id
+                ){
+
+                    userIds.add(
+                        message.sender_id
+                    );
+                }
+
+            }
+        );
+
 
         list =
-            list.filter(user =>
-                userIds.has(user.id)
+            list.filter(
+                user =>
+                    userIds.has(user.id)
             );
     }
+
 
     if(!list.length){
 
         peopleList.innerHTML =
-            `<div class="empty">
-                ${activeTab === "chats"
-                    ? "مفيش محادثات لسه."
-                    : "مفيش مستخدمين مطابقين."}
-            </div>`;
+            `
+            <div class="empty">
+
+                ${
+                    activeTab === "chats"
+                        ? "مفيش محادثات لسه."
+                        : "مفيش مستخدمين مطابقين."
+                }
+
+            </div>
+            `;
 
         return;
     }
 
+
     peopleList.innerHTML =
-        list.map(user => {
+        list
+            .map(user => {
 
-            const active =
-                selectedUser?.id === user.id
-                    ? "active"
-                    : "";
+                const active =
+                    selectedUser?.id ===
+                    user.id
+                        ? "active"
+                        : "";
 
-            return `
-                <div
-                    class="person ${active}"
-                    data-user-id="${user.id}"
-                >
 
-                    <div class="avatar">
+                return `
 
-                        ${escapeHTML(
-                            getInitial(user.display_name)
-                        )}
+                    <div
+                        class="person ${active}"
+                        data-user-id="${user.id}"
+                    >
 
-                        ${
-                            user.online
-                                ? `<span class="online-dot"></span>`
-                                : ""
-                        }
+                        <div class="avatar">
+
+                            ${
+                                escapeHTML(
+                                    getInitial(
+                                        user.display_name
+                                    )
+                                )
+                            }
+
+                            ${
+                                user.online
+
+                                    ? `<span class="online-dot"></span>`
+
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        <div class="person-info">
+
+                            <div class="person-name">
+
+                                ${
+                                    escapeHTML(
+                                        user.display_name
+                                    )
+                                }
+
+                            </div>
+
+
+                            <div class="person-username">
+
+                                @${escapeHTML(
+                                    user.username
+                                )}
+
+                            </div>
+
+                        </div>
 
                     </div>
 
-                    <div class="person-info">
+                `;
+            })
+            .join("");
 
-                        <div class="person-name">
-                            ${escapeHTML(
-                                user.display_name
-                            )}
-                        </div>
-
-                        <div class="person-username">
-                            @${escapeHTML(
-                                user.username
-                            )}
-                        </div>
-
-                    </div>
-
-                </div>
-            `;
-        })
-        .join("");
 
     document
         .querySelectorAll(".person")
         .forEach(el => {
 
-            el.addEventListener("click", () => {
+            el.addEventListener(
+                "click",
+                () => {
 
-                const user =
-                    allUsers.find(
-                        u => u.id === el.dataset.userId
-                    );
+                    const user =
+                        allUsers.find(
+                            u =>
+                                u.id ===
+                                el.dataset.userId
+                        );
 
-                if(user)
-                    openChat(user);
-            });
+
+                    if(user)
+                        openChat(user);
+                }
+            );
+
         });
 }
 
@@ -1954,26 +3109,44 @@ function renderPeople(){
 
 async function openChat(user){
 
-    selectedUser = user;
+    selectedUser =
+        user;
 
-    app.classList.add("chat-open");
+
+    app.classList.add(
+        "chat-open"
+    );
+
 
     headerAvatar.textContent =
-        getInitial(user.display_name);
+        getInitial(
+            user.display_name
+        );
+
 
     headerName.textContent =
         user.display_name;
 
+
     updateHeaderStatus();
 
-    messageInput.disabled = false;
-    sendBtn.disabled = false;
+
+    messageInput.disabled =
+        false;
+
+
+    sendBtn.disabled =
+        false;
+
 
     renderPeople();
 
+
     await loadConversation();
 
+
     await markMessagesRead();
+
 
     messageInput.focus();
 }
@@ -1985,12 +3158,18 @@ async function openChat(user){
 
 function updateHeaderStatus(){
 
-    if(!selectedUser) return;
+    if(!selectedUser)
+        return;
+
 
     headerStatus.textContent =
         selectedUser.online
+
             ? "متصل الآن"
-            : formatLastSeen(selectedUser.last_seen);
+
+            : formatLastSeen(
+                selectedUser.last_seen
+            );
 }
 
 
@@ -2000,8 +3179,12 @@ function updateHeaderStatus(){
 
 async function loadConversation(){
 
-    if(!selectedUser || !currentUser)
+    if(
+        !selectedUser ||
+        !currentUser
+    )
         return;
+
 
     const {
         data,
@@ -2013,23 +3196,35 @@ async function loadConversation(){
             .or(
                 `and(sender_id.eq.${currentUser.id},receiver_id.eq.${selectedUser.id}),and(sender_id.eq.${selectedUser.id},receiver_id.eq.${currentUser.id})`
             )
-            .order("created_at",{ascending:true});
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
 
     if(error){
 
         console.error(error);
 
         messages.innerHTML =
-            `<div class="empty">
+            `
+            <div class="empty">
                 حصل خطأ في تحميل الرسائل.
-            </div>`;
+            </div>
+            `;
 
         return;
     }
 
-    allMessages = data || [];
+
+    allMessages =
+        data || [];
+
 
     renderMessages();
+
 
     scrollMessages();
 }
@@ -2043,119 +3238,192 @@ function renderMessages(){
 
     if(!selectedUser){
 
-        messages.innerHTML = `
+        messages.innerHTML =
+            `
             <div class="start-chat">
-                <div class="big">💬</div>
-                <div>اختار شخص من القائمة وابدأ الكلام</div>
+
+                <div class="big">
+                    💬
+                </div>
+
+                <div>
+                    اختار شخص من القائمة وابدأ الكلام
+                </div>
+
             </div>
-        `;
+            `;
 
         return;
     }
 
+
     if(!allMessages.length){
 
-        messages.innerHTML = `
+        messages.innerHTML =
+            `
             <div class="start-chat">
-                <div class="big">👋</div>
+
+                <div class="big">
+                    👋
+                </div>
+
                 <div>
                     مفيش رسائل لسه.<br>
                     ابدأ أول رسالة!
                 </div>
+
             </div>
-        `;
+            `;
 
         return;
     }
 
+
     messages.innerHTML =
         allMessages
-            .map(message => renderMessage(message))
+            .map(
+                message =>
+                    renderMessage(message)
+            )
             .join("");
 
+
     document
-        .querySelectorAll("[data-action='reply']")
+        .querySelectorAll(
+            "[data-action='reply']"
+        )
         .forEach(btn => {
 
-            btn.addEventListener("click", () => {
+            btn.addEventListener(
+                "click",
+                () => {
 
-                const id =
-                    Number(btn.dataset.id);
+                    const id =
+                        Number(
+                            btn.dataset.id
+                        );
 
-                const message =
-                    allMessages.find(
-                        m => m.id === id
-                    );
 
-                if(message)
-                    setReply(message);
-            });
+                    const message =
+                        allMessages.find(
+                            m =>
+                                m.id === id
+                        );
+
+
+                    if(message)
+                        setReply(message);
+                }
+            );
+
         });
 
+
     document
-        .querySelectorAll("[data-action='edit']")
+        .querySelectorAll(
+            "[data-action='edit']"
+        )
         .forEach(btn => {
 
-            btn.addEventListener("click", () => {
+            btn.addEventListener(
+                "click",
+                () => {
 
-                const id =
-                    Number(btn.dataset.id);
+                    const id =
+                        Number(
+                            btn.dataset.id
+                        );
 
-                const message =
-                    allMessages.find(
-                        m => m.id === id
-                    );
 
-                if(message)
-                    startEdit(message);
-            });
+                    const message =
+                        allMessages.find(
+                            m =>
+                                m.id === id
+                        );
+
+
+                    if(message)
+                        startEdit(message);
+                }
+            );
+
         });
 
+
     document
-        .querySelectorAll("[data-action='delete']")
+        .querySelectorAll(
+            "[data-action='delete']"
+        )
         .forEach(btn => {
 
-            btn.addEventListener("click", () => {
+            btn.addEventListener(
+                "click",
+                () => {
 
-                const id =
-                    Number(btn.dataset.id);
+                    const id =
+                        Number(
+                            btn.dataset.id
+                        );
 
-                deleteMessage(id);
-            });
+                    deleteMessage(id);
+                }
+            );
+
         });
 }
 
 
+/* =========================================================
+   SINGLE MESSAGE
+========================================================= */
+
 function renderMessage(message){
 
     const mine =
-        message.sender_id === currentUser.id;
+        message.sender_id ===
+        currentUser.id;
+
 
     const rowClass =
-        mine ? "mine" : "theirs";
+        mine
+            ? "mine"
+            : "theirs";
+
 
     let replyHTML = "";
+
 
     if(message.reply_to){
 
         const original =
             allMessages.find(
-                m => m.id === message.reply_to
+                m =>
+                    m.id ===
+                    message.reply_to
             );
+
 
         if(original){
 
-            replyHTML = `
+            replyHTML =
+                `
                 <div class="reply-preview">
+
                     ${escapeHTML(
-                        original.text.slice(0,100)
+                        original.text.slice(
+                            0,
+                            100
+                        )
                     )}
+
                 </div>
-            `;
+                `;
         }
     }
 
-    let menu = `
+
+    let menu =
+        `
         <div class="message-menu">
 
             <button
@@ -2164,11 +3432,13 @@ function renderMessage(message){
             >
                 رد
             </button>
-    `;
+        `;
+
 
     if(mine){
 
-        menu += `
+        menu +=
+            `
             <button
                 data-action="edit"
                 data-id="${message.id}"
@@ -2176,49 +3446,71 @@ function renderMessage(message){
                 تعديل
             </button>
 
+
             <button
                 data-action="delete"
                 data-id="${message.id}"
             >
                 حذف
             </button>
-        `;
+            `;
     }
 
-    menu += `</div>`;
+
+    menu +=
+        `
+        </div>
+        `;
+
 
     return `
+
         <div class="message-row ${rowClass}">
 
             <div class="message">
 
                 ${menu}
 
+
                 <div class="bubble">
 
                     ${replyHTML}
 
-                    ${escapeHTML(message.text)}
+                    ${escapeHTML(
+                        message.text
+                    )}
 
                 </div>
 
+
                 <div class="message-meta">
 
-                    ${formatTime(message.created_at)}
+                    ${formatTime(
+                        message.created_at
+                    )}
 
                     ${
                         message.edited_at
-                            ? `<span class="edited">تم التعديل</span>`
+
+                            ? `
+                                <span class="edited">
+                                    تم التعديل
+                                </span>
+                              `
+
                             : ""
                     }
 
+
                     ${
                         mine
+
                             ? (
                                 message.read_at
                                     ? " ✓✓"
                                     : " ✓"
                             )
+
                             : ""
                     }
 
@@ -2227,6 +3519,7 @@ function renderMessage(message){
             </div>
 
         </div>
+
     `;
 }
 
@@ -2237,12 +3530,14 @@ function renderMessage(message){
 
 function scrollMessages(){
 
-    requestAnimationFrame(() => {
+    requestAnimationFrame(
+        () => {
 
-        messages.scrollTop =
-            messages.scrollHeight;
+            messages.scrollTop =
+                messages.scrollHeight;
 
-    });
+        }
+    );
 }
 
 
@@ -2252,15 +3547,24 @@ function scrollMessages(){
 
 async function sendMessage(){
 
-    if(!currentUser || !selectedUser)
+    if(
+        !currentUser ||
+        !selectedUser
+    )
         return;
+
 
     const text =
         messageInput.value.trim();
 
+
     if(!text)
         return;
 
+
+    /* =========================
+       EDIT
+    ========================== */
 
     if(editingMessage){
 
@@ -2270,29 +3574,51 @@ async function sendMessage(){
             await supabaseClient
                 .from("messages")
                 .update({
+
                     text,
-                    edited_at:new Date().toISOString()
+
+                    edited_at:
+                        new Date()
+                            .toISOString()
+
                 })
-                .eq("id",editingMessage.id)
-                .eq("sender_id",currentUser.id);
+                .eq(
+                    "id",
+                    editingMessage.id
+                )
+                .eq(
+                    "sender_id",
+                    currentUser.id
+                );
+
 
         if(error){
 
-            showToast("فشل تعديل الرسالة");
-
             console.error(error);
+
+            showToast(
+                "فشل تعديل الرسالة"
+            );
 
             return;
         }
 
-        editingMessage = null;
 
-        messageInput.value = "";
+        editingMessage =
+            null;
+
+
+        messageInput.value =
+            "";
+
 
         messageInput.placeholder =
             "اكتب رسالة...";
 
-        sendBtn.textContent = "➤";
+
+        sendBtn.textContent =
+            "➤";
+
 
         autoResize();
 
@@ -2300,11 +3626,17 @@ async function sendMessage(){
     }
 
 
+    /* =========================
+       NEW MESSAGE
+    ========================== */
+
     const payload = {
 
-        sender_id:currentUser.id,
+        sender_id:
+            currentUser.id,
 
-        receiver_id:selectedUser.id,
+        receiver_id:
+            selectedUser.id,
 
         text,
 
@@ -2312,6 +3644,7 @@ async function sendMessage(){
             replyingTo
                 ? replyingTo.id
                 : null
+
     };
 
 
@@ -2322,21 +3655,28 @@ async function sendMessage(){
             .from("messages")
             .insert(payload);
 
+
     if(error){
 
         console.error(error);
 
-        showToast("فشل إرسال الرسالة");
+        showToast(
+            "فشل إرسال الرسالة"
+        );
 
         return;
     }
 
 
-    messageInput.value = "";
+    messageInput.value =
+        "";
+
 
     clearReply();
 
+
     autoResize();
+
 
     scrollMessages();
 }
@@ -2349,19 +3689,25 @@ sendBtn.addEventListener(
 
 
 /* =========================================================
-   ENTER TO SEND
+   ENTER SEND
 ========================================================= */
 
-messageInput.addEventListener("keydown", e => {
+messageInput.addEventListener(
+    "keydown",
+    e => {
 
-    if(e.key === "Enter" && !e.shiftKey){
+        if(
+            e.key === "Enter" &&
+            !e.shiftKey
+        ){
 
-        e.preventDefault();
+            e.preventDefault();
 
-        sendMessage();
+            sendMessage();
+        }
+
     }
-
-});
+);
 
 
 /* =========================================================
@@ -2370,14 +3716,18 @@ messageInput.addEventListener("keydown", e => {
 
 function autoResize(){
 
-    messageInput.style.height = "auto";
+    messageInput.style.height =
+        "auto";
+
 
     messageInput.style.height =
         Math.min(
             messageInput.scrollHeight,
             130
-        ) + "px";
+        ) +
+        "px";
 }
+
 
 messageInput.addEventListener(
     "input",
@@ -2391,12 +3741,21 @@ messageInput.addEventListener(
 
 function setReply(message){
 
-    replyingTo = message;
+    replyingTo =
+        message;
+
 
     replyText.textContent =
-        message.text.slice(0,100);
+        message.text.slice(
+            0,
+            100
+        );
 
-    replyBar.classList.remove("hidden");
+
+    replyBar.classList.remove(
+        "hidden"
+    );
+
 
     messageInput.focus();
 }
@@ -2404,11 +3763,17 @@ function setReply(message){
 
 function clearReply(){
 
-    replyingTo = null;
+    replyingTo =
+        null;
 
-    replyBar.classList.add("hidden");
 
-    replyText.textContent = "";
+    replyBar.classList.add(
+        "hidden"
+    );
+
+
+    replyText.textContent =
+        "";
 }
 
 
@@ -2419,43 +3784,59 @@ cancelReply.addEventListener(
 
 
 /* =========================================================
-   EDIT
+   EDIT MESSAGE
 ========================================================= */
 
 function startEdit(message){
 
-    if(message.sender_id !== currentUser.id)
+    if(
+        message.sender_id !==
+        currentUser.id
+    )
         return;
 
-    editingMessage = message;
+
+    editingMessage =
+        message;
+
 
     clearReply();
+
 
     messageInput.value =
         message.text;
 
+
     messageInput.placeholder =
         "تعديل الرسالة...";
 
-    sendBtn.textContent = "✓";
+
+    sendBtn.textContent =
+        "✓";
+
 
     autoResize();
+
 
     messageInput.focus();
 }
 
 
 /* =========================================================
-   DELETE
+   DELETE MESSAGE
 ========================================================= */
 
 async function deleteMessage(id){
 
     const ok =
-        confirm("هل تريد حذف الرسالة؟");
+        confirm(
+            "هل تريد حذف الرسالة؟"
+        );
+
 
     if(!ok)
         return;
+
 
     const {
         error
@@ -2463,19 +3844,31 @@ async function deleteMessage(id){
         await supabaseClient
             .from("messages")
             .delete()
-            .eq("id",id)
-            .eq("sender_id",currentUser.id);
+            .eq(
+                "id",
+                id
+            )
+            .eq(
+                "sender_id",
+                currentUser.id
+            );
+
 
     if(error){
 
         console.error(error);
 
-        showToast("فشل حذف الرسالة");
+        showToast(
+            "فشل حذف الرسالة"
+        );
 
         return;
     }
 
-    showToast("تم حذف الرسالة");
+
+    showToast(
+        "تم حذف الرسالة"
+    );
 }
 
 
@@ -2485,8 +3878,12 @@ async function deleteMessage(id){
 
 async function markMessagesRead(){
 
-    if(!selectedUser || !currentUser)
+    if(
+        !selectedUser ||
+        !currentUser
+    )
         return;
+
 
     const {
         error
@@ -2494,9 +3891,11 @@ async function markMessagesRead(){
         await supabaseClient.rpc(
             "mark_messages_read",
             {
-                p_sender_id:selectedUser.id
+                p_sender_id:
+                    selectedUser.id
             }
         );
+
 
     if(error)
         console.error(error);
@@ -2509,38 +3908,63 @@ async function markMessagesRead(){
 
 function setupRealtime(){
 
-    if(messagesChannel)
-        supabaseClient.removeChannel(messagesChannel);
+    if(messagesChannel){
 
-    if(profilesChannel)
-        supabaseClient.removeChannel(profilesChannel);
+        supabaseClient.removeChannel(
+            messagesChannel
+        );
+    }
+
+
+    if(profilesChannel){
+
+        supabaseClient.removeChannel(
+            profilesChannel
+        );
+    }
 
 
     messagesChannel =
         supabaseClient
-            .channel("chatplus-messages")
+            .channel(
+                "chatplus-messages"
+            )
             .on(
+
                 "postgres_changes",
+
                 {
                     event:"*",
+
                     schema:"public",
+
                     table:"messages"
                 },
+
                 async payload => {
 
                     if(!currentUser)
                         return;
 
+
                     const message =
-                        payload.new || payload.old;
+                        payload.new ||
+                        payload.old;
+
 
                     if(!message)
                         return;
 
 
                     const related =
-                        message.sender_id === currentUser.id ||
-                        message.receiver_id === currentUser.id;
+                        message.sender_id ===
+                            currentUser.id
+
+                        ||
+
+                        message.receiver_id ===
+                            currentUser.id;
+
 
                     if(!related)
                         return;
@@ -2549,22 +3973,36 @@ function setupRealtime(){
                     if(selectedUser){
 
                         const conversation =
+
                             (
-                                message.sender_id === currentUser.id &&
-                                message.receiver_id === selectedUser.id
-                            ) ||
+                                message.sender_id ===
+                                currentUser.id &&
+
+                                message.receiver_id ===
+                                selectedUser.id
+                            )
+
+                            ||
+
                             (
-                                message.sender_id === selectedUser.id &&
-                                message.receiver_id === currentUser.id
+                                message.sender_id ===
+                                selectedUser.id &&
+
+                                message.receiver_id ===
+                                currentUser.id
                             );
+
 
                         if(conversation){
 
                             await loadConversation();
 
+
                             if(
-                                message.receiver_id === currentUser.id
+                                message.receiver_id ===
+                                currentUser.id
                             ){
+
                                 await markMessagesRead();
                             }
                         }
@@ -2572,6 +4010,7 @@ function setupRealtime(){
 
 
                     await loadRecentMessages();
+
 
                     renderPeople();
 
@@ -2582,28 +4021,39 @@ function setupRealtime(){
 
     profilesChannel =
         supabaseClient
-            .channel("chatplus-profiles")
+            .channel(
+                "chatplus-profiles"
+            )
             .on(
+
                 "postgres_changes",
+
                 {
                     event:"*",
+
                     schema:"public",
+
                     table:"profiles"
                 },
+
                 async payload => {
 
                     await loadUsers();
 
+
                     if(
                         selectedUser &&
-                        payload.new?.id === selectedUser.id
+                        payload.new?.id ===
+                        selectedUser.id
                     ){
 
                         selectedUser =
                             payload.new;
 
+
                         updateHeaderStatus();
                     }
+
                 }
             )
             .subscribe();
@@ -2611,7 +4061,7 @@ function setupRealtime(){
 
 
 /* =========================================================
-   LOAD RECENT MESSAGES
+   RECENT MESSAGES
 ========================================================= */
 
 async function loadRecentMessages(){
@@ -2626,11 +4076,18 @@ async function loadRecentMessages(){
             .or(
                 `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
             )
-            .order("created_at",{ascending:false})
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            )
             .limit(500);
 
+
     if(!error)
-        allMessages = data || [];
+        allMessages =
+            data || [];
 }
 
 
@@ -2638,82 +4095,135 @@ async function loadRecentMessages(){
    TABS
 ========================================================= */
 
-peopleTab.addEventListener("click", () => {
+peopleTab.addEventListener(
+    "click",
+    () => {
 
-    activeTab = "people";
-
-    peopleTab.classList.add("active");
-    chatsTab.classList.remove("active");
-
-    renderPeople();
-});
+        activeTab =
+            "people";
 
 
-chatsTab.addEventListener("click", async () => {
+        peopleTab.classList.add(
+            "active"
+        );
 
-    activeTab = "chats";
 
-    chatsTab.classList.add("active");
-    peopleTab.classList.remove("active");
+        chatsTab.classList.remove(
+            "active"
+        );
 
-    await loadRecentMessages();
 
-    renderPeople();
-});
+        renderPeople();
+    }
+);
+
+
+chatsTab.addEventListener(
+    "click",
+    async () => {
+
+        activeTab =
+            "chats";
+
+
+        chatsTab.classList.add(
+            "active"
+        );
+
+
+        peopleTab.classList.remove(
+            "active"
+        );
+
+
+        await loadRecentMessages();
+
+
+        renderPeople();
+    }
+);
 
 
 /* =========================================================
    SEARCH
 ========================================================= */
 
-searchInput.addEventListener("input", () => {
+searchInput.addEventListener(
+    "input",
+    () => {
 
-    searchTerm =
-        searchInput.value;
+        searchTerm =
+            searchInput.value;
 
-    renderPeople();
-});
+
+        renderPeople();
+    }
+);
 
 
 /* =========================================================
    EMOJI
 ========================================================= */
 
-emojiBtn.addEventListener("click", e => {
+emojiBtn.addEventListener(
+    "click",
+    e => {
 
-    e.stopPropagation();
+        e.stopPropagation();
 
-    emojiPanel.classList.toggle("open");
-});
+        emojiPanel.classList.toggle(
+            "open"
+        );
+    }
+);
 
 
-document.querySelectorAll(".emoji")
+document
+    .querySelectorAll(".emoji")
     .forEach(btn => {
 
-        btn.addEventListener("click", () => {
+        btn.addEventListener(
+            "click",
+            () => {
 
-            messageInput.value +=
-                btn.textContent;
+                messageInput.value +=
+                    btn.textContent;
 
-            autoResize();
 
-            messageInput.focus();
+                autoResize();
 
-            emojiPanel.classList.remove("open");
-        });
+
+                messageInput.focus();
+
+
+                emojiPanel.classList.remove(
+                    "open"
+                );
+            }
+        );
+
     });
 
 
-document.addEventListener("click", e => {
+document.addEventListener(
+    "click",
+    e => {
 
-    if(
-        !emojiPanel.contains(e.target) &&
-        e.target !== emojiBtn
-    ){
+        if(
+            !emojiPanel.contains(
+                e.target
+            ) &&
 
-        emojiPanel.classList.remove("open");
+            e.target !== emojiBtn
+        ){
+
+            emojiPanel.classList.remove(
+                "open"
+            );
+        }
+
     }
-});
+);
 
 
 /* =========================================================
@@ -2722,13 +4232,17 @@ document.addEventListener("click", e => {
 
 function openProfile(){
 
-    profilePanel.classList.add("open");
+    profilePanel.classList.add(
+        "open"
+    );
 }
 
 
 function closeProfilePanel(){
 
-    profilePanel.classList.remove("open");
+    profilePanel.classList.remove(
+        "open"
+    );
 }
 
 
@@ -2737,10 +4251,12 @@ profileMini.addEventListener(
     openProfile
 );
 
+
 closeProfile.addEventListener(
     "click",
     closeProfilePanel
 );
+
 
 headerProfileBtn.addEventListener(
     "click",
@@ -2749,67 +4265,296 @@ headerProfileBtn.addEventListener(
 
 
 /* =========================================================
-   BACK MOBILE
+   DELETE ACCOUNT
 ========================================================= */
 
-backBtn.addEventListener("click", () => {
+deleteAccountBtn.addEventListener(
+    "click",
+    async () => {
 
-    app.classList.remove("chat-open");
+        if(!currentUser)
+            return;
 
-    selectedUser = null;
 
-    messageInput.disabled = true;
-    sendBtn.disabled = true;
+        const firstConfirm =
+            confirm(
+                "⚠️ هل أنت متأكد من حذف حسابك نهائيًا؟\n\n" +
 
-    headerName.textContent =
-        "Chat+";
+                "سيتم حذف الحساب والرسائل والبيانات المرتبطة به، " +
 
-    headerStatus.textContent =
-        "اختار شخص عشان تبدأ المحادثة";
+                "ولا يمكن التراجع عن العملية."
+            );
 
-    headerAvatar.textContent =
-        "+";
 
-    clearReply();
+        if(!firstConfirm)
+            return;
 
-    editingMessage = null;
 
-    renderPeople();
-});
+        const secondConfirm =
+            prompt(
+                'للتأكيد النهائي، اكتب بالضبط: حذف الحساب'
+            );
+
+
+        if(
+            secondConfirm !==
+            "حذف الحساب"
+        ){
+
+            showToast(
+                "تم إلغاء حذف الحساب."
+            );
+
+            return;
+        }
+
+
+        deleteAccountBtn.disabled =
+            true;
+
+
+        deleteAccountBtn.innerHTML =
+            `
+            <span>
+                جاري حذف الحساب...
+            </span>
+
+            <span>
+                ⏳
+            </span>
+            `;
+
+
+        try{
+
+            const {
+                error
+            } =
+                await supabaseClient.rpc(
+                    "delete_my_account"
+                );
+
+
+            if(error){
+
+                console.error(
+                    "Delete account error:",
+                    error
+                );
+
+
+                showToast(
+                    "فشل حذف الحساب. حاول مرة أخرى."
+                );
+
+
+                return;
+            }
+
+
+            if(messagesChannel){
+
+                await supabaseClient
+                    .removeChannel(
+                        messagesChannel
+                    );
+            }
+
+
+            if(profilesChannel){
+
+                await supabaseClient
+                    .removeChannel(
+                        profilesChannel
+                    );
+            }
+
+
+            currentUser =
+                null;
+
+            currentProfile =
+                null;
+
+            selectedUser =
+                null;
+
+            allUsers =
+                [];
+
+            allMessages =
+                [];
+
+
+            await supabaseClient.auth
+                .signOut();
+
+
+            app.classList.add(
+                "hidden"
+            );
+
+
+            authScreen.classList.remove(
+                "hidden"
+            );
+
+
+            loginForm.reset();
+
+            signupForm.reset();
+
+
+            closeProfilePanel();
+
+
+            showToast(
+                "تم حذف الحساب نهائيًا."
+            );
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showToast(
+                "حصل خطأ أثناء حذف الحساب."
+            );
+
+        }finally{
+
+            deleteAccountBtn.disabled =
+                false;
+
+
+            deleteAccountBtn.innerHTML =
+                `
+                <span>
+                    حذف الحساب نهائيًا
+                </span>
+
+                <span>
+                    🗑️
+                </span>
+                `;
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE BACK
+========================================================= */
+
+backBtn.addEventListener(
+    "click",
+    () => {
+
+        app.classList.remove(
+            "chat-open"
+        );
+
+
+        selectedUser =
+            null;
+
+
+        messageInput.disabled =
+            true;
+
+
+        sendBtn.disabled =
+            true;
+
+
+        headerName.textContent =
+            "Chat+";
+
+
+        headerStatus.textContent =
+            "اختار شخص عشان تبدأ المحادثة";
+
+
+        headerAvatar.textContent =
+            "+";
+
+
+        clearReply();
+
+
+        editingMessage =
+            null;
+
+
+        renderPeople();
+    }
+);
 
 
 /* =========================================================
    LOGOUT
 ========================================================= */
 
-logoutBtn.addEventListener("click", async () => {
+logoutBtn.addEventListener(
+    "click",
+    async () => {
 
-    await updateOnline(false);
+        await updateOnline(false);
 
-    if(messagesChannel)
-        await supabaseClient.removeChannel(
-            messagesChannel
+
+        if(messagesChannel){
+
+            await supabaseClient
+                .removeChannel(
+                    messagesChannel
+                );
+        }
+
+
+        if(profilesChannel){
+
+            await supabaseClient
+                .removeChannel(
+                    profilesChannel
+                );
+        }
+
+
+        await supabaseClient.auth
+            .signOut();
+
+
+        currentUser =
+            null;
+
+
+        currentProfile =
+            null;
+
+
+        selectedUser =
+            null;
+
+
+        app.classList.add(
+            "hidden"
         );
 
-    if(profilesChannel)
-        await supabaseClient.removeChannel(
-            profilesChannel
+
+        authScreen.classList.remove(
+            "hidden"
         );
 
-    await supabaseClient.auth.signOut();
 
-    currentUser = null;
-    currentProfile = null;
-    selectedUser = null;
+        loginForm.reset();
 
-    app.classList.add("hidden");
-    authScreen.classList.remove("hidden");
 
-    loginForm.reset();
-    signupForm.reset();
-
-    showToast("تم تسجيل الخروج");
-});
+        showToast(
+            "تم تسجيل الخروج"
+        );
+    }
+);
 
 
 /* =========================================================
@@ -2823,15 +4568,22 @@ document.addEventListener(
         if(!currentUser)
             return;
 
-        if(document.visibilityState === "visible"){
+
+        if(
+            document.visibilityState ===
+            "visible"
+        ){
 
             await updateOnline(true);
 
+
             await loadUsers();
+
 
             if(selectedUser){
 
                 await loadConversation();
+
 
                 await markMessagesRead();
             }
@@ -2840,6 +4592,7 @@ document.addEventListener(
 
             await updateOnline(false);
         }
+
     }
 );
 
@@ -2855,66 +4608,108 @@ window.addEventListener(
         if(!currentUser)
             return;
 
+
         supabaseClient
             .from("profiles")
             .update({
+
                 online:false,
-                last_seen:new Date().toISOString()
+
+                last_seen:
+                    new Date().toISOString()
+
             })
-            .eq("id",currentUser.id);
+            .eq(
+                "id",
+                currentUser.id
+            );
     }
 );
 
 
 /* =========================================================
-   PUSH NOTIFICATIONS
+   PUSH HELPERS
 ========================================================= */
 
-function urlBase64ToUint8Array(base64String){
+function urlBase64ToUint8Array(
+    base64String
+){
 
     const padding =
         "=".repeat(
-            (4 - base64String.length % 4) % 4
+            (
+                4 -
+                base64String.length % 4
+            ) % 4
         );
+
 
     const base64 =
         (
             base64String +
             padding
         )
-        .replace(/-/g,"+")
-        .replace(/_/g,"/");
+        .replace(
+            /-/g,
+            "+"
+        )
+        .replace(
+            /_/g,
+            "/"
+        );
+
 
     const rawData =
-        window.atob(base64);
+        window.atob(
+            base64
+        );
+
 
     return Uint8Array.from(
-        [...rawData].map(
-            char => char.charCodeAt(0)
-        )
+        [...rawData]
+            .map(
+                char =>
+                    char.charCodeAt(0)
+            )
     );
 }
 
+
+/* =========================================================
+   REGISTER SERVICE WORKER
+========================================================= */
 
 async function registerPushServiceWorker(){
 
-    if(!("serviceWorker" in navigator))
+    if(
+        !("serviceWorker" in navigator)
+    ){
+
         throw new Error(
             "المتصفح لا يدعم Service Worker."
         );
+    }
 
-    return await navigator.serviceWorker.register(
-        "/chat-/sw.js",
-        {
-            scope:"/chat-/"
-        }
-    );
+
+    return await navigator.serviceWorker
+        .register(
+            "/chat-/sw.js",
+            {
+                scope:"/chat-/"
+            }
+        );
 }
 
 
+/* =========================================================
+   NOTIFICATION BUTTON
+========================================================= */
+
 async function updateNotificationButton(){
 
-    if(!("Notification" in window)){
+    if(
+        !("Notification" in window)
+    ){
 
         notificationStatus.textContent =
             "غير مدعوم";
@@ -2922,13 +4717,18 @@ async function updateNotificationButton(){
         return;
     }
 
-    if(Notification.permission === "granted"){
+
+    if(
+        Notification.permission ===
+        "granted"
+    ){
 
         notificationStatus.textContent =
             "مفعّلة";
 
     }else if(
-        Notification.permission === "denied"
+        Notification.permission ===
+        "denied"
     ){
 
         notificationStatus.textContent =
@@ -2942,43 +4742,77 @@ async function updateNotificationButton(){
 }
 
 
-async function savePushSubscription(subscription){
+/* =========================================================
+   SAVE PUSH SUBSCRIPTION
+========================================================= */
+
+async function savePushSubscription(
+    subscription
+){
 
     if(!currentUser)
         return false;
 
+
     const json =
         subscription.toJSON();
+
 
     const endpoint =
         json.endpoint;
 
+
     const p256dh =
         json.keys?.p256dh;
+
 
     const auth =
         json.keys?.auth;
 
-    if(!endpoint || !p256dh || !auth)
+
+    if(
+        !endpoint ||
+        !p256dh ||
+        !auth
+    )
         return false;
+
 
     const {
         error
     } =
         await supabaseClient
-            .from("push_subscriptions")
+            .from(
+                "push_subscriptions"
+            )
             .upsert(
+
                 {
-                    user_id:currentUser.id,
+
+                    user_id:
+                        currentUser.id,
+
                     endpoint,
+
                     p256dh,
+
                     auth,
-                    updated_at:new Date().toISOString()
+
+                    updated_at:
+                        new Date()
+                            .toISOString()
+
                 },
+
                 {
-                    onConflict:"user_id,endpoint"
+
+                    onConflict:
+                        "user_id,endpoint"
+
                 }
+
             );
+
 
     if(error){
 
@@ -2990,15 +4824,22 @@ async function savePushSubscription(subscription){
         return false;
     }
 
+
     return true;
 }
 
+
+/* =========================================================
+   ENABLE PUSH
+========================================================= */
 
 async function enablePushNotifications(){
 
     try{
 
-        if(!("Notification" in window)){
+        if(
+            !("Notification" in window)
+        ){
 
             showToast(
                 "المتصفح لا يدعم الإشعارات."
@@ -3007,48 +4848,70 @@ async function enablePushNotifications(){
             return;
         }
 
-        const permission =
-            await Notification.requestPermission();
 
-        if(permission !== "granted"){
+        const permission =
+            await Notification
+                .requestPermission();
+
+
+        if(
+            permission !==
+            "granted"
+        ){
 
             showToast(
                 "لم يتم السماح بالإشعارات."
             );
 
+
             await updateNotificationButton();
+
 
             return;
         }
 
+
         const registration =
             await registerPushServiceWorker();
 
+
         let subscription =
-            await registration.pushManager.getSubscription();
+            await registration
+                .pushManager
+                .getSubscription();
+
 
         if(!subscription){
 
             subscription =
-                await registration.pushManager.subscribe({
-                    userVisibleOnly:true,
-                    applicationServerKey:
-                        urlBase64ToUint8Array(
-                            VAPID_PUBLIC_KEY
-                        )
-                });
+                await registration
+                    .pushManager
+                    .subscribe({
+
+                        userVisibleOnly:
+                            true,
+
+                        applicationServerKey:
+                            urlBase64ToUint8Array(
+                                VAPID_PUBLIC_KEY
+                            )
+
+                    });
         }
+
 
         const saved =
             await savePushSubscription(
                 subscription
             );
 
+
         if(saved){
 
             showToast(
                 "تم تفعيل إشعارات الرسائل 🔔"
             );
+
 
             notificationStatus.textContent =
                 "مفعّلة";
@@ -3060,11 +4923,14 @@ async function enablePushNotifications(){
             );
         }
 
+
         await updateNotificationButton();
+
 
     }catch(error){
 
         console.error(error);
+
 
         showToast(
             error.message ||
@@ -3074,27 +4940,45 @@ async function enablePushNotifications(){
 }
 
 
+/* =========================================================
+   CHECK PUSH
+========================================================= */
+
 async function checkPushSubscription(){
 
     try{
 
-        if(!("serviceWorker" in navigator))
+        if(
+            !("serviceWorker" in navigator)
+        )
             return;
 
-        if(!("Notification" in window))
+
+        if(
+            !("Notification" in window)
+        )
             return;
+
 
         await updateNotificationButton();
 
-        if(Notification.permission !== "granted")
+
+        if(
+            Notification.permission !==
+            "granted"
+        )
             return;
+
 
         const registration =
             await registerPushServiceWorker();
 
+
         const subscription =
-            await registration.pushManager
+            await registration
+                .pushManager
                 .getSubscription();
+
 
         if(subscription){
 
@@ -3102,6 +4986,7 @@ async function checkPushSubscription(){
                 subscription
             );
         }
+
 
     }catch(error){
 
@@ -3123,32 +5008,53 @@ notificationBtn.addEventListener(
    AUTH STATE
 ========================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
-
-        if(
-            event === "SIGNED_IN" &&
+supabaseClient.auth
+    .onAuthStateChange(
+        async (
+            event,
             session
-        ){
+        ) => {
 
-            currentUser =
-                session.user;
 
-            await loadCurrentProfile();
+            if(
+                event ===
+                    "SIGNED_IN" &&
+                session
+            ){
 
-            await enterApp();
+                currentUser =
+                    session.user;
+
+
+                await loadCurrentProfile();
+
+
+                await enterApp();
+            }
+
+
+            if(
+                event ===
+                "SIGNED_OUT"
+            ){
+
+                currentUser =
+                    null;
+
+
+                currentProfile =
+                    null;
+
+
+                selectedUser =
+                    null;
+
+
+                showAuth();
+            }
+
         }
-
-
-        if(event === "SIGNED_OUT"){
-
-            currentUser = null;
-            currentProfile = null;
-
-            showAuth();
-        }
-    }
-);
+    );
 
 
 /* =========================================================
