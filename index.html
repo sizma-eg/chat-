@@ -1694,6 +1694,14 @@ function formatLastSeen(date){
 }
 
 
+/* =========================================================
+   USERNAME NORMALIZATION
+   IMPORTANT:
+   النقطة مسموحة الآن في username
+   مثال:
+   crush.time -> crush.time
+========================================================= */
+
 function normalizeUsername(username){
 
     return username
@@ -1701,7 +1709,7 @@ function normalizeUsername(username){
         .toLowerCase()
         .replace(/\s+/g,"_")
         .replace(
-            /[^a-z0-9_\u0600-\u06ff]/g,
+            /[^a-z0-9._\u0600-\u06ff]/g,
             ""
         );
 }
@@ -1818,14 +1826,6 @@ loginForm.addEventListener(
 
         try{
 
-            /*
-             * أولًا:
-             * نجيب الإيميل المرتبط باسم المستخدم
-             * من RPC في Supabase.
-             *
-             * المستخدم نفسه لا يرى الإيميل.
-             */
-
             const {
                 data: loginEmail,
                 error: lookupError
@@ -1857,12 +1857,6 @@ loginForm.addEventListener(
                 return;
             }
 
-
-            /*
-             * ثانيًا:
-             * تسجيل الدخول بالإيميل الحقيقي
-             * المرتبط بالحساب القديم.
-             */
 
             const {
                 error: loginError
@@ -2002,12 +1996,6 @@ signupForm.addEventListener(
 
 
         try{
-
-            /*
-             * الحسابات الجديدة:
-             * نستخدم email داخلي فقط.
-             * المستخدم لا يراه ولا يكتبه.
-             */
 
             const internalEmail =
                 getInternalEmail(
