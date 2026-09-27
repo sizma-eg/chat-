@@ -672,6 +672,87 @@ button{
 
 
 /* =========================================================
+   VOICE CALL
+========================================================= */
+
+.voice-call-overlay{
+    position:absolute;
+    inset:0;
+    z-index:80;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(12px);
+}
+
+.voice-call-card{
+    width:min(360px,100%);
+    padding:34px 24px 28px;
+    border:1px solid #2b2b2b;
+    border-radius:28px;
+    background:#111;
+    text-align:center;
+    box-shadow:0 25px 80px rgba(0,0,0,.55);
+}
+
+.call-avatar{
+    width:82px;
+    height:82px;
+    margin:0 auto 16px;
+    font-size:28px;
+}
+
+.call-name{
+    font-size:19px;
+    font-weight:800;
+}
+
+.call-status{
+    margin-top:7px;
+    color:#999;
+    font-size:12px;
+}
+
+.call-timer{
+    margin-top:9px;
+    color:#ddd;
+    font-size:13px;
+    min-height:18px;
+}
+
+.call-actions{
+    display:flex;
+    justify-content:center;
+    gap:24px;
+    margin-top:25px;
+}
+
+.call-action{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    color:#fff;
+    font-size:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.call-action.accept{ background:#1f9d55; }
+.call-action.reject{ background:#c92f3d; }
+.call-action.mute{ background:#242424; border:1px solid #333; }
+
+.typing-indicator{
+    align-self:flex-end;
+    color:#777;
+    font-size:11px;
+    padding:3px 8px 8px;
+    min-height:20px;
+}
+
+/* =========================================================
    PROFILE
 ========================================================= */
 
@@ -1034,7 +1115,7 @@ button{
     .composer{
         flex:0 0 auto;
         width:100%;
-        padding:8px 9px calc(8px + env(safe-area-inset-bottom));
+        padding:6px 8px calc(6px + env(safe-area-inset-bottom));
         position:relative;
     }
 
@@ -1223,6 +1304,39 @@ button{
     }
 }
 
+
+@media(max-width:800px){
+    .voice-call-card{
+        width:min(340px,calc(100vw - 28px));
+        padding:28px 18px 22px;
+    }
+
+    .call-avatar{
+        width:72px;
+        height:72px;
+    }
+
+    .textarea-wrap{
+        padding:4px 6px;
+        border-radius:14px;
+    }
+
+    #messageInput{
+        min-height:34px;
+        max-height:92px;
+        padding:6px 5px;
+        font-size:13px;
+    }
+
+    .emoji-btn,
+    .send-btn{
+        width:38px;
+        height:38px;
+        min-width:38px;
+        flex-basis:38px;
+        border-radius:11px;
+    }
+}
 </style>
 
 </head>
@@ -1499,6 +1613,16 @@ button{
             <div class="header-actions">
 
                 <button
+                    id="voiceCallBtn"
+                    class="icon-btn"
+                    type="button"
+                    title="مكالمة صوتية"
+                    disabled
+                >
+                    📞
+                </button>
+
+                <button
                     id="headerProfileBtn"
                     class="icon-btn"
                     type="button"
@@ -1530,6 +1654,9 @@ button{
             </div>
 
         </div>
+
+
+        <div id="typingIndicator" class="typing-indicator hidden"></div>
 
 
         <!-- COMPOSER -->
@@ -1639,6 +1766,29 @@ button{
 
         </div>
 
+
+
+        <!-- VOICE CALL -->
+        <div id="voiceCallOverlay" class="voice-call-overlay hidden">
+            <div class="voice-call-card">
+                <div id="callAvatar" class="avatar call-avatar">+</div>
+                <div id="callName" class="call-name">مكالمة صوتية</div>
+                <div id="callStatus" class="call-status">جاري الاتصال...</div>
+                <div id="callTimer" class="call-timer">00:00</div>
+
+                <div id="incomingCallActions" class="call-actions hidden">
+                    <button id="acceptCallBtn" class="call-action accept" type="button">✓</button>
+                    <button id="rejectCallBtn" class="call-action reject" type="button">×</button>
+                </div>
+
+                <div id="activeCallActions" class="call-actions hidden">
+                    <button id="muteCallBtn" class="call-action mute" type="button">🎙️</button>
+                    <button id="endCallBtn" class="call-action reject" type="button">📞</button>
+                </div>
+            </div>
+        </div>
+
+        <audio id="remoteAudio" autoplay playsinline></audio>
 
         <!-- PROFILE -->
 
@@ -1798,6 +1948,19 @@ let allUsers = [];
 let allMessages = [];
 let messagesChannel = null;
 let profilesChannel = null;
+let realtimeControlChannel = null;
+let controlChannels = new Map();
+let typingStopTimer = null;
+let remoteTypingTimer = null;
+let localStream = null;
+let peerConnection = null;
+let pendingIceCandidates = [];
+let activeCallUser = null;
+let incomingOffer = null;
+let callRole = null;
+let callTimerInterval = null;
+let callStartedAt = null;
+let isCallMuted = false;
 let activeTab = "people";
 let searchTerm = "";
 let replyingTo = null;
@@ -1841,6 +2004,48 @@ const messages =
 
 const messageInput =
     document.getElementById("messageInput");
+
+const voiceCallBtn =
+    document.getElementById("voiceCallBtn");
+
+const voiceCallOverlay =
+    document.getElementById("voiceCallOverlay");
+
+const callAvatar =
+    document.getElementById("callAvatar");
+
+const callName =
+    document.getElementById("callName");
+
+const callStatus =
+    document.getElementById("callStatus");
+
+const callTimer =
+    document.getElementById("callTimer");
+
+const incomingCallActions =
+    document.getElementById("incomingCallActions");
+
+const activeCallActions =
+    document.getElementById("activeCallActions");
+
+const acceptCallBtn =
+    document.getElementById("acceptCallBtn");
+
+const rejectCallBtn =
+    document.getElementById("rejectCallBtn");
+
+const muteCallBtn =
+    document.getElementById("muteCallBtn");
+
+const endCallBtn =
+    document.getElementById("endCallBtn");
+
+const remoteAudio =
+    document.getElementById("remoteAudio");
+
+const typingIndicator =
+    document.getElementById("typingIndicator");
 
 const sendBtn =
     document.getElementById("sendBtn");
@@ -2921,6 +3126,8 @@ async function openChat(user){
 
 function updateHeaderStatus(){
 
+    voiceCallBtn.disabled = !selectedUser;
+
     if(!selectedUser)
         return;
 
@@ -3471,8 +3678,20 @@ function autoResize(){
 
 messageInput.addEventListener(
     "input",
-    autoResize
+    () => {
+        autoResize();
+
+        if(!selectedUser) return;
+
+        sendTypingState(true);
+        clearTimeout(typingStopTimer);
+        typingStopTimer = setTimeout(() => {
+            sendTypingState(false);
+        }, 1200);
+    }
 );
+
+messageInput.addEventListener("blur", resetTypingState);
 
 
 /* =========================================================
@@ -3642,6 +3861,346 @@ async function markMessagesRead(){
 
 
 /* =========================================================
+   TYPING INDICATOR + VOICE CALLS
+========================================================= */
+
+function getAvatarLetter(profile){
+    return (profile?.name || profile?.username || "?").charAt(0).toUpperCase();
+}
+
+function setCallPerson(profile){
+    callName.textContent = profile?.name || profile?.username || "مكالمة صوتية";
+    callAvatar.textContent = getAvatarLetter(profile);
+}
+
+function showTyping(text){
+    typingIndicator.textContent = text;
+    typingIndicator.classList.remove("hidden");
+    clearTimeout(remoteTypingTimer);
+    remoteTypingTimer = setTimeout(() => {
+        typingIndicator.classList.add("hidden");
+    }, 2200);
+}
+
+async function getControlChannel(userId){
+    if(!userId || !currentUser) return null;
+
+    if(userId === currentUser.id && realtimeControlChannel)
+        return realtimeControlChannel;
+
+    if(controlChannels.has(userId))
+        return controlChannels.get(userId);
+
+    const channel = supabaseClient.channel(`chatplus-control-${userId}`);
+    controlChannels.set(userId, channel);
+
+    await new Promise(resolve => {
+        let settled = false;
+        const finish = () => {
+            if(settled) return;
+            settled = true;
+            resolve();
+        };
+
+        channel.subscribe(status => {
+            if(status === "SUBSCRIBED" || status === "CHANNEL_ERROR" || status === "TIMED_OUT")
+                finish();
+        });
+
+        setTimeout(finish, 4000);
+    });
+
+    return channel;
+}
+
+async function sendSignal(userId, event, payload){
+    const channel = await getControlChannel(userId);
+    if(!channel) return;
+    await channel.send({type:"broadcast", event, payload});
+}
+
+function sendTypingState(isTyping){
+    if(!selectedUser || !currentUser) return;
+    sendSignal(selectedUser.id, "typing", {
+        kind: isTyping ? "start" : "stop",
+        from: currentUser.id,
+        to: selectedUser.id,
+        name: currentProfile?.name || currentProfile?.username || "المستخدم"
+    }).catch(()=>{});
+}
+
+function resetTypingState(){
+    clearTimeout(typingStopTimer);
+    sendTypingState(false);
+}
+
+function formatCallTime(ms){
+    const total = Math.floor(ms / 1000);
+    const m = String(Math.floor(total / 60)).padStart(2,"0");
+    const sec = String(total % 60).padStart(2,"0");
+    return `${m}:${sec}`;
+}
+
+function startCallTimer(){
+    callStartedAt = Date.now();
+    clearInterval(callTimerInterval);
+    callTimer.textContent = "00:00";
+    callTimerInterval = setInterval(() => {
+        callTimer.textContent = formatCallTime(Date.now() - callStartedAt);
+    }, 1000);
+}
+
+function stopCallTimer(){
+    clearInterval(callTimerInterval);
+    callTimerInterval = null;
+    callStartedAt = null;
+    callTimer.textContent = "00:00";
+}
+
+function showCallOverlay(profile, status, incoming=false){
+    setCallPerson(profile);
+    callStatus.textContent = status;
+    voiceCallOverlay.classList.remove("hidden");
+    incomingCallActions.classList.toggle("hidden", !incoming);
+    activeCallActions.classList.toggle("hidden", incoming);
+}
+
+function hideCallOverlay(){
+    voiceCallOverlay.classList.add("hidden");
+    incomingCallActions.classList.add("hidden");
+    activeCallActions.classList.add("hidden");
+    stopCallTimer();
+}
+
+async function createPeerConnection(targetId){
+    const pc = new RTCPeerConnection({
+        iceServers:[
+            {urls:"stun:stun.l.google.com:19302"},
+            {urls:"stun:stun1.l.google.com:19302"}
+        ]
+    });
+
+    pc.onicecandidate = event => {
+        if(event.candidate){
+            sendSignal(targetId, "call-ice", {
+                from:currentUser.id,
+                to:targetId,
+                candidate:event.candidate
+            }).catch(()=>{});
+        }
+    };
+
+    pc.ontrack = event => {
+        if(event.streams?.[0]){
+            remoteAudio.srcObject = event.streams[0];
+            remoteAudio.play().catch(()=>{});
+        }
+    };
+
+    pc.onconnectionstatechange = () => {
+        if(["failed","disconnected","closed"].includes(pc.connectionState)){
+            endVoiceCall(false);
+        }
+    };
+
+    return pc;
+}
+
+async function getMicrophone(){
+    return navigator.mediaDevices.getUserMedia({
+        audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true},
+        video:false
+    });
+}
+
+async function startVoiceCall(){
+    if(!selectedUser || !currentUser || peerConnection) return;
+
+    if(!navigator.mediaDevices?.getUserMedia){
+        showToast("المتصفح لا يدعم المكالمات الصوتية");
+        return;
+    }
+
+    try{
+        activeCallUser = selectedUser;
+        callRole = "caller";
+        pendingIceCandidates = [];
+        localStream = await getMicrophone();
+        peerConnection = await createPeerConnection(selectedUser.id);
+
+        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+        const offer = await peerConnection.createOffer();
+        await peerConnection.setLocalDescription(offer);
+
+        showCallOverlay(selectedUser, "جاري الاتصال...", false);
+
+        await sendSignal(selectedUser.id, "call-offer", {
+            from:currentUser.id,
+            to:selectedUser.id,
+            name:currentProfile?.name || currentProfile?.username || "مستخدم",
+            username:currentProfile?.username || "",
+            offer
+        });
+    }catch(error){
+        console.error("Start call error:", error);
+        showToast("تعذر بدء المكالمة");
+        await cleanupVoiceCall(false);
+    }
+}
+
+async function acceptVoiceCall(){
+    if(!incomingOffer || !currentUser) return;
+
+    try{
+        callRole = "receiver";
+        activeCallUser = incomingOffer.profile;
+        pendingIceCandidates = [];
+        localStream = await getMicrophone();
+        peerConnection = await createPeerConnection(incomingOffer.from);
+
+        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+        await peerConnection.setRemoteDescription(new RTCSessionDescription(incomingOffer.offer));
+
+        for(const candidate of pendingIceCandidates){
+            await peerConnection.addIceCandidate(candidate).catch(()=>{});
+        }
+        pendingIceCandidates = [];
+
+        const answer = await peerConnection.createAnswer();
+        await peerConnection.setLocalDescription(answer);
+
+        showCallOverlay(activeCallUser, "متصل", false);
+        startCallTimer();
+
+        await sendSignal(incomingOffer.from, "call-answer", {
+            from:currentUser.id,
+            to:incomingOffer.from,
+            answer
+        });
+
+        incomingOffer = null;
+    }catch(error){
+        console.error("Accept call error:", error);
+        showToast("تعذر قبول المكالمة");
+        await endVoiceCall(true);
+    }
+}
+
+async function rejectVoiceCall(){
+    if(incomingOffer && realtimeControlChannel){
+        await sendSignal(incomingOffer.from, "call-reject", {from:currentUser.id,to:incomingOffer.from}).catch(()=>{});
+    }
+    incomingOffer = null;
+    await cleanupVoiceCall(false);
+}
+
+async function cleanupVoiceCall(notify=true){
+    if(notify && activeCallUser && realtimeControlChannel){
+        await sendSignal(activeCallUser.id, "call-end", {from:currentUser?.id,to:activeCallUser.id}).catch(()=>{});
+    }
+
+    if(peerConnection){
+        peerConnection.ontrack = null;
+        peerConnection.onicecandidate = null;
+        peerConnection.close();
+    }
+
+    peerConnection = null;
+
+    if(localStream){
+        localStream.getTracks().forEach(track => track.stop());
+    }
+
+    localStream = null;
+    pendingIceCandidates = [];
+    activeCallUser = null;
+    incomingOffer = null;
+    callRole = null;
+    isCallMuted = false;
+    remoteAudio.srcObject = null;
+    muteCallBtn.textContent = "🎙️";
+    hideCallOverlay();
+}
+
+async function endVoiceCall(notify=true){
+    await cleanupVoiceCall(notify);
+}
+
+async function setupRealtimeControl(){
+    if(realtimeControlChannel){
+        await supabaseClient.removeChannel(realtimeControlChannel);
+    }
+
+    realtimeControlChannel = supabaseClient
+        .channel(`chatplus-control-${currentUser.id}`)
+        .on("broadcast", {event:"typing"}, ({payload}) => {
+            if(payload?.to !== currentUser.id) return;
+            if(payload.from !== selectedUser?.id) return;
+            if(payload.kind === "start"){
+                showTyping(`${payload.name || "المستخدم"} يكتب...`);
+            }else{
+                clearTimeout(remoteTypingTimer);
+                typingIndicator.classList.add("hidden");
+            }
+        })
+        .on("broadcast", {event:"call-offer"}, async ({payload}) => {
+            if(payload?.to !== currentUser.id || peerConnection || incomingOffer) return;
+
+            const profile = allUsers.find(u => u.id === payload.from) || {
+                id:payload.from,
+                name:payload.name,
+                username:payload.username
+            };
+
+            incomingOffer = {...payload, profile};
+            showCallOverlay(profile, "مكالمة صوتية واردة", true);
+        })
+        .on("broadcast", {event:"call-answer"}, async ({payload}) => {
+            if(payload?.to !== currentUser.id || !peerConnection || callRole !== "caller") return;
+            try{
+                await peerConnection.setRemoteDescription(new RTCSessionDescription(payload.answer));
+                startCallTimer();
+                callStatus.textContent = "متصل";
+            }catch(error){
+                console.error("Answer error:", error);
+                await endVoiceCall(true);
+            }
+        })
+        .on("broadcast", {event:"call-ice"}, async ({payload}) => {
+            if(payload?.to !== currentUser.id || !payload.candidate) return;
+            const candidate = new RTCIceCandidate(payload.candidate);
+            if(peerConnection?.remoteDescription){
+                await peerConnection.addIceCandidate(candidate).catch(()=>{});
+            }else{
+                pendingIceCandidates.push(candidate);
+            }
+        })
+        .on("broadcast", {event:"call-reject"}, async ({payload}) => {
+            if(payload?.to !== currentUser.id) return;
+            showToast("تم رفض المكالمة");
+            await cleanupVoiceCall(false);
+        })
+        .on("broadcast", {event:"call-end"}, async ({payload}) => {
+            if(payload?.to !== currentUser.id) return;
+            await cleanupVoiceCall(false);
+            showToast("انتهت المكالمة");
+        })
+        .subscribe();
+}
+
+voiceCallBtn.addEventListener("click", startVoiceCall);
+acceptCallBtn.addEventListener("click", acceptVoiceCall);
+rejectCallBtn.addEventListener("click", rejectVoiceCall);
+muteCallBtn.addEventListener("click", () => {
+    if(!localStream) return;
+    isCallMuted = !isCallMuted;
+    localStream.getAudioTracks().forEach(track => track.enabled = !isCallMuted);
+    muteCallBtn.textContent = isCallMuted ? "🔇" : "🎙️";
+});
+endCallBtn.addEventListener("click", () => endVoiceCall(true));
+
+/* =========================================================
    REALTIME
 ========================================================= */
 
@@ -3782,6 +4341,8 @@ function setupRealtime(){
                 }
             )
             .subscribe();
+
+    setupRealtimeControl();
 }
 
 
@@ -4704,6 +5265,13 @@ supabaseClient.auth
                 currentUser = null;
                 currentProfile = null;
                 selectedUser = null;
+                await endVoiceCall(false);
+                if(realtimeControlChannel){
+                    await supabaseClient.removeChannel(realtimeControlChannel);
+                    realtimeControlChannel = null;
+                }
+                for(const channel of controlChannels.values()) await supabaseClient.removeChannel(channel);
+                controlChannels.clear();
 
                 showAuth();
             }
