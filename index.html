@@ -584,7 +584,7 @@ button{
 ========================================================= */
 
 .composer{
-    padding:13px 18px 18px;
+    padding:9px 14px 12px;
     border-top:1px solid var(--border);
     background:#0b0b0b;
 }
@@ -642,6 +642,15 @@ button{
 
 #messageInput::placeholder{
     color:#666;
+}
+
+#voiceCallBtn:disabled{
+    opacity:.35;
+    cursor:not-allowed;
+}
+
+#voiceCallBtn:not(:disabled):hover{
+    background:#242424;
 }
 
 .emoji-btn,
@@ -3998,12 +4007,34 @@ async function createPeerConnection(targetId){
     };
 
     pc.onconnectionstatechange = () => {
-        if(["failed","disconnected","closed"].includes(pc.connectionState)){
+        const state = pc.connectionState;
+
+        if(state === "connected"){
+            callStatus.textContent = "متصل";
+        }
+
+        if(["failed","closed"].includes(state)){
             endVoiceCall(false);
         }
     };
 
     return pc;
+}
+
+async function flushPendingIceCandidates(){
+    if(!peerConnection || !peerConnection.remoteDescription)
+        return;
+
+    const candidates = [...pendingIceCandidates];
+    pendingIceCandidates = [];
+
+    for(const candidate of candidates){
+        await peerConnection
+            .addIceCandidate(candidate)
+            .catch(error => {
+                console.warn("ICE candidate error:", error);
+            });
+    }
 }
 
 async function getMicrophone(){
@@ -4055,17 +4086,13 @@ async function acceptVoiceCall(){
     try{
         callRole = "receiver";
         activeCallUser = incomingOffer.profile;
-        pendingIceCandidates = [];
         localStream = await getMicrophone();
         peerConnection = await createPeerConnection(incomingOffer.from);
 
         localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
         await peerConnection.setRemoteDescription(new RTCSessionDescription(incomingOffer.offer));
 
-        for(const candidate of pendingIceCandidates){
-            await peerConnection.addIceCandidate(candidate).catch(()=>{});
-        }
-        pendingIceCandidates = [];
+        await flushPendingIceCandidates();
 
         const answer = await peerConnection.createAnswer();
         await peerConnection.setLocalDescription(answer);
@@ -4159,7 +4186,12 @@ async function setupRealtimeControl(){
         .on("broadcast", {event:"call-answer"}, async ({payload}) => {
             if(payload?.to !== currentUser.id || !peerConnection || callRole !== "caller") return;
             try{
-                await peerConnection.setRemoteDescription(new RTCSessionDescription(payload.answer));
+                await peerConnection.setRemoteDescription(
+                    new RTCSessionDescription(payload.answer)
+                );
+
+                await flushPendingIceCandidates();
+
                 startCallTimer();
                 callStatus.textContent = "متصل";
             }catch(error){
@@ -4169,9 +4201,15 @@ async function setupRealtimeControl(){
         })
         .on("broadcast", {event:"call-ice"}, async ({payload}) => {
             if(payload?.to !== currentUser.id || !payload.candidate) return;
+
             const candidate = new RTCIceCandidate(payload.candidate);
+
             if(peerConnection?.remoteDescription){
-                await peerConnection.addIceCandidate(candidate).catch(()=>{});
+                await peerConnection
+                    .addIceCandidate(candidate)
+                    .catch(error => {
+                        console.warn("ICE candidate error:", error);
+                    });
             }else{
                 pendingIceCandidates.push(candidate);
             }
